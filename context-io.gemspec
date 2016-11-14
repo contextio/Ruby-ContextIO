@@ -5,7 +5,7 @@ require 'contextio/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "context-io"
-  spec.version       = Contextio::VERSION
+  spec.version       = ContextIO::VERSION
   spec.authors       = ["Dane Carmichael"]
   spec.email         = ["carmichaeldane@gmail.com"]
 
@@ -34,4 +34,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "pry"
+
+  spec.add_dependency "faraday", "~> 0.9.1"
+  spec.add_dependency "faraday_middleware", "~> 0.9.0"
+  spec.add_dependency "simple_oauth", "~> 0.2.0"
 end
