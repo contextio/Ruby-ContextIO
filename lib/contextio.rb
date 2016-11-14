@@ -1,5 +1,6 @@
 require "contextio/version"
 require "contextio/connection"
+require "contextio/accounts"
 
 module ContextIO
   class ContextIO
@@ -9,8 +10,12 @@ module ContextIO
       @secret = secret
     end
 
-    def accounts
-      response = Connection.connect(key, secret).send(:get, "/2.0/accounts").body
+    def connection(key, secret)
+      Connection.connect(key, secret)
+    end
+
+    def accounts(id = nil)
+      Accounts.fetch(connection(key, secret), id)
     end
   end
 end
