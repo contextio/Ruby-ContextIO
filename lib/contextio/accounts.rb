@@ -1,4 +1,6 @@
 require "contextio/connect_tokens"
+require "contextio/contacts"
+
 require "json"
 
 class Accounts
@@ -13,6 +15,12 @@ class Accounts
     raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/connect_tokens").body
     response = JSON.parse(raw_response)
     ConnectToken.new(response, raw_response)
+  end
+
+  def contacts(id = nil, account_id = self.response["id"], method = :get)
+    raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/contacts").body
+    response = JSON.parse(raw_response)
+    Contacts.new(response, raw_response)
   end
 
   def self.fetch(connection, id = nil, method = :get)
