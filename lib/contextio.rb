@@ -4,18 +4,13 @@ require "contextio/accounts"
 
 module ContextIO
   class ContextIO
-    attr_reader :key, :secret
+    attr_reader :connection
     def initialize(key, secret)
-      @key = key
-      @secret = secret
-    end
-
-    def connection(key, secret)
-      Connection.connect(key, secret)
+      @connection = Connection.new(key, secret)
     end
 
     def accounts(id = nil)
-      Accounts.fetch(connection(key, secret), id)
+      Accounts.fetch(connection, id)
     end
   end
 end
