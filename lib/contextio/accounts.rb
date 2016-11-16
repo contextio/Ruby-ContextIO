@@ -1,5 +1,12 @@
-require "contextio/connect_tokens"
-require "contextio/contacts"
+require "contextio/accounts/connect_tokens"
+require "contextio/accounts/contacts"
+require "contextio/accounts/email_addresses"
+require "contextio/accounts/files"
+require "contextio/accounts/messages"
+require "contextio/accounts/sources"
+require "contextio/accounts/sync"
+require "contextio/accounts/threads"
+require "contextio/accounts/webhooks"
 
 require "json"
 ERROR_STRING = "This method can only be called on a single account".freeze
@@ -19,6 +26,34 @@ class Accounts
 
   def contacts(id = nil, method = :get)
     craft_response(id, method, "Contacts", "contacts")
+  end
+
+  def email_addresses(id = nil, method = :get)
+    craft_response(id, method, "EmailAddresses", "email_addresses")
+  end
+
+  def files(id = nil, method = :get)
+    craft_response(id, method, "Files", "files")
+  end
+
+  def messages(id = nil, method = :get)
+    craft_response(id, method, "Messages", "messages")
+  end
+
+  def sources(id = nil, method = :get)
+    craft_response(id, method, "Sources", "sources")
+  end
+
+  def sync(id = nil, method = :get)
+    craft_response(id, method, "Sync", "sync")
+  end
+
+  def threads(id = nil, method = :get)
+    craft_response(id, method, "Threads", "threads")
+  end
+
+  def webhooks(id = nil, method = :get)
+    craft_response(id, method, "Webhooks", "webhooks")
   end
 
   def craft_response(id, method, klass, resource)
