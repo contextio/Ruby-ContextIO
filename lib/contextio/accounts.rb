@@ -6,9 +6,10 @@ ERROR_STRING = "This method can only be called on a single account".freeze
 
 class Accounts
   attr_reader :response, :raw_response, :connection
-  def initialize(response, raw_response, connection = nil)
+  def initialize(response, raw_response, success = true, connection = nil)
     @response = response
     @raw_response = raw_response
+    @success = success
     @connection = connection
   end
 
@@ -45,11 +46,17 @@ class Accounts
     if id != nil
       raw_response = connection.connect.send(method, "/2.0/accounts/#{id}").body
       response = JSON.parse(raw_response)
-      Accounts.new(response, raw_response, connection)
+      success = Accounts.invalid_id?(response)
+      Accounts.new(response, raw_response, success, connection)
     else
       raw_response = connection.connect.send(method, "/2.0/accounts").body
       response = JSON.parse(raw_response)
       Accounts.new(response, raw_response)
     end
+  end
+
+  def self.invalid_id?(response)
+    return true if response["value"] == nil
+    response["value"].split(" ").last != "invalid"
   end
 end
