@@ -12,7 +12,13 @@ require "json"
 ERROR_STRING = "This method can only be called on a single account".freeze
 
 class Accounts
-  attr_reader :response, :raw_response, :success, :connection
+  private
+  
+  attr_reader :connection
+
+  public
+
+  attr_reader :response, :raw_response, :success
   def initialize(response, raw_response, success = true, connection = nil)
     @response = response
     @raw_response = raw_response
@@ -21,7 +27,11 @@ class Accounts
   end
 
   def connect_tokens(id = nil, method = :get)
-    craft_response(id, method, "ConnectTokens", "connect_tokens")
+    if id
+      ConnectTokens.fetch(connection, self.response["id"], id, method)
+    else
+      craft_response(id, method, "ConnectTokens", "connect_tokens")
+    end
   end
 
   def contacts(id = nil, method = :get)
