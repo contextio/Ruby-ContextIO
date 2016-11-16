@@ -77,6 +77,10 @@ class Accounts
     account_id
   end
 
+  def success?
+    @success
+  end
+
   def self.fetch(connection, id = nil, method = :get)
     if id
       raw_response = connection.connect.send(method, "/2.0/accounts/#{id}").body
