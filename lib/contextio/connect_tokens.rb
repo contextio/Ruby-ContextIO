@@ -1,4 +1,4 @@
-class ConnectToken
+class ConnectTokens
   attr_reader :response, :raw_response, :success
   def initialize(response, raw_response, success = true)
     @response = response

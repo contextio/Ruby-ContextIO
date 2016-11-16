@@ -13,20 +13,23 @@ class Accounts
   end
 
   def connect_tokens(id = nil, method = :get)
-    account_id = recover_from_type_error
-    if account_id == ERROR_STRING
-      ConnectToken.new(ERROR_STRING, ERROR_STRING, false)
-    else
-      raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/connect_tokens").body
-      response = JSON.parse(raw_response)
-      ConnectToken.new(response, raw_response)
-    end
+    craft_response(id, method, "ConnectTokens", "connect_tokens")
   end
 
-  def contacts(id = nil, account_id = self.response["id"], method = :get)
-    raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/contacts").body
-    response = JSON.parse(raw_response)
-    Contacts.new(response, raw_response)
+  def contacts(id = nil, method = :get)
+    craft_response(id, method, "Contacts", "contacts")
+  end
+
+  def craft_response(id, method, klass, resource)
+    account_id = recover_from_type_error
+    klass = Object.const_get(klass)
+    if account_id == ERROR_STRING
+      klass.new(ERROR_STRING, ERROR_STRING, false)
+    else
+      raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/#{resource}").body
+      response = JSON.parse(raw_response)
+      klass.new(response, raw_response)
+    end
   end
 
   def recover_from_type_error
