@@ -5,4 +5,8 @@ class EmailAddresses
     @raw_response = raw_response
     @success = success
   end
+
+  def success?
+    @success
+  end
 end
