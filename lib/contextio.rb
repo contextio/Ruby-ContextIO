@@ -2,6 +2,8 @@ require "contextio/version"
 require "contextio/connection"
 require "contextio/accounts"
 
+require "json"
+
 module ContextIO
   class ContextIO
     attr_reader :connection

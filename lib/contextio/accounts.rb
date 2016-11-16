@@ -8,27 +8,31 @@ require "contextio/accounts/sync"
 require "contextio/accounts/threads"
 require "contextio/accounts/webhooks"
 
-require "json"
 ERROR_STRING = "This method can only be called on a single account".freeze
 
 class Accounts
   private
-  
+
   attr_reader :connection
 
   public
 
-  attr_reader :response, :raw_response, :success
-  def initialize(response, raw_response, success = true, connection = nil)
-    @response = response
-    @raw_response = raw_response
+  attr_reader :parsed_response_body, :raw_response_body, :status, :success
+  def initialize(parsed_response_body,
+                 raw_response_body,
+                 status,
+                 success = true,
+                 connection = nil)
+    @parsed_response_body = parsed_response_body
+    @raw_response_body = raw_response_body
+    @status = status
     @success = success
     @connection = connection
   end
 
   def connect_tokens(id = nil, method = :get)
     if id
-      ConnectTokens.fetch(connection, self.response["id"], id, method)
+      craft_response(id, method, "ConnectTokens", "connect_tokens", connection)
     else
       craft_response(id, method, "ConnectTokens", "connect_tokens")
     end
@@ -66,21 +70,31 @@ class Accounts
     craft_response(id, method, "Webhooks", "webhooks")
   end
 
-  def craft_response(id, method, klass, resource)
+  def craft_response(id, method, klass, resource, connection = nil)
     account_id = recover_from_type_error
     klass = Object.const_get(klass)
     if account_id == ERROR_STRING
-      klass.new(ERROR_STRING, ERROR_STRING, false)
+      klass.new(ERROR_STRING, ERROR_STRING, "403", false)
+    elsif connection
+      klass.fetch(connection,
+                  account_id,
+                  id,
+                  method)
     else
-      raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/#{resource}").body
-      response = JSON.parse(raw_response)
-      klass.new(response, raw_response)
+      raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/#{resource}")
+      status = raw_response.status
+      raw_response_body = raw_response_body.body
+      parsed_response_body = JSON.parse(raw_response_body)
+      klass.new(parsed_response_body,
+                raw_response.body,
+                status,
+                check_success?(status))
     end
   end
 
   def recover_from_type_error
     begin
-      account_id = self.response["id"]
+      account_id = self.parsed_response_body["id"]
     rescue
       return ERROR_STRING
     end
@@ -93,18 +107,28 @@ class Accounts
 
   def self.fetch(connection, id = nil, method = :get)
     if id
-      raw_response = connection.connect.send(method, "/2.0/accounts/#{id}").body
-      response = JSON.parse(raw_response)
-      Accounts.new(response, raw_response, Accounts.invalid_id?(response), connection)
+      raw_response = connection.connect.send(method, "/2.0/accounts/#{id}")
+      status = raw_response.status.to_s
+      raw_response_body = raw_response.body
+      parsed_response_body = JSON.parse(raw_response_body)
+      Accounts.new(parsed_response_body,
+                   raw_response_body,
+                   status,
+                   check_success?(status),
+                   connection)
     else
-      raw_response = connection.connect.send(method, "/2.0/accounts").body
-      response = JSON.parse(raw_response)
-      Accounts.new(response, raw_response)
+      raw_response = connection.connect.send(method, "/2.0/accounts")
+      status = raw_response.status.to_s
+      raw_response_body = connection.connect.send(method, "/2.0/accounts").body
+      parsed_response_body = JSON.parse(raw_response_body)
+      Accounts.new(parsed_response_body,
+                   raw_response_body,
+                   status,
+                   check_success?(status))
     end
   end
 
-  def self.invalid_id?(response)
-    return true if response["value"].nil?
-    response["value"].split(" ").last != "invalid"
+  def check_success?(status)
+    status == "200"
   end
 end
