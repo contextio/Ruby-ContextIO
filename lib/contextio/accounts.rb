@@ -1,3 +1,4 @@
+
 require "contextio/accounts/connect_tokens"
 require "contextio/accounts/contacts"
 require "contextio/accounts/email_addresses"
@@ -11,6 +12,7 @@ require "contextio/accounts/webhooks"
 ERROR_STRING = "This method can only be called on a single account".freeze
 
 class Accounts
+
   private
 
   attr_reader :connection
@@ -128,7 +130,7 @@ class Accounts
     end
   end
 
-  def check_success?(status)
+  def self.check_success?(status)
     status == "200"
   end
 end

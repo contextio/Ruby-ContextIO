@@ -19,6 +19,10 @@ class ConnectTokens
     ConnectTokens.new(parsed_response_body,
                       raw_response_body,
                       status,
-                      status == "200")
+                      check_success?(status))
+  end
+
+  def self.check_success?(status)
+    status == "200"
   end
 end
