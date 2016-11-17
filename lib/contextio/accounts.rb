@@ -13,13 +13,8 @@ ERROR_STRING = "This method can only be called on a single account".freeze
 
 class Accounts
 
-  private
 
-  attr_reader :connection
-
-  public
-
-  attr_reader :parsed_response_body, :raw_response_body, :status, :success
+  attr_reader :parsed_response_body, :raw_response_body, :status, :success, :connection
   def initialize(parsed_response_body,
                  raw_response_body,
                  status,
@@ -72,7 +67,7 @@ class Accounts
     craft_response(id, method, "Webhooks", "webhooks")
   end
 
-  def craft_response(id, method, klass, resource, connection = nil)
+  def craft_response(id, method, klass, resource, conn = nil)
     account_id = recover_from_type_error
     klass = Object.const_get(klass)
     if account_id == ERROR_STRING
