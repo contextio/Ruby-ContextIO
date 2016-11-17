@@ -16,18 +16,18 @@ describe Accounts do
     end
   end
 
-  describe "An Accounts object holding just one account" do
+  describe "An Accounts object holding just one account." do
     subject { Accounts.fetch(Connection.new("key", "secret"), "some_id") }
 
-    it "Returns a 200 status" do
+    it "Returns a 200 status." do
       expect(subject.status).to eq("200")
     end
 
-    it "Was a successful API call" do
+    it "Was a successful API call." do
       expect(subject.success?).to eq(true)
     end
 
-    it "Can be used to find ConnectTokens" do
+    it "Can be used to find ConnectTokens." do
       expect(subject.connect_tokens.class.to_s).to eq("ConnectTokens")
     end
   end
