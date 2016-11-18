@@ -30,5 +30,37 @@ describe Accounts do
     it "Can be used to find ConnectTokens." do
       expect(subject.connect_tokens.class.to_s).to eq("ConnectTokens")
     end
+
+    it "Can be used to find Contacts." do
+      expect(subject.contacts.class.to_s).to eq("Contacts")
+    end
+
+    it "Can be used to find EmailAddresses." do
+      expect(subject.email_addresses.class.to_s).to eq("EmailAddresses")
+    end
+
+    it "Can be used to find Files." do
+      expect(subject.files.class.to_s).to eq("Files")
+    end
+
+    it "Can be used to find Messages." do
+      expect(subject.messages.class.to_s).to eq("Messages")
+    end
+
+    it "Can be used to find Sources." do
+      expect(subject.sources.class.to_s).to eq("Sources")
+    end
+
+    it "Can be used to find Sync." do
+      expect(subject.sync.class.to_s).to eq("Sync")
+    end
+
+    it "Can be used to find Threads." do
+      expect(subject.threads.class.to_s).to eq("Threads")
+    end
+
+    it "Can be used to find WebHooks." do
+      expect(subject.webhooks.class.to_s).to eq("WebHooks")
+    end
   end
 end
