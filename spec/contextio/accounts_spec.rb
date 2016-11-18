@@ -60,7 +60,7 @@ describe Accounts do
     end
 
     it "Can be used to find WebHooks." do
-      expect(subject.webhooks.class.to_s).to eq("WebHooks")
+      expect(subject.webhooks.class.to_s).to eq("Webhooks")
     end
   end
 end
