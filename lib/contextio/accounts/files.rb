@@ -15,7 +15,6 @@ class Files
   def self.fetch(connection, account_id, email, method)
     raw_response = connection.connect.send(method,
                                            "/2.0/accounts/#{account_id}/contacts/#{email}/files")
-    binding.pry
     status = raw_response.status.to_s
     raw_response_body = raw_response.body
     parsed_response_body = JSON.parse(raw_response_body)
