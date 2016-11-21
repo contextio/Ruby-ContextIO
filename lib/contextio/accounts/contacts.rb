@@ -9,11 +9,12 @@ class Contacts
     @account_id = account_id
   end
 
-  def files(email, method = :get)
-    Files.fetch(connection,
-                account_id,
-                email,
-                method)
+  def files(email = nil, method = :get)
+    Files.contacts_fetch(connection,
+                         account_id,
+                         email,
+                         method)
+
   end
 
   def success?

@@ -12,8 +12,6 @@ require "contextio/accounts/webhooks"
 ERROR_STRING = "This method can only be called on a single account".freeze
 
 class Accounts
-
-
   attr_reader :parsed_response_body, :raw_response_body, :status, :success, :connection
   def initialize(parsed_response_body,
                  raw_response_body,
@@ -37,18 +35,26 @@ class Accounts
 
   def contacts(id = nil, method = :get)
     if id
-      craft_response(id, method, "Contacts", "contacts", connection, parsed_response_body["id"])
+      craft_response(id, method, "Contacts", "contacts", connection)
     else
       craft_response(id, method, "Contacts", "contacts")
     end
   end
 
-  def email_addresses(id = nil, method = :get)
-    craft_response(id, method, "EmailAddresses", "email_addresses")
+  def email_addresses(email = nil, method = :get)
+    if email
+      craft_response(email, method, "EmailAddresses", "email_addresses", connection)
+    else
+      craft_response(email, method, "EmailAddresses", "email_addresses")
+    end
   end
 
-  def files(id = nil, method = :get)
-    craft_response(id, method, "Files", "files")
+  def files(email = nil, method = :get)
+    if email
+      craft_response(email, method, "Files", "files", connection)
+    else
+      craft_response(email, method, "Files", "files")
+    end
   end
 
   def messages(id = nil, method = :get)
@@ -71,7 +77,7 @@ class Accounts
     craft_response(id, method, "Webhooks", "webhooks")
   end
 
-  def craft_response(id, method, klass, resource, conn = nil)
+  def craft_response(identifier, method, klass, resource, conn = nil)
     account_id = recover_from_type_error
     klass = Object.const_get(klass)
     if account_id == ERROR_STRING
@@ -79,7 +85,7 @@ class Accounts
     elsif connection
       klass.fetch(connection,
                   account_id,
-                  id,
+                  identifier,
                   method)
     else
       raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/#{resource}")

@@ -4,7 +4,7 @@ require "webmock/rspec"
 
 require_relative "./contextio/mock_response.rb"
 WebMock.disable_net_connect!(allow_localhost: true)
-
+#TODO: .each an array of endpoints
 RSpec.configure do |config|
   config.before(:each) do
     stub_request(:get, "https://api.context.io/2.0/accounts").

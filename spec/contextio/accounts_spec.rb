@@ -6,7 +6,7 @@ require "contextio/accounts/connect_tokens"
 require "contextio/accounts/contacts"
 
 RESPONSE = MockResponse::ACCOUNTS
-
+#TODO: One assertion for object responses
 describe Accounts do
   describe "An Accounts object holding more than one account" do
     subject { Accounts.new(RESPONSE, "raw_response_body", "200") }
