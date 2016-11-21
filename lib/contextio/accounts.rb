@@ -36,7 +36,11 @@ class Accounts
   end
 
   def contacts(id = nil, method = :get)
-    craft_response(id, method, "Contacts", "contacts")
+    if id
+      craft_response(id, method, "Contacts", "contacts", connection, parsed_response_body["id"])
+    else
+      craft_response(id, method, "Contacts", "contacts")
+    end
   end
 
   def email_addresses(id = nil, method = :get)

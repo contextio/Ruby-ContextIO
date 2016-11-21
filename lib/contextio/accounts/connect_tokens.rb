@@ -11,7 +11,7 @@ class ConnectTokens
     @success
   end
 
-  def self.fetch(connection, account_id, id, method)
+  def self.fetch(connection, account_id, id, method = :get)
     raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/connect_tokens/#{id}")
     status = raw_response.status.to_s
     raw_response_body = raw_response.body
