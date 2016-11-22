@@ -20,7 +20,7 @@ describe Accounts do
     subject { Accounts.fetch(Connection.new("key", "secret"), "some_id") }
 
     it "Returns a 200 status." do
-      expect(subject.status).to eq("200")
+      expect(subject.status).to eq(200)
     end
 
     it "Was a successful API call." do

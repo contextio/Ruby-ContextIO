@@ -7,15 +7,15 @@ require_relative "./contextio/mock_response.rb"
 REQUEST_ENDPOINTS = [
   "accounts",
   "accounts/some_id",
-  "accounts/12345/connect_tokens/",
-  "accounts/12345/contacts/",
-  "accounts/12345/email_addresses/",
+  "accounts/12345/connect_tokens",
+  "accounts/12345/contacts",
+  "accounts/12345/email_addresses",
   "accounts/12345/files",
-  "accounts/12345/messages/",
-  "accounts/12345/sources/",
-  "accounts/12345/sync/",
-  "accounts/12345/threads/",
-  "accounts/12345/webhooks/"
+  "accounts/12345/messages",
+  "accounts/12345/sources",
+  "accounts/12345/sync",
+  "accounts/12345/threads",
+  "accounts/12345/webhooks"
   ]
 
 WebMock.disable_net_connect!(allow_localhost: true)

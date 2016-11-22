@@ -112,25 +112,18 @@ class Accounts
 
   def self.fetch(connection, id = nil, method = :get)
     if id
-      response = ResponseUtility.new(connection, method, "/2.0/accounts/#{id}/")
+      response = ResponseUtility.new(connection, method, "/2.0/accounts/#{id}")
       Accounts.new(response.parsed_response_body,
                    response.raw_response_body,
                    response.status,
                    response.success,
                    connection)
     else
-      raw_response = connection.connect.send(method, "/2.0/accounts")
-      status = raw_response.status.to_s
-      raw_response_body = connection.connect.send(method, "/2.0/accounts").body
-      parsed_response_body = JSON.parse(raw_response_body)
-      Accounts.new(parsed_response_body,
-                   raw_response_body,
-                   status,
-                   check_success?(status))
+      response = ResponseUtility.new(connection, method, "/2.0/accounts")
+      Accounts.new(response.parsed_response_body,
+                   response.raw_response_body,
+                   response.status,
+                   response.success)
     end
-  end
-
-  def self.check_success?(status)
-    status == "200"
   end
 end

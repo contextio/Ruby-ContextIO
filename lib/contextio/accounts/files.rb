@@ -13,30 +13,21 @@ class Files
   end
 
   def self.contacts_fetch(connection, account_id, email, method)
-    url =  determine_api_endpoint(account_id,
-                                  email,
-                                  "contacts",
-                                  true)
-    raw_response = connection.connect.send(method, url)
-    status = raw_response.status.to_s
-    raw_response_body = raw_response.body
-    parsed_response_body = JSON.parse(raw_response_body)
-    Files.new(parsed_response_body,
-              raw_response_body,
-              status,
-              check_success?(status))
+    url =  determine_api_endpoint(account_id, email, "contacts", true)
+    response = ResponseUtility.new(connection, method, url)
+    Files.new(response.parsed_response_body,
+              response.raw_response_body,
+              response.status,
+              response.success)
   end
 
   def self.fetch(connection, account_id, email, method)
     url =  determine_api_endpoint(account_id, email, "files")
-    raw_response = connection.connect.send(method, url)
-    status = raw_response.status.to_s
-    raw_response_body = raw_response.body
-    parsed_response_body = JSON.parse(raw_response_body)
-    Files.new(parsed_response_body,
-              raw_response_body,
-              status,
-              check_success?(status))
+    response = ResponseUtility.new(connection, method, url)
+    Files.new(response.parsed_response_body,
+              response.raw_response_body,
+              response.status,
+              response.success)
   end
 
   def self.determine_api_endpoint(account_id, email, parent_resouce, from_a_contact = false)
@@ -47,9 +38,5 @@ class Files
     else
       "/2.0/accounts/#{account_id}/#{parent_resouce}"
     end
-  end
-
-  def self.check_success?(status)
-    status == "200"
   end
 end
