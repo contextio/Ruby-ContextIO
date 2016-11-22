@@ -13,7 +13,7 @@ class Files
   end
 
   def self.contacts_fetch(connection, account_id, email, method)
-    url =  determine_api_endpoint(account_id, email, "contacts", true)
+    url =  ResponseUtility.determine_api_endpoint(account_id, email, "contacts", true)
     response = ResponseUtility.new(connection, method, url)
     Files.new(response.parsed_response_body,
               response.raw_response_body,
@@ -22,7 +22,7 @@ class Files
   end
 
   def self.fetch(connection, account_id, email, method)
-    url =  determine_api_endpoint(account_id, email, "files")
+    url =  ResponseUtility.determine_api_endpoint(account_id, email, "files")
     response = ResponseUtility.new(connection, method, url)
     Files.new(response.parsed_response_body,
               response.raw_response_body,
