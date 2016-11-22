@@ -10,7 +10,7 @@ module MockResponse
 
   MOCK_FARADAY_OBJECT_FAILURE_BODY = []
 
-  SUCCESSFUL_CALL = "200".freeze
+  SUCCESSFUL_CALL = 200
 
   UNSUCCESSFUL_CALL = "404".freeze
 
