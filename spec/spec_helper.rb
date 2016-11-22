@@ -2,7 +2,7 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "contextio"
 require "webmock/rspec"
 
-require_relative "./contextio/mock_response.rb"
+require_relative "./contextio/utilities/mock_response.rb"
 
 ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts",
@@ -13,6 +13,7 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts/12345/contacts/some_email@some_provider.com",
   "accounts/12345/email_addresses",
   "accounts/12345/files",
+  "accounts/12345/files/some_email@some_provider.com",
   "accounts/12345/messages",
   "accounts/12345/sources",
   "accounts/12345/sync",

@@ -1,9 +1,10 @@
-require_relative "./mock_response.rb"
-
 require "contextio/connection"
 require "contextio/accounts"
 require "contextio/accounts/connect_tokens"
 require "contextio/accounts/contacts"
+
+require_relative "./utilities/mock_response.rb"
+require_relative "./utilities/testing_constants.rb"
 
 RESPONSE = MockResponse::ACCOUNTS
 #TODO: One assertion for object responses
@@ -17,14 +18,14 @@ describe Accounts do
   end
 
   describe "An Accounts object holding just one account." do
-    subject { Accounts.fetch(Connection.new("key", "secret"), "some_id") }
+    subject { Accounts.fetch(CONNECTION_BASE, "some_id") }
 
     it "Returns a 200 status." do
       expect(subject.status).to eq(200)
     end
 
     it "Was a successful API call." do
-      expect(subject.success?).to eq(true)
+      expect(subject.success?).to be true
     end
 
     it "Can be used to find ConnectTokens." do

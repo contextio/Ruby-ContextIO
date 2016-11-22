@@ -1,7 +1,7 @@
 require "contextio/connection"
 require "contextio/accounts"
 
-CONNECTION_BASE = Connection.new("api key", "secret key")
+require_relative "../utilities/testing_constants.rb"
 
 describe ConnectTokens do
   describe "A ConnectTokens object can be fetched" do
