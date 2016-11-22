@@ -4,11 +4,13 @@ require "webmock/rspec"
 
 require_relative "./contextio/mock_response.rb"
 
-REQUEST_ENDPOINTS = [
+ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts",
   "accounts/some_id",
   "accounts/12345/connect_tokens",
+  "accounts/12345/connect_tokens/some_token_id",
   "accounts/12345/contacts",
+  "accounts/12345/contacts/some_email@some_provider.com",
   "accounts/12345/email_addresses",
   "accounts/12345/files",
   "accounts/12345/messages",
@@ -18,13 +20,29 @@ REQUEST_ENDPOINTS = [
   "accounts/12345/webhooks"
   ]
 
+  #Some of these endpoints will have account in the URL. The purpose of these URLs
+  #is to ensure there is a different return for endpoints such as
+  # accounts/:id/files and account/:id/contacts/:email/files
+  NON_ACCOUNT_ENDPOINTS = [
+    "accounts/12345/contacts/some_email@some_provider.com/files"
+  ]
+
 WebMock.disable_net_connect!(allow_localhost: true)
 RSpec.configure do |config|
   config.before(:each) do
-    REQUEST_ENDPOINTS.each do |endpoint|
+    ACCOUNT_REQUEST_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
-        to_return(status: 200, body: MockResponse::MOCK_FARADAY_OBJECT_SUCCESS_BODY, headers: {})
-      end
+        to_return(status: 200,
+                  body: MockResponse::FROM_ACCOUNT_MOCK_FARADAY_OBJECT_SUCCESS_BODY,
+                  headers: {})
+    end
+    NON_ACCOUNT_ENDPOINTS.each do |endpoint|
+      stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        to_return(status: 200,
+                  body: MockResponse::MOCK_FARADAY_OBJECT_SUCCESS_BODY,
+                  headers: {})
+    end
   end
 end

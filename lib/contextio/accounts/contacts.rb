@@ -21,10 +21,10 @@ class Contacts
     @success
   end
 
-  def self.fetch(connection, account_id, id, method)
+  def self.fetch(connection, account_id, email, method)
     response = ResponseUtility.new(connection,
                                    method,
-                                   "/2.0/accounts/#{account_id}/contacts/#{id}")
+                                   "/2.0/accounts/#{account_id}/contacts/#{email}")
     Contacts.new(response.parsed_response_body,
                  response.raw_response_body,
                  response.status,

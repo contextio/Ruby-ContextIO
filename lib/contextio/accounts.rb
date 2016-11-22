@@ -34,11 +34,11 @@ class Accounts
     end
   end
 
-  def contacts(id = nil, method = :get)
-    if id
-      craft_response(id, method, "Contacts", "contacts", connection)
+  def contacts(email = nil, method = :get)
+    if email
+      craft_response(email, method, "Contacts", "contacts", connection)
     else
-      craft_response(id, method, "Contacts", "contacts")
+      craft_response(email, method, "Contacts", "contacts")
     end
   end
 
@@ -123,7 +123,8 @@ class Accounts
       Accounts.new(response.parsed_response_body,
                    response.raw_response_body,
                    response.status,
-                   response.success)
+                   response.success,
+                   connection)
     end
   end
 end
