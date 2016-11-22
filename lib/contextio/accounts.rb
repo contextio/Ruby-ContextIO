@@ -8,6 +8,7 @@ require "contextio/accounts/sources"
 require "contextio/accounts/sync"
 require "contextio/accounts/threads"
 require "contextio/accounts/webhooks"
+require "contextio/response_utility"
 
 ERROR_STRING = "This method can only be called on a single account".freeze
 
@@ -82,20 +83,17 @@ class Accounts
     klass = Object.const_get(klass)
     if account_id == ERROR_STRING
       klass.new(ERROR_STRING, ERROR_STRING, "403", false)
-    elsif connection
-      klass.fetch(connection,
+    elsif conn
+      klass.fetch(conn,
                   account_id,
                   identifier,
                   method)
     else
-      raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/#{resource}")
-      status = raw_response.status
-      raw_response_body = raw_response_body.body
-      parsed_response_body = JSON.parse(raw_response_body)
-      klass.new(parsed_response_body,
-                raw_response.body,
-                status,
-                check_success?(status))
+      response = ResponseUtility.new(connection, method, "/2.0/accounts/#{account_id}/#{resource}")
+      klass.new(response.parsed_response_body,
+                response.raw_response_body,
+                response.status,
+                response.success)
     end
   end
 
@@ -114,14 +112,11 @@ class Accounts
 
   def self.fetch(connection, id = nil, method = :get)
     if id
-      raw_response = connection.connect.send(method, "/2.0/accounts/#{id}")
-      status = raw_response.status.to_s
-      raw_response_body = raw_response.body
-      parsed_response_body = JSON.parse(raw_response_body)
-      Accounts.new(parsed_response_body,
-                   raw_response_body,
-                   status,
-                   check_success?(status),
+      response = ResponseUtility.new(connection, method, "/2.0/accounts/#{id}/")
+      Accounts.new(response.parsed_response_body,
+                   response.raw_response_body,
+                   response.status,
+                   response.success,
                    connection)
     else
       raw_response = connection.connect.send(method, "/2.0/accounts")
