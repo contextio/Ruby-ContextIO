@@ -50,11 +50,11 @@ class Accounts
     end
   end
 
-  def files(email = nil, method = :get)
-    if email
-      craft_response(email, method, "Files", "files", connection)
+  def files(id = nil, method = :get)
+    if id
+      craft_response(id, method, "Files", "files", connection)
     else
-      craft_response(email, method, "Files", "files")
+      craft_response(id, method, "Files", "files")
     end
   end
 
@@ -77,12 +77,13 @@ class Accounts
   def webhooks(id = nil, method = :get)
     craft_response(id, method, "Webhooks", "webhooks")
   end
-
+  #TODO: Remove resource, add a hash e.g. { Webhooks: Webhooks }
   def craft_response(identifier, method, klass, resource, conn = nil)
     account_id = recover_from_type_error
     klass = Object.const_get(klass)
     if account_id == ERROR_STRING
-      klass.new(ERROR_STRING, ERROR_STRING, "403", false)
+      #TODO: Throw an error
+      klass.new(ERROR_STRING, ERROR_STRING, nil, false)
     elsif conn
       klass.fetch(conn,
                   account_id,

@@ -1,3 +1,5 @@
+#TODO: Rename to request
+#TODO: Pass in the class instead of Creating it outside of the request
 class ResponseUtility
   attr_reader :parsed_response_body, :raw_response_body, :status, :success
   def initialize(connection, method, url)
