@@ -12,17 +12,12 @@ class Sync
   end
 
   def self.fetch(connection, account_id, id, method)
-    raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/sync/#{id}")
-    status = raw_response.status.to_s
-    raw_response_body = raw_response.body
-    parsed_response_body = JSON.parse(raw_response_body)
-    Sync.new(parsed_response_body,
-             raw_response_body,
-             status,
-             check_success?(status))
-  end
-
-  def self.check_success?(status)
-    status == "200"
+    response = ResponseUtility.new(connection,
+                                   method,
+                                   "/2.0/accounts/#{account_id}/sync/#{id}")
+    Sync.new(response.parsed_response_body,
+             response.raw_response_body,
+             resposne.status,
+             resposne.success)
   end
 end

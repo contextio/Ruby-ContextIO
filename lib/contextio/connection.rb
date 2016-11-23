@@ -2,7 +2,7 @@ require "faraday"
 require "faraday_middleware"
 
 class Connection
-
+  #TODO Make root url a paramater
   ROOT_URL = "https://api.context.io"
   USER_AGENT = "contextio-ruby-2.0"
 

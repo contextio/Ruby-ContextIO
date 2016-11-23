@@ -8,12 +8,11 @@ require "contextio/accounts/sources"
 require "contextio/accounts/sync"
 require "contextio/accounts/threads"
 require "contextio/accounts/webhooks"
+require "contextio/response_utility"
 
 ERROR_STRING = "This method can only be called on a single account".freeze
 
 class Accounts
-
-
   attr_reader :parsed_response_body, :raw_response_body, :status, :success, :connection
   def initialize(parsed_response_body,
                  raw_response_body,
@@ -35,16 +34,28 @@ class Accounts
     end
   end
 
-  def contacts(id = nil, method = :get)
-    craft_response(id, method, "Contacts", "contacts")
+  def contacts(email = nil, method = :get)
+    if email
+      craft_response(email, method, "Contacts", "contacts", connection)
+    else
+      craft_response(email, method, "Contacts", "contacts")
+    end
   end
 
-  def email_addresses(id = nil, method = :get)
-    craft_response(id, method, "EmailAddresses", "email_addresses")
+  def email_addresses(email = nil, method = :get)
+    if email
+      craft_response(email, method, "EmailAddresses", "email_addresses", connection)
+    else
+      craft_response(email, method, "EmailAddresses", "email_addresses")
+    end
   end
 
   def files(id = nil, method = :get)
-    craft_response(id, method, "Files", "files")
+    if id
+      craft_response(id, method, "Files", "files", connection)
+    else
+      craft_response(id, method, "Files", "files")
+    end
   end
 
   def messages(id = nil, method = :get)
@@ -66,26 +77,24 @@ class Accounts
   def webhooks(id = nil, method = :get)
     craft_response(id, method, "Webhooks", "webhooks")
   end
-
-  def craft_response(id, method, klass, resource, conn = nil)
+  #TODO: Remove resource, add a hash e.g. { Webhooks: Webhooks }
+  def craft_response(identifier, method, klass, resource, conn = nil)
     account_id = recover_from_type_error
     klass = Object.const_get(klass)
     if account_id == ERROR_STRING
-      klass.new(ERROR_STRING, ERROR_STRING, "403", false)
-    elsif connection
-      klass.fetch(connection,
+      #TODO: Throw an error
+      klass.new(ERROR_STRING, ERROR_STRING, nil, false)
+    elsif conn
+      klass.fetch(conn,
                   account_id,
-                  id,
+                  identifier,
                   method)
     else
-      raw_response = connection.connect.send(method, "/2.0/accounts/#{account_id}/#{resource}")
-      status = raw_response.status
-      raw_response_body = raw_response_body.body
-      parsed_response_body = JSON.parse(raw_response_body)
-      klass.new(parsed_response_body,
-                raw_response.body,
-                status,
-                check_success?(status))
+      response = ResponseUtility.new(connection, method, "/2.0/accounts/#{account_id}/#{resource}")
+      klass.new(response.parsed_response_body,
+                response.raw_response_body,
+                response.status,
+                response.success)
     end
   end
 
@@ -104,28 +113,19 @@ class Accounts
 
   def self.fetch(connection, id = nil, method = :get)
     if id
-      raw_response = connection.connect.send(method, "/2.0/accounts/#{id}")
-      status = raw_response.status.to_s
-      raw_response_body = raw_response.body
-      parsed_response_body = JSON.parse(raw_response_body)
-      Accounts.new(parsed_response_body,
-                   raw_response_body,
-                   status,
-                   check_success?(status),
+      response = ResponseUtility.new(connection, method, "/2.0/accounts/#{id}")
+      Accounts.new(response.parsed_response_body,
+                   response.raw_response_body,
+                   response.status,
+                   response.success,
                    connection)
     else
-      raw_response = connection.connect.send(method, "/2.0/accounts")
-      status = raw_response.status.to_s
-      raw_response_body = connection.connect.send(method, "/2.0/accounts").body
-      parsed_response_body = JSON.parse(raw_response_body)
-      Accounts.new(parsed_response_body,
-                   raw_response_body,
-                   status,
-                   check_success?(status))
+      response = ResponseUtility.new(connection, method, "/2.0/accounts")
+      Accounts.new(response.parsed_response_body,
+                   response.raw_response_body,
+                   response.status,
+                   response.success,
+                   connection)
     end
-  end
-
-  def self.check_success?(status)
-    status == "200"
   end
 end
