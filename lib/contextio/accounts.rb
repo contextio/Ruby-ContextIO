@@ -8,19 +8,21 @@ require "contextio/accounts/sources"
 require "contextio/accounts/sync"
 require "contextio/accounts/threads"
 require "contextio/accounts/webhooks"
-require "contextio/response_utility"
+require "contextio/request"
 
 ERROR_STRING = "This method can only be called on a single account".freeze
 
 class Accounts
-  attr_reader :parsed_response_body, :raw_response_body, :status, :success, :connection
+  private
+  attr_reader :connection
+
+  public
+  attr_reader :response, :status, :success
   def initialize(parsed_response_body,
-                 raw_response_body,
                  status,
                  success = true,
                  connection = nil)
-    @parsed_response_body = parsed_response_body
-    @raw_response_body = raw_response_body
+    @response = response
     @status = status
     @success = success
     @connection = connection
@@ -83,18 +85,17 @@ class Accounts
     klass = Object.const_get(klass)
     if account_id == ERROR_STRING
       #TODO: Throw an error
-      klass.new(ERROR_STRING, ERROR_STRING, nil, false)
+      klass.new(ERROR_STRING, nil, false)
     elsif conn
       klass.fetch(conn,
                   account_id,
                   identifier,
                   method)
     else
-      response = ResponseUtility.new(connection, method, "/2.0/accounts/#{account_id}/#{resource}")
-      klass.new(response.parsed_response_body,
-                response.raw_response_body,
-                response.status,
-                response.success)
+      request = Request.new(connection, method, "/2.0/accounts/#{account_id}/#{resource}")
+      klass.new(request.response,
+                request.status,
+                request.success)
     end
   end
 
@@ -113,19 +114,16 @@ class Accounts
 
   def self.fetch(connection, id = nil, method = :get)
     if id
-      response = ResponseUtility.new(connection, method, "/2.0/accounts/#{id}")
-      Accounts.new(response.parsed_response_body,
-                   response.raw_response_body,
-                   response.status,
-                   response.success,
+      request = Request.new(connection, method, "/2.0/accounts/#{id}")
+      Accounts.new(request.response,
+                   request.status,
+                   request.success,
                    connection)
     else
-      response = ResponseUtility.new(connection, method, "/2.0/accounts")
-      Accounts.new(response.parsed_response_body,
-                   response.raw_response_body,
-                   response.status,
-                   response.success,
-                   connection)
+      request = Request.new(connection, method, "/2.0/accounts")
+      Accounts.new(request.response,
+                   request.status,
+                   request.success)
     end
   end
 end
