@@ -1,6 +1,5 @@
-require "contextio/version"
-require "contextio/connection"
-require "contextio/accounts"
+Dir["./lib/contextio/*.rb"].each {|file| require file }
+Dir["./lib/contextio/accounts/*.rb"].each {|file| require file }
 
 require "json"
 

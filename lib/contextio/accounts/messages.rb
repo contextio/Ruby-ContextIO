@@ -1,5 +1,5 @@
 class Messages
-  attr_reader :response,:status, :success
+  attr_reader :response, :status, :success
   def initialize(response, status, success = true)
     @response = response
     @status = status
