@@ -15,11 +15,11 @@ describe Files do
                                    :get) }
 
     it "Response does not come from the Accounts object path." do
-      expect(subject.raw_response).not_to eq(ACCOUNTS_PATH)
+      expect(subject.response).not_to eq(JSON.parse(ACCOUNTS_PATH))
     end
 
     it "Response does come from the Contacts object path." do
-      expect(subject.raw_response).to eq(CONTACTS_PATH)
+      expect(subject.response).to eq(JSON.parse(CONTACTS_PATH))
     end
 
     it "Was successful" do
@@ -33,11 +33,11 @@ describe Files do
                           MOCK_EMAIL,
                           :get) }
     it "Response does not come from the Contacts object path." do
-      expect(subject.raw_response).not_to eq(CONTACTS_PATH)
+      expect(subject.response).not_to eq(JSON.parse(CONTACTS_PATH))
     end
 
     it "Response does not come from the Contacts object path." do
-      expect(subject.raw_response).to eq(ACCOUNTS_PATH)
+      expect(subject.response).to eq(JSON.parse(ACCOUNTS_PATH))
    end
   end
 end

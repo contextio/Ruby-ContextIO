@@ -1,8 +1,11 @@
 class Contacts
-  attr_reader :response, :raw_response, :status, :success, :connection, :account_id
-  def initialize(response, raw_response, status, success = true, connection = nil, account_id = nil)
+  private
+  attr_reader :connection
+
+  public
+  attr_reader :response, :status, :success, :account_id
+  def initialize(response, status, success = true, connection = nil, account_id = nil)
     @response = response
-    @raw_response = raw_response
     @status = status
     @success = success
     @connection = connection
@@ -22,13 +25,12 @@ class Contacts
   end
 
   def self.fetch(connection, account_id, email, method)
-    response = ResponseUtility.new(connection,
-                                   method,
-                                   "/2.0/accounts/#{account_id}/contacts/#{email}")
-    Contacts.new(response.parsed_response_body,
-                 response.raw_response_body,
-                 response.status,
-                 response.success,
+    request = Request.new(connection,
+                          method,
+                          "/2.0/accounts/#{account_id}/contacts/#{email}")
+    Contacts.new(request.response,
+                 request.status,
+                 request.success,
                  connection,
                  account_id)
   end

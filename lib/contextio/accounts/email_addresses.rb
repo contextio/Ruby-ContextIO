@@ -1,8 +1,7 @@
 class EmailAddresses
-  attr_reader :response, :raw_response, :status, :success
-  def initialize(response, raw_response, status, success = true)
+  attr_reader :response, :status, :success
+  def initialize(response, status, success = true)
     @response = response
-    @raw_response = raw_response
     @status = status
     @success = success
   end
@@ -12,12 +11,11 @@ class EmailAddresses
   end
 
   def self.fetch(connection, account_id, id, method)
-    response = ResponseUtility.new(connection,
-                                   method,
-                                   "/2.0/accounts/#{account_id}/email_addresses/#{id}")
-    EmailAddresses.new(response.parsed_response_body,
-                       response.raw_response_body,
-                       response.status,
-                       response.success)
+    request = Request.new(connection,
+                          method,
+                          "/2.0/accounts/#{account_id}/email_addresses/#{id}")
+    EmailAddresses.new(request.response,
+                       request.status,
+                       request.success)
   end
 end
