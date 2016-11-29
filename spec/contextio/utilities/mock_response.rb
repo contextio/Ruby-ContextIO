@@ -1,6 +1,8 @@
 module MockResponse
 
-  MOCK_FARADAY_OBJECT_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"someemail.gmail.com_12345\",
+  Struct.new("MockFaraday", :body, :status)
+
+  MOCK_FARADAY_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"someemail.gmail.com_12345\",
     \"created\":0,\"email_addresses\":[\"someemail@gmail.com\"],
     \"first_name\":\"Some\",\"last_name\":\"Account\",\"password_expired\":0,\"nb_messages\":2067,
     \"sources\":[{\"server\":\"imap.googlemail.com\",\"label\":\"someemail::gmail\",
@@ -8,7 +10,7 @@ module MockResponse
     \"authentication_type\":\"oauth2\",\"use_ssl\":true,\"status\":\"OK\",\"sync_flags\":false,
     \"type\":\"imap\",\"resource_url\":\"https:\\/\\/api.context.io\\/2.0\\/accounts\\/1234\\/sources\\/someemail%3A%3Agmail\"}]}".freeze
 
-  FROM_ACCOUNT_MOCK_FARADAY_OBJECT_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"fromaccount.gmail.com_12345\",
+  FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"fromaccount.gmail.com_12345\",
     \"created\":0,\"email_addresses\":[\"fromacccount@gmail.com\"],
     \"first_name\":\"Some\",\"last_name\":\"Account\",\"password_expired\":0,\"nb_messages\":2067,
     \"sources\":[{\"server\":\"imap.googlemail.com\",\"label\":\"someemail::gmail\",
@@ -20,6 +22,8 @@ module MockResponse
   MOCK_FARADAY_OBJECT_FAILURE_BODY = []
 
   SUCCESSFUL_CALL = 200
+
+  MOCK_FARADAY = Struct::MockFaraday.new(MOCK_FARADAY_SUCCESS_BODY, SUCCESSFUL_CALL)
 
   UNSUCCESSFUL_CALL = "404".freeze
 

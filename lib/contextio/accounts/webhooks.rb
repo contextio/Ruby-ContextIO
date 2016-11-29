@@ -9,11 +9,8 @@ class Webhooks
   end
 
   def self.fetch(connection, account_id, id, method)
-    request = Request.new(connection,
-                          method,
-                          "/2.0/accounts/#{account_id}/webhooks/#{id}")
-    Webhooks.new(request.response,
-                 request.status,
-                 request.success)
+    Webhooks.new(Request.new(connection,
+                             method,
+                             "/2.0/accounts/#{account_id}/webhooks/#{id}"))
   end
 end

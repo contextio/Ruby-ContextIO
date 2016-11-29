@@ -77,10 +77,7 @@ class Accounts
                   identifier,
                   method)
     else
-      request = Request.new(connection, method, "/2.0/accounts/#{account_id}/#{resource}")
-      klass.new(request.response,
-                request.status,
-                request.success)
+      klass.new(Request.new(connection, method, "/2.0/accounts/#{account_id}/#{resource}"))
     end
   end
 

@@ -9,11 +9,8 @@ class ConnectTokens
   end
 
   def self.fetch(connection, account_id, id, method = :get)
-    request = Request.new(connection,
-                          method,
-                          "/2.0/accounts/#{account_id}/connect_tokens/#{id}")
-    ConnectTokens.new(request.response,
-                      request.status,
-                      request.success)
+    ConnectTokens.new(Request.new(connection,
+                                  method,
+                                  "/2.0/accounts/#{account_id}/connect_tokens/#{id}"))
   end
 end

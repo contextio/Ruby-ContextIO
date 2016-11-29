@@ -14,7 +14,7 @@ describe ConnectTokens do
     end
 
     it "Was Successful." do
-      expect(subject.success).to be true
+      expect(subject.success?).to be true
     end
   end
 end

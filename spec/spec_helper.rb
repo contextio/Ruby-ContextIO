@@ -35,14 +35,14 @@ RSpec.configure do |config|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
         to_return(status: 200,
-                  body: MockResponse::FROM_ACCOUNT_MOCK_FARADAY_OBJECT_SUCCESS_BODY,
+                  body: MockResponse::FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY,
                   headers: {})
     end
     NON_ACCOUNT_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
         to_return(status: 200,
-                  body: MockResponse::MOCK_FARADAY_OBJECT_SUCCESS_BODY,
+                  body: MockResponse::MOCK_FARADAY_SUCCESS_BODY,
                   headers: {})
     end
   end

@@ -19,13 +19,8 @@ class Contacts
   end
 
   def self.fetch(connection, account_id, email, method)
-    request = Request.new(connection,
-                          method,
-                          "/2.0/accounts/#{account_id}/contacts/#{email}")
-    Contacts.new(request.response,
-                 request.status,
-                 request.success,
-                 connection,
-                 account_id)
+    Contacts.new(Request.new(connection,
+                             method,
+                             "/2.0/accounts/#{account_id}/contacts/#{email}"))
   end
 end

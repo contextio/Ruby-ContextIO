@@ -9,11 +9,8 @@ class EmailAddresses
   end
 
   def self.fetch(connection, account_id, id, method)
-    request = Request.new(connection,
-                          method,
-                          "/2.0/accounts/#{account_id}/email_addresses/#{id}")
-    EmailAddresses.new(request.response,
-                       request.status,
-                       request.success)
+    EmailAddresses.new(Request.new(connection,
+                                   method,
+                                   "/2.0/accounts/#{account_id}/email_addresses/#{id}"))
   end
 end

@@ -11,17 +11,11 @@ class Files
 
   def self.contacts_fetch(connection, account_id, email, method)
     url =  Request.determine_api_endpoint(account_id, email, "contacts", true)
-    request = Request.new(connection, method, url)
-    Files.new(request.response,
-              request.status,
-              request.success)
+    Files.new(Request.new(connection, method, url))
   end
 
   def self.fetch(connection, account_id, email, method)
     url =  Request.determine_api_endpoint(account_id, email, "files")
-    request = Request.new(connection, method, url)
-    Files.new(request.response,
-              request.status,
-              request.success)
+    Files.new(Request.new(connection, method, url))
   end
 end
