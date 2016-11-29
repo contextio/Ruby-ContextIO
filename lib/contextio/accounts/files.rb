@@ -10,12 +10,12 @@ class Files
   end
 
   def self.contacts_fetch(connection, account_id, email, method)
-    url =  Request.determine_api_endpoint(account_id, email, "contacts", true)
+    url =  "/2.0/accounts/#{account_id}/contacts/#{email}/files"
     Files.new(Request.new(connection, method, url))
   end
 
   def self.fetch(connection, account_id, email, method)
-    url =  Request.determine_api_endpoint(account_id, email, "files")
+    url =  "/2.0/accounts/#{account_id}/files/#{email}"
     Files.new(Request.new(connection, method, url))
   end
 end
