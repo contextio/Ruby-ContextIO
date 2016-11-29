@@ -1,18 +1,12 @@
 class Files
   private
-  attr_reader :connection
+  attr_reader  :request, :connection
 
   public
-  attr_reader :response, :status, :success
-  def initialize(response, status, success = true, connection = nil)
-    @response = response
-    @status = status
-    @success = success
+  include RequestHelper
+  def initialize(request, connection = nil)
+    @request = request
     @connection = connection
-  end
-
-  def success?
-    @success
   end
 
   def self.contacts_fetch(connection, account_id, email, method)

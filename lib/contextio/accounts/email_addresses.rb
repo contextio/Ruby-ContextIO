@@ -1,13 +1,11 @@
 class EmailAddresses
-  attr_reader :response, :status, :success
-  def initialize(response, status, success = true)
-    @response = response
-    @status = status
-    @success = success
-  end
+  private
+  attr_reader :request
 
-  def success?
-    @success
+  public
+  include RequestHelper
+  def initialize(request)
+    @request = request
   end
 
   def self.fetch(connection, account_id, id, method)

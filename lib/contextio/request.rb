@@ -5,7 +5,7 @@ class Request
     request = connection.connect.send(method, url)
     @status = request.status
     @response = JSON.parse(request.body)
-    @success =  check_success?(request.status)
+    @success =  check_success(request.status)
   end
 
 #TODO: Pass in the give the URL, don't decide the URL
@@ -19,7 +19,7 @@ class Request
     end
   end
 
-  def check_success?(status)
+  def check_success(status)
     status >= 200 && status <= 299
   end
 end

@@ -1,13 +1,11 @@
 class Contacts
   private
-  attr_reader :connection
+  attr_reader  :request, :connection, :account_id
 
   public
-  attr_reader :response, :status, :success, :account_id
-  def initialize(response, status, success = true, connection = nil, account_id = nil)
-    @response = response
-    @status = status
-    @success = success
+  include RequestHelper
+  def initialize(request, connection = nil, account_id = nil)
+    @request = request
     @connection = connection
     @account_id = account_id
   end
@@ -18,10 +16,6 @@ class Contacts
                          email,
                          method)
 
-  end
-
-  def success?
-    @success
   end
 
   def self.fetch(connection, account_id, email, method)

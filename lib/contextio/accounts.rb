@@ -1,20 +1,16 @@
-
-
 ERROR_STRING = "This method can only be called on a single account".freeze
+require "contextio/request_helper"
 
 class Accounts
   private
   attr_reader :connection
+  attr_reader :request
 
   public
-  attr_reader :response, :status, :success
-  def initialize(response,
-                 status,
-                 success = true,
+  include RequestHelper
+  def initialize(request,
                  connection = nil)
-    @response = response
-    @status = status
-    @success = success
+    @request = request
     @connection = connection
   end
 
@@ -97,22 +93,12 @@ class Accounts
     account_id
   end
 
-  def success?
-    @success
-  end
-
   def self.fetch(connection, id = nil, method = :get)
     if id
-      request = Request.new(connection, method, "/2.0/accounts/#{id}")
-      Accounts.new(request.response,
-                   request.status,
-                   request.success,
+      Accounts.new(Request.new(connection, method, "/2.0/accounts/#{id}"),
                    connection)
     else
-      request = Request.new(connection, method, "/2.0/accounts")
-      Accounts.new(request.response,
-                   request.status,
-                   request.success)
+      Accounts.new(Request.new(connection, method, "/2.0/accounts"))
     end
   end
 end
