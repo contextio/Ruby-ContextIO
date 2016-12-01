@@ -73,7 +73,7 @@ class Accounts
     account_id = recover_from_type_error
     if account_id == ERROR_STRING
       #TODO: Throw an error
-      klass.new(ERROR_STRING, nil, false)
+      FailedRequest.new(ERROR_STRING)
     elsif conn
       klass.fetch(conn,
                   account_id,
