@@ -4,8 +4,11 @@ class Messages
 
   public
   include RequestHelper
-  def initialize(response)
-    @request = request
+  attr_reader :response, :status, :success
+  def initialize(request)
+    @response = request.response
+    @status = request.status
+    @success =  request.success
   end
 
   def self.fetch(connection, account_id, id, method)

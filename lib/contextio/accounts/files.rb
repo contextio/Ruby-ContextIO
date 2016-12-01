@@ -4,8 +4,12 @@ class Files
 
   public
   include RequestHelper
-  def initialize(request, connection = nil)
-    @request = request
+  attr_reader :response, :status, :success
+  def initialize(request,
+                 connection = nil)
+    @response = request.response
+    @status = request.status
+    @success =  request.success
     @connection = connection
   end
 
@@ -15,7 +19,7 @@ class Files
   end
 
   def self.fetch(connection, account_id, email, method)
-    url =  "/2.0/accounts/#{account_id}/files/#{email}"
+    url =  "/2.0/accounts/#{account_id}/#/#{identifier}"
     Files.new(Request.new(connection, method, url))
   end
 end

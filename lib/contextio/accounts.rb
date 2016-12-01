@@ -8,9 +8,12 @@ class Accounts
 
   public
   include RequestHelper
+  attr_reader :response, :status, :success
   def initialize(request,
                  connection = nil)
-    @request = request
+    @response = request.response
+    @status = request.status
+    @success =  request.success
     @connection = connection
   end
 

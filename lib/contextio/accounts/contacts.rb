@@ -4,8 +4,13 @@ class Contacts
 
   public
   include RequestHelper
-  def initialize(request, connection = nil, account_id = nil)
-    @request = request
+  attr_reader :response, :status, :success
+  def initialize(request,
+                 connection = nil,
+                 account_id = nil)
+    @response = request.response
+    @status = request.status
+    @success =  request.success
     @connection = connection
     @account_id = account_id
   end
