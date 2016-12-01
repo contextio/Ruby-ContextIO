@@ -19,7 +19,7 @@ class Files
   end
 
   def self.fetch(connection, account_id, email, method)
-    url =  "/2.0/accounts/#{account_id}/#/#{identifier}"
+    url =  "/2.0/accounts/#{account_id}/files/#{email}"
     Files.new(Request.new(connection, method, url))
   end
 end

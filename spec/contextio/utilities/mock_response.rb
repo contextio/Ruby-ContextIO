@@ -1,6 +1,6 @@
 module MockResponse
 
-  Struct.new("MockFaraday", :body, :status)
+  Struct.new("MockFaraday", :response, :status, :success)
 
   MOCK_FARADAY_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"someemail.gmail.com_12345\",
     \"created\":0,\"email_addresses\":[\"someemail@gmail.com\"],
@@ -23,7 +23,7 @@ module MockResponse
 
   SUCCESSFUL_CALL = 200
 
-  MOCK_FARADAY = Struct::MockFaraday.new(MOCK_FARADAY_SUCCESS_BODY, SUCCESSFUL_CALL)
+  MOCK_FARADAY = Struct::MockFaraday.new(MOCK_FARADAY_SUCCESS_BODY, SUCCESSFUL_CALL, true)
 
   UNSUCCESSFUL_CALL = "404".freeze
 
@@ -65,4 +65,6 @@ module MockResponse
          "type"=>"imap",
          "resource_url"=>"https://api.context.io/2.0/accounts/"}],
       "resource_url"=>"https://api.context.io/2.0/accounts/"}].freeze
+
+  MOCK_FARDAY_COLLECTION = Struct::MockFaraday.new(ACCOUNTS, SUCCESSFUL_CALL, true)
 end
