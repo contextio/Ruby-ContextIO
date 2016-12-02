@@ -98,7 +98,7 @@ class Accounts
       Accounts.new(Request.new(connection, method, "/2.0/accounts/#{id}"),
                    connection)
     else
-      Accounts.new(Request.new(connection, method, "/2.0/accounts"))
+      Accounts.new(Request.new(connection, method, "/2.0/accounts", Accounts))
     end
   end
 end
