@@ -80,7 +80,9 @@ class Accounts
                   identifier,
                   method)
     else
-      klass.new(Request.new(connection, method, "/2.0/accounts/#{account_id}/#{resource}"))
+      klass.new(Request.new(connection, method, "/2.0/accounts/#{account_id}/#{resource}",
+                klass,
+                account_id))
     end
   end
 

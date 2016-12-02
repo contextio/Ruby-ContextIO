@@ -7,7 +7,8 @@ class Contacts
   attr_reader :response, :status, :success
   def initialize(request,
                  connection = nil,
-                 account_id = nil)
+                 account_id = nil
+                 )
     @response = request.response
     @status = request.status
     @success =  request.success
