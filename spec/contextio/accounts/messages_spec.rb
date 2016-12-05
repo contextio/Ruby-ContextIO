@@ -11,7 +11,7 @@ MESSAGES_CONTACTS_PATH = MockResponse::MOCK_FARADAY_SUCCESS_BODY
 describe Messages do
   describe "A Messages object fetched from a Contacts object" do
     subject { Messages.contacts_fetch(CONNECTION_BASE,
-                                      "12345",
+                                      "some_id",
                                       MOCK_EMAIL,
                                       :get) }
 

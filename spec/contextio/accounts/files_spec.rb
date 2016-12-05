@@ -10,7 +10,7 @@ CONTACTS_PATH = MockResponse::MOCK_FARADAY_SUCCESS_BODY
 describe Files do
   describe "A Files object fetched from a Contacts object" do
     subject { Files.contacts_fetch(CONNECTION_BASE,
-                                   "12345",
+                                   "some_id",
                                    MOCK_EMAIL,
                                    :get) }
 
@@ -29,7 +29,7 @@ describe Files do
 
   describe "A Files object fetched from an Accounts object" do
     subject { Files.fetch(CONNECTION_BASE,
-                          "12345",
+                          "some_id",
                           MOCK_EMAIL,
                           :get) }
     it "Response does not come from the Contacts object path." do
