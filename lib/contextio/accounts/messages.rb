@@ -13,18 +13,10 @@ class Messages
     @account_id = account_id
   end
 
-  def self.contacts_fetch(connection, account_id, email, method)
+  def self.fetch(connection, account_id, url, email, method)
     Messages.new(Request.new(connection,
                              method,
-                             "/2.0/accounts/#{account_id}/contacts/#{email}/messages"),
-                             connection,
-                             account_id)
-  end
-
-  def self.fetch(connection, account_id, email, method)
-    Messages.new(Request.new(connection,
-                             method,
-                             "/2.0/accounts/#{account_id}/messages/#{email}"),
+                             url),
                              connection,
                              account_id)
   end

@@ -14,18 +14,22 @@ class Contacts
   end
 
   def files(email = nil, method = :get)
-    Files.contacts_fetch(connection,
-                         account_id,
-                         email,
-                         method)
+    url = "/2.0/accounts/#{account_id}/contacts/#{email}/files"
+    Files.fetch(connection,
+                account_id,
+                url,
+                email,
+                method)
 
   end
 
   def messages(email = nil, method = :get)
-    Messages.contacts_fetch(connection,
-                            account_id,
-                            email,
-                            method)
+    url = "/2.0/accounts/#{account_id}/contacts/#{email}/messages"
+    Messages.fetch(connection,
+                   account_id,
+                   url,
+                   email,
+                   method)
   end
 
   def self.fetch(connection, account_id, email, method)

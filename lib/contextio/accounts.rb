@@ -78,6 +78,7 @@ class Accounts
     elsif conn
       klass.fetch(conn,
                   account_id,
+                  "/2.0/accounts/#{account_id}/#{klass.to_s.downcase}/#{identifier}",
                   identifier,
                   method)
     else

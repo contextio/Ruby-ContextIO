@@ -47,6 +47,13 @@ module MockResponse
 
   UNSUCCESSFUL_CALL = "404".freeze
 
+  MOCK_ACCOUNT = Accounts.fetch(CONNECTION_BASE, "some_id")
+
+  MOCK_CONTACT = Contacts.fetch(CONNECTION_BASE,
+                                "some_id",
+                                MOCK_EMAIL,
+                                :get)
+
   ACCOUNTS = [{"created"=>0,
       "username"=>"some_accoount.gmail.com_some_numbers",
       "suspended"=>nil,
