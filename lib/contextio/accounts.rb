@@ -3,18 +3,19 @@ require "contextio/request_helper"
 
 class Accounts
   private
-  attr_reader :connection
-  attr_reader :request
+  attr_reader :connection, :account_id
 
   public
   include RequestHelper
   attr_reader :response, :status, :success
   def initialize(request,
-                 connection = nil)
+                 connection,
+                 account_id = nil)
     @response = request.response
     @status = request.status
     @success =  request.success
     @connection = connection
+    @account_id = account_id
   end
 
   def connect_tokens(id = nil, method = :get)
@@ -82,7 +83,9 @@ class Accounts
     else
       klass.new(Request.new(connection, method, "/2.0/accounts/#{account_id}/#{resource}",
                 klass,
-                account_id))
+                account_id),
+                connection,
+                account_id)
     end
   end
 
@@ -98,9 +101,10 @@ class Accounts
   def self.fetch(connection, id = nil, method = :get)
     if id
       Accounts.new(Request.new(connection, method, "/2.0/accounts/#{id}"),
-                   connection)
+                   connection,
+                   id)
     else
-      Accounts.new(Request.new(connection, method, "/2.0/accounts", Accounts))
+      Accounts.new(Request.new(connection, method, "/2.0/accounts", Accounts), connection)
     end
   end
 end

@@ -28,7 +28,8 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   #is to ensure there is a different return for endpoints such as
   # accounts/:id/files and account/:id/contacts/:email/files
   NON_ACCOUNT_ENDPOINTS = [
-    "accounts/12345/contacts/some_email@some_provider.com/files"
+    "accounts/12345/contacts/some_email@some_provider.com/files",
+    "accounts/12345/contacts/some_email@some_provider.com/messages"
   ]
 
 WebMock.disable_net_connect!(allow_localhost: true)

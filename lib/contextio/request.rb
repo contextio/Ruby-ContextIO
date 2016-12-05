@@ -5,7 +5,7 @@ class Request
     if klass.to_s == "Contacts"
       @response =  contact_response(request, connection, account_id)
     elsif klass
-      @response = collection_return(request, klass, connection)
+      @response = collection_return(request, klass, connection, account_id)
     else
       @response = JSON.parse(request.body)
     end
@@ -23,10 +23,10 @@ class Request
     [responses["query"], contacts_array]
   end
 
-  def collection_return(request, klass, connection)
+  def collection_return(request, klass, connection, account_id)
     responses = JSON.parse(request.body)
     responses.map do |resp|
-      klass.new(ResponseStruct.new(resp, request.status, check_success(request.status)), connection)
+      klass.new(ResponseStruct.new(resp, request.status, check_success(request.status)), connection, account_id)
     end
   end
 
