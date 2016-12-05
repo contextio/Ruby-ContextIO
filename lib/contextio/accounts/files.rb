@@ -1,33 +1,25 @@
 class Files
   private
-  attr_reader :connection
+  attr_reader  :connection
 
   public
+  include RequestHelper
   attr_reader :response, :status, :success
-  def initialize(response, status, success = true, connection = nil)
-    @response = response
-    @status = status
-    @success = success
+  def initialize(request,
+                 connection = nil)
+    @response = request.response
+    @status = request.status
+    @success =  request.success
     @connection = connection
   end
 
-  def success?
-    @success
-  end
-
   def self.contacts_fetch(connection, account_id, email, method)
-    url =  Request.determine_api_endpoint(account_id, email, "contacts", true)
-    request = Request.new(connection, method, url)
-    Files.new(request.response,
-              request.status,
-              request.success)
+    url =  "/2.0/accounts/#{account_id}/contacts/#{email}/files"
+    Files.new(Request.new(connection, method, url))
   end
 
   def self.fetch(connection, account_id, email, method)
-    url =  Request.determine_api_endpoint(account_id, email, "files")
-    request = Request.new(connection, method, url)
-    Files.new(request.response,
-              request.status,
-              request.success)
+    url =  "/2.0/accounts/#{account_id}/files/#{email}"
+    Files.new(Request.new(connection, method, url))
   end
 end

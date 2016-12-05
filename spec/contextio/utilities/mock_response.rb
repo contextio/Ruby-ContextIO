@@ -1,6 +1,8 @@
 module MockResponse
 
-  MOCK_FARADAY_OBJECT_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"someemail.gmail.com_12345\",
+  Struct.new("MockFaraday", :response, :status, :success)
+
+  MOCK_FARADAY_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"someemail.gmail.com_12345\",
     \"created\":0,\"email_addresses\":[\"someemail@gmail.com\"],
     \"first_name\":\"Some\",\"last_name\":\"Account\",\"password_expired\":0,\"nb_messages\":2067,
     \"sources\":[{\"server\":\"imap.googlemail.com\",\"label\":\"someemail::gmail\",
@@ -8,7 +10,27 @@ module MockResponse
     \"authentication_type\":\"oauth2\",\"use_ssl\":true,\"status\":\"OK\",\"sync_flags\":false,
     \"type\":\"imap\",\"resource_url\":\"https:\\/\\/api.context.io\\/2.0\\/accounts\\/1234\\/sources\\/someemail%3A%3Agmail\"}]}".freeze
 
-  FROM_ACCOUNT_MOCK_FARADAY_OBJECT_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"fromaccount.gmail.com_12345\",
+  CONTACT_COLLECTION_FARADAY_SUCCESS_BODY = "{\"query\":{\"limit\":25,\"offset\":null,
+  \"active_after\":null,\"active_before\":null,\"search\":null},\"matches\":[{\"email\":\"an_email_address\",
+  \"count\":1,\"sent_count\":0,\"received_count\":1,\"sent_from_account_count\":0,
+  \"thumbnail\":\"an_avatar\", \"name\":\"Yahoo Mail\",\"resource_url\":\"a_resource_url\",
+  \"last_sent\":null,\"last_received\":1479499953},{\"email\":\"sent_from_email\",
+  \"count\":7,\"sent_count\":7,\"received_count\":0,\"sent_from_account_count\":0,
+  \"thumbnail\":\"an_avatar\", \"resource_url\":\"a_resource_url\", \"last_sent\":1480690829,
+  \"last_received\":null},{\"email\":\"an_email\",\"count\":1,\"sent_count\":0,\"received_count\":1,
+  \"sent_from_account_count\":0,\"thumbnail\":\"an_avatar\", \"name\":\"a_name\",
+  \"resource_url\":\"https:\\/\\/api.context.io\\/2.0\\/accounts\\/582f618c4968c3e22e8b4567\\/contacts\\/noreply%40yahoo-inc.com\",
+  \"last_sent\":null,\"last_received\":1479500065},{\"email\":\"no-reply@cc.yahoo-inc.com\",
+  \"count\":1,\"sent_count\":0,\"received_count\":1,\"sent_from_account_count\":0,
+  \"thumbnail\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/e76eb6902fca74276e63b02737af201e?s=50&d=https%3A%2F%2Fs3.amazonaws.com%2Fcontextio-icons%2Fcontact.png\",
+  \"name\":\"Yahoo\",\"resource_url\":\"https:\\/\\/api.context.io\\/2.0\\/accounts\\/582f618c4968c3e22e8b4567\\/contacts\\/no-reply%40cc.yahoo-inc.com\",
+  \"last_sent\":null,\"last_received\":1479500156},{\"email\":\"yahoo@communications.yahoo.com\",
+  \"count\":4,\"sent_count\":0,\"received_count\":4,\"sent_from_account_count\":0,
+  \"thumbnail\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/93915285723ad8335bcebfa1a4df0ec5?s=50&d=https%3A%2F%2Fs3.amazonaws.com%2Fcontextio-icons%2Fcontact.png\",
+  \"name\":\"Yahoo Mail\",\"resource_url\":\"https:\\/\\/api.context.io\\/2.0\\/accounts\\/582f618c4968c3e22e8b4567\\/contacts\\/yahoo%40communications.yahoo.com\",
+  \"last_sent\":null,\"last_received\":1480690829}]}".freeze
+
+  FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"fromaccount.gmail.com_12345\",
     \"created\":0,\"email_addresses\":[\"fromacccount@gmail.com\"],
     \"first_name\":\"Some\",\"last_name\":\"Account\",\"password_expired\":0,\"nb_messages\":2067,
     \"sources\":[{\"server\":\"imap.googlemail.com\",\"label\":\"someemail::gmail\",
@@ -20,6 +42,8 @@ module MockResponse
   MOCK_FARADAY_OBJECT_FAILURE_BODY = []
 
   SUCCESSFUL_CALL = 200
+
+  MOCK_FARADAY = Struct::MockFaraday.new(MOCK_FARADAY_SUCCESS_BODY, SUCCESSFUL_CALL, true)
 
   UNSUCCESSFUL_CALL = "404".freeze
 
@@ -61,4 +85,6 @@ module MockResponse
          "type"=>"imap",
          "resource_url"=>"https://api.context.io/2.0/accounts/"}],
       "resource_url"=>"https://api.context.io/2.0/accounts/"}].freeze
+
+  MOCK_FARDAY_COLLECTION = Struct::MockFaraday.new(ACCOUNTS, SUCCESSFUL_CALL, true)
 end

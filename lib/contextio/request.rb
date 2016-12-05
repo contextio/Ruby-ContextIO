@@ -1,25 +1,36 @@
-#TODO: Pass in the class instead of Creating it outside of the request
 class Request
   attr_reader :response, :status, :success
-  def initialize(connection, method, url)
+  def initialize(connection, method, url, klass = nil, account_id = nil)
     request = connection.connect.send(method, url)
+    if klass.to_s == "Contacts"
+      @response =  contact_response(request, connection, account_id)
+    elsif klass
+      @response = collection_return(request, klass, connection)
+    else
+      @response = JSON.parse(request.body)
+    end
     @status = request.status
-    @response = JSON.parse(request.body)
-    @success =  check_success?(request.status)
+    @success =  check_success(request.status)
   end
 
-#TODO: Pass in the give the URL, don't decide the URL
-  def self.determine_api_endpoint(account_id, identifier, parent_resouce, from_a_contact = false)
-    if from_a_contact
-      "/2.0/accounts/#{account_id}/#{parent_resouce}/#{identifier}/files"
-    elsif identifier
-      "/2.0/accounts/#{account_id}/#{parent_resouce}/#{identifier}"
-    else
-      "/2.0/accounts/#{account_id}/#{parent_resouce}"
+  def contact_response(request, connection, account_id)
+    responses = JSON.parse(request.body)
+    contacts_array = responses["matches"].map do |match|
+      Contacts.new(ResponseStruct.new(match, request.status, check_success(request.status)),
+                   connection,
+                   account_id)
+    end
+    [responses["query"], contacts_array]
+  end
+
+  def collection_return(request, klass, connection)
+    responses = JSON.parse(request.body)
+    responses.map do |resp|
+      klass.new(ResponseStruct.new(resp, request.status, check_success(request.status)), connection)
     end
   end
 
-  def check_success?(status)
+  def check_success(status)
     status >= 200 && status <= 299
   end
 end

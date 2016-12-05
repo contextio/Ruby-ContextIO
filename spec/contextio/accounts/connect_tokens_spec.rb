@@ -1,5 +1,5 @@
 require "contextio/connection"
-require "contextio/accounts"
+require "contextio"
 
 require_relative "../utilities/testing_constants.rb"
 
@@ -14,7 +14,7 @@ describe ConnectTokens do
     end
 
     it "Was Successful." do
-      expect(subject.success).to be true
+      expect(subject.success?).to be true
     end
   end
 end

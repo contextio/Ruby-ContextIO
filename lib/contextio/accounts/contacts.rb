@@ -1,13 +1,17 @@
 class Contacts
   private
-  attr_reader :connection
+  attr_reader :connection, :account_id
 
   public
-  attr_reader :response, :status, :success, :account_id
-  def initialize(response, status, success = true, connection = nil, account_id = nil)
-    @response = response
-    @status = status
-    @success = success
+  include RequestHelper
+  attr_reader :response, :status, :success
+  def initialize(request,
+                 connection = nil,
+                 account_id = nil
+                 )
+    @response = request.response
+    @status = request.status
+    @success =  request.success
     @connection = connection
     @account_id = account_id
   end
@@ -20,18 +24,9 @@ class Contacts
 
   end
 
-  def success?
-    @success
-  end
-
   def self.fetch(connection, account_id, email, method)
-    request = Request.new(connection,
-                          method,
-                          "/2.0/accounts/#{account_id}/contacts/#{email}")
-    Contacts.new(request.response,
-                 request.status,
-                 request.success,
-                 connection,
-                 account_id)
+    Contacts.new(Request.new(connection,
+                             method,
+                             "/2.0/accounts/#{account_id}/contacts/#{email}"))
   end
 end
