@@ -1,6 +1,6 @@
 class Messages
   private
-  attr_reader :request, :connection
+  attr_reader :connection
 
   public
   include RequestHelper

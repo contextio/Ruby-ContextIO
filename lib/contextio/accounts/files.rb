@@ -1,6 +1,6 @@
 class Files
   private
-  attr_reader  :request, :connection
+  attr_reader  :connection
 
   public
   include RequestHelper

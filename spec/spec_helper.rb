@@ -9,7 +9,6 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts/some_id",
   "accounts/12345/connect_tokens",
   "accounts/12345/connect_tokens/some_token_id",
-  "accounts/12345/contacts",
   "accounts/12345/contacts/some_email@some_provider.com",
   "accounts/12345/email_addresses",
   "accounts/12345/files",
@@ -19,6 +18,10 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts/12345/sync",
   "accounts/12345/threads",
   "accounts/12345/webhooks"
+  ]
+
+  CONTACTS_COLLECTION_ENDPOINT = [
+    "accounts/12345/contacts"
   ]
 
   #Some of these endpoints will have account in the URL. The purpose of these URLs
@@ -36,6 +39,13 @@ RSpec.configure do |config|
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY,
+                  headers: {})
+    end
+    CONTACTS_COLLECTION_ENDPOINT.each do |endpoint|
+      stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        to_return(status: 200,
+                  body: MockResponse::CONTACT_COLLECTION_FARADAY_SUCCESS_BODY,
                   headers: {})
     end
     NON_ACCOUNT_ENDPOINTS.each do |endpoint|

@@ -1,6 +1,6 @@
 class Contacts
   private
-  attr_reader  :request, :connection, :account_id
+  attr_reader :connection, :account_id
 
   public
   include RequestHelper

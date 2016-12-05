@@ -1,14 +1,15 @@
 class Sync
   private
-  attr_reader :request
+  attr_reader :connection
 
   public
   include RequestHelper
   attr_reader :response, :status, :success
-  def initialize(request)
+  def initialize(request, connection = nil)
     @response = request.response
     @status = request.status
     @success =  request.success
+    @connection = connection
   end
 
   def self.fetch(connection, account_id, id, method)
