@@ -26,7 +26,11 @@ class Request
   def collection_return(request, klass, connection, account_id)
     responses = JSON.parse(request.body)
     responses.map do |resp|
-      klass.new(ResponseStruct.new(resp, request.status, check_success(request.status)), connection, account_id)
+      klass.new(ResponseStruct.new(resp,
+                                   request.status,
+                                   check_success(request.status)),
+                                   connection,
+                                   account_id || resp["id"])
     end
   end
 
