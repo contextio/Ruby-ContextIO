@@ -5,7 +5,7 @@ class Messages
   public
   include RequestHelper
   attr_reader :response, :status, :success
-  def initialize(request, connection, account_id, message_id)
+  def initialize(request, connection, account_id, message_id = nil)
     @response = request.response
     @status = request.status
     @success =  request.success

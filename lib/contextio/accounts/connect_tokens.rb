@@ -5,7 +5,7 @@ class ConnectTokens
   public
   include RequestHelper
   attr_reader :response, :status, :success
-  def initialize(request, connection, account_id, token_id)
+  def initialize(request, connection, account_id, token_id = nil)
     @response = request.response
     @status = request.status
     @success =  request.success

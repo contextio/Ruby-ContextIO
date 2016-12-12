@@ -44,15 +44,17 @@ module MockResponse
   SUCCESSFUL_CALL = 200
 
   MOCK_FARADAY = Struct::MockFaraday.new(MOCK_FARADAY_SUCCESS_BODY, SUCCESSFUL_CALL, true)
-  
+
   UNSUCCESSFUL_CALL = "404".freeze
 
   MOCK_ACCOUNT = Accounts.fetch(CONNECTION_BASE, "some_id")
 
-  MOCK_CONTACT = Contacts.fetch(CONNECTION_BASE,
-                                "some_id",
-                                MOCK_EMAIL,
-                                :get)
+  MOCK_CONTACT = Contacts.new(Struct::MockFaraday.new(JSON.parse(MOCK_FARADAY_SUCCESS_BODY),
+                                                      SUCCESSFUL_CALL,
+                                                      true),
+                              CONNECTION_BASE,
+                              "some_id",
+                              MOCK_EMAIL)
 
   ACCOUNTS = [{"created"=>0,
       "username"=>"some_accoount.gmail.com_some_numbers",

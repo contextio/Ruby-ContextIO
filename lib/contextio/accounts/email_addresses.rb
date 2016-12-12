@@ -5,7 +5,7 @@ class EmailAddresses
   public
   include RequestHelper
   attr_reader :response, :status, :success
-  def initialize(request, connection, account_id, email)
+  def initialize(request, connection, account_id, email = nil)
     @response = request.response
     @status = request.status
     @success =  request.success

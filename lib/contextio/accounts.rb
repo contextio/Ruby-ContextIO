@@ -59,7 +59,7 @@ class Accounts
   end
 
   def sync(method = :get)
-    Sync.fetch(Request.new(connection, method, "/2.0/accounts/#{account_id}/sync"))
+    Sync.new(Request.new(connection, method, "/2.0/accounts/#{account_id}/sync"))
   end
 
   def threads(id = nil, method = :get)
@@ -76,10 +76,11 @@ class Accounts
       #TODO: Throw an error
       FailedRequest.new(ERROR_STRING)
     elsif identifier
-      klass.fetch(Request.new(connection,
-                              method,
-                              "/2.0/accounts/#{account_id}/#{klass.to_s.downcase}/#{identifier}",
-                              account_id),
+      klass.new(Request.new(connection,
+                            method,
+                            "/2.0/accounts/#{account_id}/#{klass.to_s.downcase}/#{identifier}",
+                            nil,
+                            account_id),
                   connection,
                   account_id,
                   identifier)

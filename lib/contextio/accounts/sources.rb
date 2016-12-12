@@ -5,7 +5,7 @@ class Sources
   public
   include RequestHelper
   attr_reader :response, :status, :success
-  def initialize(request, connection, account_id, label)
+  def initialize(request, connection, account_id, label = nil)
     @response = request.response
     @status = request.status
     @success =  request.success

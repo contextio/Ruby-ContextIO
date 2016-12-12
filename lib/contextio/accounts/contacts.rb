@@ -5,7 +5,7 @@ class Contacts
   public
   include RequestHelper
   attr_reader :response, :status, :success
-  def initialize(request, connection, account_id, email)
+  def initialize(request, connection, account_id, email = nil)
     @response = request.response
     @status = request.status
     @success =  request.success
@@ -14,22 +14,22 @@ class Contacts
     @email = email
   end
 
-  def files(email = nil, method = :get)
+  def files(email_address = nil, method = :get)
     Files.new(Request.new(connection,
                           method,
                           "/2.0/accounts/#{account_id}/contacts/#{email}/files",
-                          Files,
+                          email_address ? nil : Files,
                           account_id),
               connection,
               account_id)
 
   end
 
-  def messages(email = nil, method = :get)
+  def messages(email_address = nil, method = :get)
     Messages.new(Request.new(connection,
                              method,
                              "/2.0/accounts/#{account_id}/contacts/#{email}/messages",
-                             Messages,
+                             email_address ? nil : Messages,
                              account_id),
                  connection,
                  account_id)
