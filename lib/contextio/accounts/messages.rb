@@ -13,12 +13,4 @@ class Messages
     @account_id = account_id
     @message_id = message_id
   end
-
-  def self.fetch(connection, account_id, url, email, method)
-    Messages.new(Request.new(connection,
-                             method,
-                             url),
-                             connection,
-                             account_id)
-  end
 end

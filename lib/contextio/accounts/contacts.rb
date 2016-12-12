@@ -15,21 +15,23 @@ class Contacts
   end
 
   def files(email = nil, method = :get)
-    url = "/2.0/accounts/#{account_id}/contacts/#{email}/files"
-    Files.fetch(connection,
-                account_id,
-                url,
-                email,
-                method)
+    Files.new(Request.new(connection,
+                          method,
+                          "/2.0/accounts/#{account_id}/contacts/#{email}/files",
+                          Files,
+                          account_id),
+              connection,
+              account_id)
 
   end
 
   def messages(email = nil, method = :get)
-    url = "/2.0/accounts/#{account_id}/contacts/#{email}/messages"
-    Messages.fetch(connection,
-                   account_id,
-                   url,
-                   email,
-                   method)
+    Messages.new(Request.new(connection,
+                             method,
+                             "/2.0/accounts/#{account_id}/contacts/#{email}/messages",
+                             Messages,
+                             account_id),
+                 connection,
+                 account_id)
   end
 end

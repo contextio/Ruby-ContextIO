@@ -13,12 +13,4 @@ class Sources
     @account_id = account_id
     @label = label
   end
-
-  def self.fetch(connection, account_id, id, method)
-    Sources.new(Request.new(connection,
-                            method,
-                            "/2.0/accounts/#{account_id}/sources/#{id}"),
-                            connection,
-                            account_id)
-  end
 end
