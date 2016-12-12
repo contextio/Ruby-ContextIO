@@ -17,7 +17,7 @@ class Contacts
   def files(email_address: nil, method: :get)
     Files.new(Request.new(connection,
                           method,
-                          "/2.0/accounts/#{account_id}/contacts/#{email_address}/files"),
+                          "/2.0/accounts/#{account_id}/contacts/#{email || email_address}/files"),
               connection,
               account_id)
 
@@ -26,8 +26,14 @@ class Contacts
   def messages(email_address: nil, method: :get)
     Messages.new(Request.new(connection,
                              method,
-                             "/2.0/accounts/#{account_id}/contacts/#{email_address}/messages"),
+                             "/2.0/accounts/#{account_id}/contacts/#{email || email_address}/messages"),
                  connection,
                  account_id)
+  end
+
+  def threads(email_address: nil, method: :get)
+    Request.new(connection,
+                method,
+                "2.0/accounts/#{account_id}/contacts/#{email || email_address}/threads")
   end
 end
