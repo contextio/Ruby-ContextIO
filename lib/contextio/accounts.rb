@@ -18,11 +18,11 @@ class Accounts
     @account_id = account_id
   end
 
-  def connect_tokens(id = nil, method = :get)
-    if id
-      craft_response(id, method, ConnectTokens, "connect_tokens", connection)
+  def connect_tokens(token_id = nil, method = :get)
+    if token_id
+      craft_response(token_id, method, ConnectTokens, "connect_tokens", connection)
     else
-      craft_response(id, method, ConnectTokens, "connect_tokens")
+      craft_response(nil, method, ConnectTokens, "connect_tokens")
     end
   end
 
@@ -30,7 +30,7 @@ class Accounts
     if email
       craft_response(email, method, Contacts, "contacts", connection)
     else
-      craft_response(email, method, Contacts, "contacts")
+      craft_response(nil, method, Contacts, "contacts")
     end
   end
 
@@ -38,7 +38,7 @@ class Accounts
     if email
       craft_response(email, method, EmailAddresses, "email_addresses", connection)
     else
-      craft_response(email, method, EmailAddresses, "email_addresses")
+      craft_response(nil, method, EmailAddresses, "email_addresses")
     end
   end
 
@@ -58,8 +58,8 @@ class Accounts
     craft_response(id, method, Sources, "sources")
   end
 
-  def sync(id = nil, method = :get)
-    craft_response(id, method, Sync, "sync")
+  def sync(method = :get)
+    Sync.fetch(Request.new(connection, method, "/2.0/accounts/#{account_id}/sync"))
   end
 
   def threads(id = nil, method = :get)
@@ -75,16 +75,20 @@ class Accounts
     if account_id == nil
       #TODO: Throw an error
       FailedRequest.new(ERROR_STRING)
-    elsif conn
-      klass.fetch(conn,
+    elsif identifier
+      klass.fetch(Request.new(connection,
+                              method,
+                              "/2.0/accounts/#{account_id}/#{klass.to_s.downcase}/#{identifier}",
+                              account_id),
+                  connection,
                   account_id,
-                  "/2.0/accounts/#{account_id}/#{klass.to_s.downcase}/#{identifier}",
-                  identifier,
-                  method)
+                  identifier)
     else
-      klass.new(Request.new(connection, method, "/2.0/accounts/#{account_id}/#{resource}",
-                klass,
-                account_id),
+      klass.new(Request.new(connection,
+                            method,
+                            "/2.0/accounts/#{account_id}/#{resource}",
+                            klass,
+                            account_id),
                 connection,
                 account_id)
     end

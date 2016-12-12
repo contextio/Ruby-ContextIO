@@ -12,12 +12,4 @@ class Sync
     @connection = connection
     @account_id = account_id
   end
-
-  def self.fetch(connection, account_id, id, method)
-    Sync.new(Request.new(connection,
-                         method,
-                         "/2.0/accounts/#{account_id}/sync/#{id}"),
-                         connection,
-                         account_id)
-  end
 end
