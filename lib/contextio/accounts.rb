@@ -18,7 +18,7 @@ class Accounts
     @account_id = account_id
   end
 
-  def connect_tokens(token_id = nil, method = :get)
+  def connect_tokens(token_id: nil, method: :get)
     if token_id
       craft_response(token_id, method, ConnectTokens, "connect_tokens", connection)
     else
@@ -26,7 +26,7 @@ class Accounts
     end
   end
 
-  def contacts(email = nil, method = :get)
+  def contacts(email: nil, method: :get)
     if email
       craft_response(email, method, Contacts, "contacts", connection)
     else
@@ -34,7 +34,7 @@ class Accounts
     end
   end
 
-  def email_addresses(email = nil, method = :get)
+  def email_addresses(email: nil, method: :get)
     if email
       craft_response(email, method, EmailAddresses, "email_addresses", connection)
     else
@@ -42,7 +42,7 @@ class Accounts
     end
   end
 
-  def files(id = nil, method = :get)
+  def files(id: nil, method: :get)
     if id
       craft_response(id, method, Files, "files", connection)
     else
@@ -50,37 +50,35 @@ class Accounts
     end
   end
 
-  def messages(id = nil, method = :get)
+  def messages(id: nil, method: :get)
     craft_response(id, method, Messages, "messages")
   end
 
-  def sources(id = nil, method = :get)
+  def sources(id: nil, method: :get)
     craft_response(id, method, Sources, "sources")
   end
 
-  def sync(method = :get)
+  def sync(method: :get)
     Sync.new(Request.new(connection, method, "/2.0/accounts/#{account_id}/sync"))
   end
 
-  def threads(id = nil, method = :get)
+  def threads(id: nil, method: :get)
     craft_response(id, method, Threads, "threads")
   end
 
-  def webhooks(id = nil, method = :get)
+  def webhooks(id: nil, method: :get)
     craft_response(id, method, Webhooks, "webhooks")
   end
 
   #TODO: Remove resource, add a hash e.g. { Webhooks: Webhooks }
-  def craft_response(identifier, method, klass, resource, conn = nil)
+  def craft_response(identifier, method, klass, resource)
     if account_id == nil
       #TODO: Throw an error
       FailedRequest.new(ERROR_STRING)
     elsif identifier
       klass.new(Request.new(connection,
                             method,
-                            "/2.0/accounts/#{account_id}/#{klass.to_s.downcase}/#{identifier}",
-                            nil,
-                            account_id),
+                            "/2.0/accounts/#{account_id}/#{klass.to_s.downcase}/#{identifier}"),
                   connection,
                   account_id,
                   identifier)
@@ -95,7 +93,7 @@ class Accounts
     end
   end
 
-  def self.fetch(connection, id = nil, method = :get)
+  def self.fetch(connection, id: nil, method: :get)
     if id
       Accounts.new(Request.new(connection, method, "/2.0/accounts/#{id}"),
                    connection,

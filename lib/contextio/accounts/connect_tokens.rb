@@ -14,13 +14,11 @@ class ConnectTokens
     @token_id = token_id
   end
 
-  def self.fetch(connection, account_id, id, method = :get)
-    if id
+  def self.fetch(connection, id: nil, method: :get)
       ConnectTokens.new(Request.new(connection,
                                     method,
-                                    "/2.0/accounts/#{account_id}/connect_tokens/#{id}"),
+                                    "/2.0/connect_tokens/#{id}"),
                                     connection,
                                     account_id)
-    end
   end
 end

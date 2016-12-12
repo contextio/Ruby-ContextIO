@@ -17,9 +17,7 @@ class Contacts
   def files(email_address = nil, method = :get)
     Files.new(Request.new(connection,
                           method,
-                          "/2.0/accounts/#{account_id}/contacts/#{email}/files",
-                          email_address ? nil : Files,
-                          account_id),
+                          "/2.0/accounts/#{account_id}/contacts/#{email}/files"),
               connection,
               account_id)
 
@@ -28,9 +26,7 @@ class Contacts
   def messages(email_address = nil, method = :get)
     Messages.new(Request.new(connection,
                              method,
-                             "/2.0/accounts/#{account_id}/contacts/#{email}/messages",
-                             email_address ? nil : Messages,
-                             account_id),
+                             "/2.0/accounts/#{account_id}/contacts/#{email}/messages"),
                  connection,
                  account_id)
   end
