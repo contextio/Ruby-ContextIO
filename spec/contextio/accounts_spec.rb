@@ -18,7 +18,7 @@ describe Accounts do
   end
 
   describe "An Accounts object holding just one account." do
-    subject { Accounts.fetch(CONNECTION_BASE, "some_id") }
+    subject { Accounts.fetch(CONNECTION_BASE, id: "some_id") }
 
     it "Returns a 200 status." do
       expect(subject.status).to eq(200)

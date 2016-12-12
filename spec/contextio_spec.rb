@@ -21,7 +21,7 @@ describe ContextIO do
     end
 
     it "can return an Accounts object" do
-      expect(subject.accounts("some_id").class.to_s).to eq("Accounts")
+      expect(subject.accounts(id: "some_id").class.to_s).to eq("Accounts")
     end
   end
 end

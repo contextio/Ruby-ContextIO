@@ -5,9 +5,7 @@ require_relative "../utilities/testing_constants.rb"
 
 describe ConnectTokens do
   describe "A ConnectTokens object can be fetched" do
-    subject { ConnectTokens.fetch(CONNECTION_BASE,
-                                  "some_id",
-                                  "some_token_id") }
+    subject { ConnectTokens.fetch(CONNECTION_BASE) }
 
     it "Created a ConnectTokens object" do
       expect(subject.class.to_s).to eq("ConnectTokens")

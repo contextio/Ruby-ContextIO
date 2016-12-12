@@ -14,19 +14,19 @@ class Contacts
     @email = email
   end
 
-  def files(email_address = nil, method = :get)
+  def files(email_address: nil, method: :get)
     Files.new(Request.new(connection,
                           method,
-                          "/2.0/accounts/#{account_id}/contacts/#{email}/files"),
+                          "/2.0/accounts/#{account_id}/contacts/#{email_address}/files"),
               connection,
               account_id)
 
   end
 
-  def messages(email_address = nil, method = :get)
+  def messages(email_address: nil, method: :get)
     Messages.new(Request.new(connection,
                              method,
-                             "/2.0/accounts/#{account_id}/contacts/#{email}/messages"),
+                             "/2.0/accounts/#{account_id}/contacts/#{email_address}/messages"),
                  connection,
                  account_id)
   end

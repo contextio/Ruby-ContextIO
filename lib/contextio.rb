@@ -10,8 +10,8 @@ module ContextIO
       @connection = Connection.new(key, secret)
     end
 
-    def accounts(id = nil)
-      Accounts.fetch(connection, id)
+    def accounts(id: nil)
+      Accounts.fetch(connection, id: id)
     end
   end
 end

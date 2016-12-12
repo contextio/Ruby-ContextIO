@@ -11,7 +11,7 @@ describe Contacts do
     subject { MockResponse::MOCK_CONTACT }
 
     it "Can be used to find Files" do
-      expect(subject.files(MOCK_EMAIL).class.to_s).to eq("Files")
+      expect(subject.files(email_address: MOCK_EMAIL).class.to_s).to eq("Files")
     end
   end
 end

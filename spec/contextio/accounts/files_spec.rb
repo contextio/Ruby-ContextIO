@@ -9,7 +9,7 @@ FILES_CONTACTS_PATH = MockResponse::MOCK_FARADAY_SUCCESS_BODY
 
 describe Files do
   describe "A Files object fetched from a Contacts object" do
-    subject { MockResponse::MOCK_CONTACT.files("some_email@some_provider.com") }
+    subject { MockResponse::MOCK_CONTACT.files(email_address: MOCK_EMAIL) }
 
     it "Response does not come from the Accounts object path." do
       expect(subject.response).not_to eq(JSON.parse(FILES_ACCOUNTS_PATH))
@@ -25,8 +25,7 @@ describe Files do
   end
 
   describe "A Files object fetched from an Accounts object" do
-    subject { MockResponse::MOCK_ACCOUNT.files(MOCK_EMAIL,
-                                               :get) }
+    subject { MockResponse::MOCK_ACCOUNT.files(id: MOCK_EMAIL) }
     it "Response does not come from the Contacts object path." do
       expect(subject.response).not_to eq(JSON.parse(FILES_CONTACTS_PATH))
     end

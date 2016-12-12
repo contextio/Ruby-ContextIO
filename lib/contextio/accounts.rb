@@ -20,7 +20,7 @@ class Accounts
 
   def connect_tokens(token_id: nil, method: :get)
     if token_id
-      craft_response(token_id, method, ConnectTokens, "connect_tokens", connection)
+      craft_response(token_id, method, ConnectTokens, "connect_tokens")
     else
       craft_response(nil, method, ConnectTokens, "connect_tokens")
     end
@@ -28,7 +28,7 @@ class Accounts
 
   def contacts(email: nil, method: :get)
     if email
-      craft_response(email, method, Contacts, "contacts", connection)
+      craft_response(email, method, Contacts, "contacts")
     else
       craft_response(nil, method, Contacts, "contacts")
     end
@@ -36,7 +36,7 @@ class Accounts
 
   def email_addresses(email: nil, method: :get)
     if email
-      craft_response(email, method, EmailAddresses, "email_addresses", connection)
+      craft_response(email, method, EmailAddresses, "email_addresses")
     else
       craft_response(nil, method, EmailAddresses, "email_addresses")
     end
@@ -44,7 +44,7 @@ class Accounts
 
   def files(id: nil, method: :get)
     if id
-      craft_response(id, method, Files, "files", connection)
+      craft_response(id, method, Files, "files")
     else
       craft_response(id, method, Files, "files")
     end

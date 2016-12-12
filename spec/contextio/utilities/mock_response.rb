@@ -47,7 +47,7 @@ module MockResponse
 
   UNSUCCESSFUL_CALL = "404".freeze
 
-  MOCK_ACCOUNT = Accounts.fetch(CONNECTION_BASE, "some_id")
+  MOCK_ACCOUNT = Accounts.fetch(CONNECTION_BASE, id: "some_id")
 
   MOCK_CONTACT = Contacts.new(Struct::MockFaraday.new(JSON.parse(MOCK_FARADAY_SUCCESS_BODY),
                                                       SUCCESSFUL_CALL,

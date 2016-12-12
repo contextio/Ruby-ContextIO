@@ -10,7 +10,7 @@ MESSAGES_CONTACTS_PATH = MockResponse::MOCK_FARADAY_SUCCESS_BODY
 
 describe Messages do
   describe "A Messages object fetched from a Contacts object" do
-    subject { MockResponse::MOCK_CONTACT.messages(MOCK_EMAIL) }
+    subject { MockResponse::MOCK_CONTACT.messages(email_address: MOCK_EMAIL) }
 
     it "Response does not come from the Accounts object path." do
       expect(subject.response).not_to eq(JSON.parse(MESSAGES_ACCOUNTS_PATH))
