@@ -10,7 +10,7 @@ RESPONSE = MockResponse::ACCOUNTS
 #TODO: One assertion for object responses
 describe Accounts do
   describe "An Accounts object holding more than one account" do
-    subject { Accounts.new(MockResponse::MOCK_FARDAY_COLLECTION) }
+    subject { Accounts.new(MockResponse::MOCK_FARDAY_COLLECTION, nil) }
 
     it "Returns an onject with an error if a method is called on it" do
       expect(subject.connect_tokens.success?).to be false
@@ -18,7 +18,7 @@ describe Accounts do
   end
 
   describe "An Accounts object holding just one account." do
-    subject { Accounts.fetch(CONNECTION_BASE, "some_id") }
+    subject { Accounts.fetch(CONNECTION_BASE, id: "some_id") }
 
     it "Returns a 200 status." do
       expect(subject.status).to eq(200)

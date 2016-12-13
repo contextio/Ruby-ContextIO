@@ -20,8 +20,8 @@ describe ContextIO do
       expect(subject.connection.class.to_s).to eq("Connection")
     end
 
-    it "can return an Account" do
-      expect(subject.accounts.class.to_s).to eq("Accounts")
+    it "can return an Accounts object" do
+      expect(subject.accounts(id: "some_id").class.to_s).to eq("Accounts")
     end
   end
 end
