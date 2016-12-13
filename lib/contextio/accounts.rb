@@ -1,5 +1,5 @@
 ERROR_STRING = "This method can only be called on a single account".freeze
-require "contextio/request_helper"
+require "contextio/utilities/request_helper"
 
 class Accounts
   private
@@ -83,7 +83,7 @@ class Accounts
                   account_id,
                   identifier)
     else
-      klass.new(Request.new(connection,
+      klass.new(CollectionRequest.new(connection,
                             method,
                             "/2.0/accounts/#{account_id}/#{resource}",
                             klass,
@@ -99,7 +99,7 @@ class Accounts
                    connection,
                    id)
     else
-      Accounts.new(Request.new(connection, method, "/2.0/accounts", Accounts), connection)
+      Accounts.new(CollectionRequest.new(connection, method, "/2.0/accounts", Accounts), connection)
     end
   end
 end

@@ -1,4 +1,4 @@
-require "contextio/request"
+require "contextio/utilities/request"
 
 describe Request do
 end
