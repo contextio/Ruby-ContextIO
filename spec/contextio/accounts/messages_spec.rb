@@ -13,11 +13,11 @@ describe Messages do
     subject { MockResponse::MOCK_CONTACT.messages(email_address: MOCK_EMAIL) }
 
     it "Response does not come from the Accounts object path." do
-      expect(subject.response).not_to eq(JSON.parse(MESSAGES_ACCOUNTS_PATH))
+      expect(subject.response[0].response).not_to eq(JSON.parse(ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY)[0])
     end
 
     it "Response does come from the Contacts object path." do
-      expect(subject.response).to eq(JSON.parse(MESSAGES_CONTACTS_PATH))
+      expect(subject.response[0].response).to eq(JSON.parse(NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY)[0])
     end
 
     it "Was successful" do

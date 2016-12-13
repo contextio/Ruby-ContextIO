@@ -1,6 +1,6 @@
 class CollectionRequest
   attr_reader :response, :status, :success
-  def initialize(connection, method, url, klass, account_id)
+  def initialize(connection, method, url, klass, account_id = nil)
     request = connection.connect.send(method, url)
     @response = collection_return(request, connection, klass, account_id)
     @status = request.status
@@ -23,7 +23,7 @@ class CollectionRequest
     if query
       [query, responses]
     else
-      response
+      responses
     end
   end
 

@@ -11,6 +11,6 @@ class Messages
     @success =  request.success
     @connection = connection
     @account_id = account_id
-    @message_id = message_id
+    @message_id = message_id || response["message_id"]
   end
 end

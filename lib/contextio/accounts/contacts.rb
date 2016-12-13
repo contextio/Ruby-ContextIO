@@ -15,20 +15,26 @@ class Contacts
   end
 
   def files(email_address: nil, method: :get)
-    Files.new(Request.new(connection,
-                          method,
-                          "/2.0/accounts/#{account_id}/contacts/#{email || email_address}/files"),
+    Files.new(CollectionRequest.new(connection,
+                                    method,
+                                    "/2.0/accounts/#{account_id}/contacts/#{email || email_address}/files",
+                                    Files,
+                                    account_id),
               connection,
-              account_id)
+              account_id,
+              "Collection")
 
   end
 
   def messages(email_address: nil, method: :get)
-    Messages.new(Request.new(connection,
-                             method,
-                             "/2.0/accounts/#{account_id}/contacts/#{email || email_address}/messages"),
+    Messages.new(CollectionRequest.new(connection,
+                                       method,
+                                       "/2.0/accounts/#{account_id}/contacts/#{email || email_address}/messages",
+                                       Messages,
+                                       account_id),
                  connection,
-                 account_id)
+                 account_id,
+                 "Messages")
   end
 
   def threads(email_address: nil, method: :get)
