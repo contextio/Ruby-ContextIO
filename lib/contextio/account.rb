@@ -1,19 +1,21 @@
 ERROR_STRING = "This method can only be called on a single account".freeze
 require "contextio/utilities/request_helper"
 
-class Accounts
+class Account
   private
-  attr_reader :connection, :account_id
+  attr_reader :connection
 
   public
   include RequestHelper
-  attr_reader :response, :status, :success
-  def initialize(request,
-                 connection,
-                 account_id = nil)
-    @response = request.response
-    @status = request.status
-    @success =  request.success
+  attr_reader :response, :status, :success, :account_id
+  def initialize(connection,
+                 response,
+                 status,
+                 success,
+                 account_id)
+    @response = response
+    @status = status
+    @success =  success
     @connection = connection
     @account_id = account_id
   end
