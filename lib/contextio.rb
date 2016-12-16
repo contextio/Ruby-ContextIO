@@ -1,5 +1,5 @@
 Dir["./lib/contextio/*.rb"].each {|file| require file }
-Dir["./lib/contextio/accounts/*.rb"].each {|file| require file }
+Dir["./lib/contextio/account/*.rb"].each {|file| require file }
 Dir["./lib/contextio/utilities/*.rb"].each {|file| require file }
 
 require "json"
@@ -14,7 +14,7 @@ module ContextIO
 
     def get_accounts
       request = Request.new(connection, :get, "/2.0/accounts")
-      collection_return(request, connection, Account, "id")
+      collection_return(request, self, Account, "id")
     end
 
     def get_oauth_providers

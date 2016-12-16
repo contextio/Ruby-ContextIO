@@ -1,23 +1,37 @@
 ERROR_STRING = "This method can only be called on a single account".freeze
 require "contextio/utilities/request_helper"
 
+ATTRS = %I(username created suspended email_addresses first_name last_name
+        password_expired sources resource_url)
+
 class Account
   private
-  attr_reader :connection
+  attr_reader :context_io
 
   public
   include RequestHelper
-  attr_reader :response, :status, :success, :account_id
-  def initialize(connection,
-                 response,
-                 status,
-                 success,
-                 account_id)
-    @response = response
-    @status = status
-    @success =  success
-    @connection = connection
+  attr_reader :account_id, *ATTRS
+  def initialize(context_io,
+                 account_id,
+                 response = nil,
+                 status = nil,
+                 success = nil)
+    @context_io = context_io
     @account_id = account_id
+    @status = status
+    @success = success
+    if response
+      response.each { |k,v| instance_variable_set("@#{k}", v) }
+    end
+  end
+
+  def get
+    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}")
+    Account.new(context_io,
+                account_id,
+                request.response,
+                request.status,
+                request.success)
   end
 
   def connect_tokens(token_id: nil, method: :get)
@@ -92,16 +106,6 @@ class Account
                             account_id),
                 connection,
                 account_id)
-    end
-  end
-
-  def self.fetch(connection, id: nil, method: :get)
-    if id
-      Accounts.new(Request.new(connection, method, "/2.0/accounts/#{id}"),
-                   connection,
-                   id)
-    else
-      Accounts.new(CollectionRequest.new(connection, method, "/2.0/accounts", Accounts), connection)
     end
   end
 end

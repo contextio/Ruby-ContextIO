@@ -1,13 +1,11 @@
 module RequestHelper
-  def collection_return(request, connection, klass, identifier)
-    responses = JSON.parse(request.response)
-
-    responses.map do |resp|
-      klass.new(connection,
+  def collection_return(request, context_io, klass, identifier)
+    request.response.map do |resp|
+      klass.new(context_io,
+                resp[identifier],
                 resp,
                 request.status,
-                request.success,
-                resp[identifier])
+                request.success)
     end
   end
 
