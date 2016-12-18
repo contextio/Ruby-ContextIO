@@ -1,11 +1,11 @@
 class OauthProvider
-  ATTRS = %I(type provider_consumer_key provider_consumer_secret resource_url)
+  OAUTH_ATTRS = %I(type provider_consumer_key provider_consumer_secret resource_url)
   private
   attr_reader :connection
 
   public
   include RequestHelper
-  attr_reader :status, :success, :token, *ATTRS
+  attr_reader :status, :success, :token, *OAUTH_ATTRS
   def initialize(context_io,
                 key,
                 response = nil,
