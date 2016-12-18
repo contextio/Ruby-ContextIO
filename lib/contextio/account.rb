@@ -10,7 +10,7 @@ class Account
 
   public
   include RequestHelper
-  attr_reader :account_id, *ATTRS
+  attr_reader :account_id, :success, :status, *ATTRS
   def initialize(context_io,
                  account_id,
                  response = nil,
