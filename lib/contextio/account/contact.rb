@@ -1,32 +1,37 @@
 class Contact
+  CONTACT_ATTR =  %I(emails name thumbnail last_received last_sent count sent_count
+                     received_count sent_from_account_count)
+
   private
   attr_reader :context_io, :account_id, :email
 
   public
   include RequestHelper
   attr_reader :response, :status, :success
-  def initialize(context_io,
-                 email,
-                 account_id,
-                 response = nil,
-                 status = nil,
-                 success = nil)
-    @response = response
-    @status = status
-    @success =  success
+  def initialize(context_io:,
+                 account_id:,
+                 identifier:,
+                 response: nil,
+                 status: nil,
+                 success: nil)
     @context_io = context_io
     @account_id = account_id
-    @email = email
+    @email = identifier
+    @status = status
+    @success =  success
+    if response
+      response.each { |k,v| instance_variable_set("@#{k}", v) }
+    end
   end
 
   def get
     request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}")
-    Contact.new(context_io,
-                email,
-                account_id,
-                request.response,
-                request.status,
-                request.success)
+    Contact.new(context_io: context_io,
+                account_id: account_id,
+                identifier: email,
+                response: request.response,
+                status: request.status,
+                success: request.success)
   end
 
   def files(email_address: nil, method: :get)
