@@ -44,6 +44,11 @@ class Account
     contact_collection_return(request, context_io, account_id)
   end
 
+  def get_email_addresses
+    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/email_addresses")
+    collection_return(request, context_io, EmailAddress, "email", account_id)
+  end
+
   def contacts(email: nil, method: :get)
     if email
       craft_response(email, method, Contacts, "contacts")

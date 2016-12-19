@@ -3,11 +3,11 @@ class Contact
                      received_count sent_from_account_count)
 
   private
-  attr_reader :context_io, :account_id, :email
+  attr_reader :context_io
 
   public
   include RequestHelper
-  attr_reader :response, :status, :success
+  attr_reader :response, :status, :success, :account_id, :email
   def initialize(context_io:,
                  account_id:,
                  identifier:,
