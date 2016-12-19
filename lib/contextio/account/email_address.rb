@@ -1,10 +1,12 @@
 class EmailAddress
+  EMAIL_ATTRS = %I(email validated primary)
+
   private
   attr_reader :context_io
 
   public
   include RequestHelper
-  attr_reader :response, :status, :success, :account_id, :email
+  attr_reader :response, :status, :success, :account_id, :email, *EMAIL_ATTRS
   def initialize(context_io:,
                  account_id:,
                  identifier:,
@@ -14,9 +16,11 @@ class EmailAddress
     @context_io = context_io
     @account_id = account_id
     @email = identifier
-    @response = response
     @status = status
     @success =  success
+    if response
+      response.each { |k,v| instance_variable_set("@#{k}", v) }
+    end
   end
 
   def get

@@ -1,5 +1,5 @@
 class Contact
-  CONTACT_ATTR =  %I(emails name thumbnail last_received last_sent count sent_count
+  CONTACT_ATTRS =  %I(emails name thumbnail last_received last_sent count sent_count
                      received_count sent_from_account_count)
 
   private
@@ -7,7 +7,7 @@ class Contact
 
   public
   include RequestHelper
-  attr_reader :response, :status, :success, :account_id, :email
+  attr_reader :response, :status, :success, :account_id, :email, *CONTACT_ATTRS
   def initialize(context_io:,
                  account_id:,
                  identifier:,
@@ -32,6 +32,11 @@ class Contact
                 response: request.response,
                 status: request.status,
                 success: request.success)
+  end
+
+  def get_files
+    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}/files")
+    collection_return(request, context_io, Files, "file_id", account_id)
   end
 
   def files(email_address: nil, method: :get)
