@@ -39,6 +39,11 @@ class Account
     collection_return(request, self, ConnectToken, "token")
   end
 
+  def get_contacts
+    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/contacts")
+    contact_collection_return(request, self)
+  end
+
   def contacts(email: nil, method: :get)
     if email
       craft_response(email, method, Contacts, "contacts")

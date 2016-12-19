@@ -1,17 +1,32 @@
-class Contacts
+class Contact
   private
-  attr_reader :connection, :account_id, :email
+  attr_reader :context_io, :account_id, :email
 
   public
   include RequestHelper
   attr_reader :response, :status, :success
-  def initialize(request, connection, account_id, email = nil)
-    @response = request.response
-    @status = request.status
-    @success =  request.success
-    @connection = connection
+  def initialize(context_io,
+                 email,
+                 account_id,
+                 response = nil,
+                 status = nil,
+                 success = nil)
+    @response = response
+    @status = status
+    @success =  success
+    @context_io = context_io
     @account_id = account_id
     @email = email
+  end
+
+  def get
+    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}")
+    Contact.new(context_io,
+                email,
+                account_id,
+                request.response,
+                request.status,
+                request.success)
   end
 
   def files(email_address: nil, method: :get)
