@@ -48,6 +48,11 @@ class Contact
                success: request.success)
   end
 
+  def get_messages
+    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}/messages")
+    collection_return(request, context_io, Message, "message_id", account_id)
+  end
+
   def messages(email_address: nil, method: :get)
     Messages.new(CollectionRequest.new(connection,
                                        method,
