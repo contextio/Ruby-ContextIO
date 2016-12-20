@@ -9,7 +9,7 @@ class EmailAddress
   attr_reader :response, :status, :success, :account_id, :email, *EMAIL_ATTRS
   def initialize(context_io:,
                  account_id:,
-                 identifier:,
+                 identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)
@@ -31,13 +31,5 @@ class EmailAddress
                      response: request.response,
                      status: request.status,
                      success: request.success)
-  end
-
-  def self.fetch(connection, account_id, id, method)
-    EmailAddresses.new(Request.new(connection,
-                                   method,
-                                   "/2.0/accounts/#{account_id}/email_addresses/#{id}"),
-                                   connection,
-                                   account_id)
   end
 end

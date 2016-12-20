@@ -12,10 +12,9 @@ module ContextIO
       @connection = Connection.new(key, secret)
     end
 
-    def collection_return(request, context_io, klass, identifier)
+    def collection_return(request, context_io, klass)
       request.response.map do |resp|
         klass.new(context_io: context_io,
-                  identifier: resp[identifier],
                   response: resp,
                   status: request.status,
                   success: request.success)
@@ -24,12 +23,12 @@ module ContextIO
 
     def get_accounts
       request = Request.new(connection, :get, "/2.0/accounts")
-      collection_return(request, self, Account, "id")
+      collection_return(request, self, Account)
     end
 
     def get_oauth_providers
       request = Request.new(connection, :get, "/2.0/oauth_providers")
-      collection_return(request, connection, OauthProvider, "token")
+      collection_return(request, connection, OauthProvider)
     end
   end
 end

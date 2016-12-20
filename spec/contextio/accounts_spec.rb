@@ -1,24 +1,24 @@
 require "contextio/connection"
-require "contextio/accounts"
-require "contextio/accounts/connect_tokens"
-require "contextio/accounts/contacts"
+require "contextio/account"
+require "contextio/account/connect_token"
+require "contextio/account/contact"
 
 require_relative "./utilities/mock_response.rb"
 require_relative "./utilities/testing_constants.rb"
 
 RESPONSE = MockResponse::ACCOUNTS
 #TODO: One assertion for object responses
-describe Accounts do
+describe Account do
   describe "An Accounts object holding more than one account" do
-    subject { Accounts.new(MockResponse::MOCK_FARDAY_COLLECTION, nil) }
+    subject { CIO_OBJECT.get_accounts }
 
     it "Returns an onject with an error if a method is called on it" do
-      expect(subject.connect_tokens.success?).to be false
+      expect(subject.connect_token.success?).to be false
     end
   end
 
   describe "An Accounts object holding just one account." do
-    subject { Accounts.fetch(CONNECTION_BASE, id: "some_id") }
+    subject { Account.new(context_io: CIO_OBJECT, identifier: "some_id").get }
 
     it "Returns a 200 status." do
       expect(subject.status).to eq(200)
@@ -29,39 +29,11 @@ describe Accounts do
     end
 
     it "Can be used to find ConnectTokens." do
-      expect(subject.connect_tokens.class.to_s).to eq("ConnectTokens")
+      expect(subject.get_connect_tokens[0].class.to_s).to eq("ConnectToken")
     end
 
     it "Can be used to find Contacts." do
-      expect(subject.contacts.class.to_s).to eq("Contacts")
-    end
-
-    it "Can be used to find EmailAddresses." do
-      expect(subject.email_addresses.class.to_s).to eq("EmailAddresses")
-    end
-
-    it "Can be used to find Files." do
-      expect(subject.files.class.to_s).to eq("Files")
-    end
-
-    it "Can be used to find Messages." do
-      expect(subject.messages.class.to_s).to eq("Messages")
-    end
-
-    it "Can be used to find Sources." do
-      expect(subject.sources.class.to_s).to eq("Sources")
-    end
-
-    it "Can be used to find Sync." do
-      expect(subject.sync.class.to_s).to eq("Sync")
-    end
-
-    it "Can be used to find Threads." do
-      expect(subject.threads.class.to_s).to eq("Threads")
-    end
-
-    it "Can be used to find WebHooks." do
-      expect(subject.webhooks.class.to_s).to eq("Webhooks")
+      expect(subject.get_contacts[0].class.to_s).to eq("Contact")
     end
   end
 end

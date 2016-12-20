@@ -12,7 +12,7 @@ class Files
   attr_reader :response, :status, :success, :account_id, :file_id, *FILE_ATTRS
   def initialize(context_io:,
                  account_id:,
-                 identifier:,
+                 identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)

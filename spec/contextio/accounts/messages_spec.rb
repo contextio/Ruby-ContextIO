@@ -1,5 +1,5 @@
 require "contextio/connection"
-require "contextio/accounts"
+require "contextio/account"
 
 require_relative "../utilities/testing_constants.rb"
 require_relative "../utilities/mock_response.rb"
@@ -8,9 +8,9 @@ require_relative "../utilities/mock_response.rb"
 MESSAGES_ACCOUNTS_PATH = MockResponse::FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY
 MESSAGES_CONTACTS_PATH = MockResponse::MOCK_FARADAY_SUCCESS_BODY
 
-describe Messages do
+describe Message do
   describe "A Messages object fetched from a Contacts object" do
-    subject { MockResponse::MOCK_CONTACT.messages(email_address: MOCK_EMAIL) }
+    subject { MockResponse::MOCK_CONTACT.get_messages }
 
     it "Response does not come from the Accounts object path." do
       expect(subject.response[0].response).not_to eq(JSON.parse(ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY)[0])

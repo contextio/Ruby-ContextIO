@@ -29,7 +29,7 @@ module MockResponse
   \"thumbnail\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/93915285723ad8335bcebfa1a4df0ec5?s=50&d=https%3A%2F%2Fs3.amazonaws.com%2Fcontextio-icons%2Fcontact.png\",
   \"name\":\"Yahoo Mail\",\"resource_url\":\"https:\\/\\/api.context.io\\/2.0\\/accounts\\/582f618c4968c3e22e8b4567\\/contacts\\/yahoo%40communications.yahoo.com\",
   \"last_sent\":null,\"last_received\":1480690829}]}".freeze
-  
+
 
   NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY = "{\"query\":{\"limit\":25,\"offset\":null,
   \"active_after\":null,\"active_before\":null,\"search\":null},\"matches\":[{\"email\":\"an_email_address\",
@@ -68,14 +68,11 @@ module MockResponse
 
   UNSUCCESSFUL_CALL = "404".freeze
 
-  MOCK_ACCOUNT = Accounts.fetch(CONNECTION_BASE, id: "some_id")
+  MOCK_ACCOUNT = Account.new(context_io: CIO_OBJECT, identifier: "some_id")
 
-  MOCK_CONTACT = Contacts.new(Struct::MockFaraday.new(JSON.parse(MOCK_FARADAY_SUCCESS_BODY),
-                                                      SUCCESSFUL_CALL,
-                                                      true),
-                              CONNECTION_BASE,
-                              "some_id",
-                              MOCK_EMAIL)
+  MOCK_CONTACT = Contact.new(context_io: CIO_OBJECT,
+                             account_id: "some_id",
+                             identifier: "some_email@some_provider.com").get
 
   ACCOUNTS = [{"created"=>0,
       "username"=>"some_accoount.gmail.com_some_numbers",

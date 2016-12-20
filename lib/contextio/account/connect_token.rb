@@ -8,7 +8,7 @@ class ConnectToken
   attr_reader :token, :account_id, :success, :status, *CONNECT_ATTRS
   def initialize(context_io:,
                  account_id:,
-                 identifier:,
+                 identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)
@@ -31,12 +31,5 @@ class ConnectToken
                      response: request.response,
                      status: request.status,
                      success: request.success)
-  end
-
-  def self.fetch(connection, id: nil, method: :get)
-      ConnectTokens.new(Request.new(context_io.connection,
-                                    method,
-                                    "/2.0/connect_tokens/#{id}"),
-                                    connection)
   end
 end

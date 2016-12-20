@@ -1,9 +1,8 @@
 module RequestHelper
-  def collection_return(request, context_io, klass, identifier, account_id)
+  def collection_return(request, context_io, klass, account_id)
     request.response.map do |resp|
       klass.new(context_io: context_io,
                 account_id: account_id,
-                identifier: resp[identifier],
                 response: resp,
                 status: request.status,
                 success: request.success)

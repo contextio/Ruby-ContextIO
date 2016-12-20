@@ -12,7 +12,7 @@ class Account
   include RequestHelper
   attr_reader :account_id, :success, :status, *ACCOUNT_ATTRS
   def initialize(context_io:,
-                 identifier:,
+                 identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)
@@ -36,7 +36,7 @@ class Account
 
   def get_connect_tokens
     request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/connect_tokens")
-    collection_return(request, context_io, ConnectToken, "token", account_id)
+    collection_return(request, context_io, ConnectToken, account_id)
   end
 
   def get_contacts
@@ -46,51 +46,7 @@ class Account
 
   def get_email_addresses
     request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/email_addresses")
-    collection_return(request, context_io, EmailAddress, "email", account_id)
-  end
-
-  def contacts(email: nil, method: :get)
-    if email
-      craft_response(email, method, Contacts, "contacts")
-    else
-      craft_response(nil, method, Contacts, "contacts")
-    end
-  end
-
-  def email_addresses(email: nil, method: :get)
-    if email
-      craft_response(email, method, EmailAddresses, "email_addresses")
-    else
-      craft_response(nil, method, EmailAddresses, "email_addresses")
-    end
-  end
-
-  def files(id: nil, method: :get)
-    if id
-      craft_response(id, method, Files, "files")
-    else
-      craft_response(id, method, Files, "files")
-    end
-  end
-
-  def messages(id: nil, method: :get)
-    craft_response(id, method, Messages, "messages")
-  end
-
-  def sources(id: nil, method: :get)
-    craft_response(id, method, Sources, "sources")
-  end
-
-  def sync(method: :get)
-    Sync.new(Request.new(connection, method, "/2.0/accounts/#{account_id}/sync"))
-  end
-
-  def threads(id: nil, method: :get)
-    craft_response(id, method, Threads, "threads")
-  end
-
-  def webhooks(id: nil, method: :get)
-    craft_response(id, method, Webhooks, "webhooks")
+    collection_return(request, context_io, EmailAddress, account_id)
   end
 
   #TODO: Remove resource, add a hash e.g. { Webhooks: Webhooks }

@@ -10,7 +10,7 @@ class Contact
   attr_reader :response, :status, :success, :account_id, :email, *CONTACT_ATTRS
   def initialize(context_io:,
                  account_id:,
-                 identifier:,
+                 identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)
@@ -36,7 +36,7 @@ class Contact
 
   def get_files
     request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}/files")
-    collection_return(request, context_io, Files, "file_id", account_id)
+    collection_return(request, context_io, Files, account_id)
   end
 
   def get_threads
@@ -50,23 +50,6 @@ class Contact
 
   def get_messages
     request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}/messages")
-    collection_return(request, context_io, Message, "message_id", account_id)
-  end
-
-  def messages(email_address: nil, method: :get)
-    Messages.new(CollectionRequest.new(connection,
-                                       method,
-                                       "/2.0/accounts/#{account_id}/contacts/#{email || email_address}/messages",
-                                       Messages,
-                                       account_id),
-                 connection,
-                 account_id,
-                 "Messages")
-  end
-
-  def threads(email_address: nil, method: :get)
-    Request.new(connection,
-                method,
-                "2.0/accounts/#{account_id}/contacts/#{email || email_address}/threads")
+    collection_return(request, context_io, Message, account_id)
   end
 end

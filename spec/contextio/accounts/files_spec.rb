@@ -1,5 +1,5 @@
 require "contextio/connection"
-require "contextio/accounts"
+require "contextio/account"
 
 require_relative "../utilities/testing_constants.rb"
 require_relative "../utilities/mock_response.rb"
@@ -9,7 +9,7 @@ FILES_CONTACTS_PATH = MockResponse::NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY
 
 describe Files do
   describe "A Files object fetched from a Contacts object" do
-    subject { MockResponse::MOCK_CONTACT.files(email_address: MOCK_EMAIL) }
+    subject { MockResponse::MOCK_CONTACT.get_files }
 
     it "Response does not come from the Accounts object path." do
       expect(subject.response[1].response[1][0]).not_to eq(JSON.parse(FILES_ACCOUNTS_PATH)["matches"][0])
@@ -25,7 +25,7 @@ describe Files do
   end
 
   describe "A Files object fetched from an Accounts object" do
-    subject { MockResponse::MOCK_ACCOUNT.files(id: MOCK_EMAIL) }
+    subject { MockResponse::MOCK_ACCOUNT.get_files }
     it "Response does not come from the Contacts object path." do
       expect(subject.response).not_to eq(JSON.parse(FILES_CONTACTS_PATH))
     end

@@ -10,7 +10,7 @@ class Message
   attr_reader :status, :success, :account_id, :message_id, *MESSAGE_ATTRS
   def initialize(context_io:,
                  account_id:,
-                 identifier:,
+                 identifier: nil
                  response: nil,
                  status: nil,
                  success: nil)
