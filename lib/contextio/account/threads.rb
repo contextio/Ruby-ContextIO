@@ -1,16 +1,21 @@
 class Threads
   private
-  attr_reader :connection, :account_id, :thread_id
+  attr_reader :context_io
 
   public
   include RequestHelper
-  attr_reader :response, :status, :success
-  def initialize(request, connection, account_id, thread_id = nil)
-    @response = request.response
-    @status = request.status
-    @success =  request.success
-    @connection = connection
+  attr_reader :response, :status, :success, :account_id, :thread_id
+  def initialize(context_io:,
+                 account_id:,
+                 identifier: nil,
+                 response: nil,
+                 status: nil,
+                 success: nil)
+    @context_io = context_io
     @account_id = account_id
-    @thread_id = thread_id
+    @thread_id = identifier
+    @response = response
+    @status = status
+    @success =  success
   end
 end
