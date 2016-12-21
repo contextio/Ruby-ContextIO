@@ -3,12 +3,14 @@ require "contextio"
 
 require_relative "../utilities/testing_constants.rb"
 
-describe ConnectTokens do
-  describe "A ConnectTokens object can be fetched" do
-    subject { ConnectTokens.fetch(CONNECTION_BASE) }
+describe ConnectToken do
+  describe "A ConnectToken object can be fetched" do
+    subject { ConnectToken.new(context_io: CIO_OBJECT,
+                               account_id: "some_id",
+                               identifier: "some_token_id").get }
 
     it "Created a ConnectTokens object" do
-      expect(subject.class.to_s).to eq("ConnectTokens")
+      expect(subject.class.to_s).to eq("ConnectToken")
     end
 
     it "Was Successful." do

@@ -1,6 +1,6 @@
 class Request
   attr_reader :response, :status, :success
-  def initialize(connection, method, url, klass = nil, account_id = nil)
+  def initialize(connection, method, url)
     request = connection.connect.send(method, url)
     @response = JSON.parse(request.body)
     @status = request.status
