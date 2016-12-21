@@ -6,7 +6,7 @@ describe ContextIO do
   end
 
   describe "new ContextIO object" do
-    subject { ContextIO::ContextIO.new("key", "secret") }
+    subject { ContextIO::ContextIO.new(key: "key", secret: "secret") }
 
     it "needs arguments to for a ContextIO object" do
       expect{ ContextIO::ContextIO.new() }.to raise_error(ArgumentError)
@@ -21,7 +21,7 @@ describe ContextIO do
     end
 
     it "can return an Accounts object" do
-      expect(subject.accounts(id: "some_id").class.to_s).to eq("Accounts")
+      expect(subject.get_accounts[0].class.to_s).to eq("Account")
     end
   end
 end
