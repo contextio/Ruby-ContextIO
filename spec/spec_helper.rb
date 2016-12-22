@@ -30,7 +30,8 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   #is to ensure there is a different return for endpoints such as
   # accounts/:id/files and account/:id/contacts/:email/files
   NON_ACCOUNT_ENDPOINTS = [
-    "connect_tokens/"
+    "connect_tokens/",
+    "oauth_providers"
   ]
 
   NON_ACCOUNT_COLLECITION_ENDPOINTS = [
@@ -66,7 +67,7 @@ RSpec.configure do |config|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
         to_return(status: 200,
-                  body: MockResponse::MOCK_FARADAY_SUCCESS_BODY,
+                  body: MockResponse::ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
                   headers: {})
     end
     NON_ACCOUNT_COLLECITION_ENDPOINTS.each do |endpoint|
