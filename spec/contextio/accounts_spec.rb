@@ -6,8 +6,6 @@ require "contextio/account/contact"
 require_relative "./utilities/mock_response.rb"
 require_relative "./utilities/testing_constants.rb"
 
-RESPONSE = MockResponse::ACCOUNTS
-#TODO: One assertion for object responses
 describe Account do
   describe "An Account object holding just one account." do
     subject { Account.new(context_io: CIO_OBJECT, identifier: "some_id").get }
@@ -26,6 +24,10 @@ describe Account do
 
     it "Can be used to find Contacts." do
       expect(subject.get_contacts[1][0].class.to_s).to eq("Contact")
+    end
+
+    it "Can be used to find EmailAdresses" do
+      expect(subject.get_email_addresses[1].class.to_s).to eq("EmailAddress")
     end
   end
 end

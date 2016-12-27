@@ -48,27 +48,4 @@ class Account
     request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/email_addresses")
     collection_return(request, context_io, EmailAddress, account_id)
   end
-
-  #TODO: Remove resource, add a hash e.g. { Webhooks: Webhooks }
-  def craft_response(identifier, method, klass, resource)
-    if account_id == nil
-      #TODO: Throw an error
-      FailedRequest.new(ERROR_STRING)
-    elsif identifier
-      klass.new(Request.new(connection,
-                            method,
-                            "/2.0/accounts/#{account_id}/#{klass.to_s.downcase}/#{identifier}"),
-                  connection,
-                  account_id,
-                  identifier)
-    else
-      klass.new(CollectionRequest.new(connection,
-                            method,
-                            "/2.0/accounts/#{account_id}/#{resource}",
-                            klass,
-                            account_id),
-                connection,
-                account_id)
-    end
-  end
 end

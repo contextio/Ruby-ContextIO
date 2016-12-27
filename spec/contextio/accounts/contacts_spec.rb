@@ -7,7 +7,18 @@ require_relative "../utilities/mock_response.rb"
 
 describe Contact do
   describe "A Contacts object created from an Account" do
-    #This is "from an Account" because it has the sixth argument of an Account ID
     subject { MockResponse::MOCK_CONTACT }
+
+    it "can get files" do
+      expect(subject.get_files[0].class.to_s).to eq("Files")
+    end
+
+    it "can get threads" do
+      expect(subject.get_threads.class.to_s).to eq("Threads")
+    end
+
+    it "can get messages" do
+      expect(subject.get_messages[0].class.to_s).to eq("Message")
+    end
   end
 end
