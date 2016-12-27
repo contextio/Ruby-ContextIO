@@ -23,5 +23,16 @@ describe ContextIO do
     it "can return an Accounts object" do
       expect(subject.get_accounts[0].class.to_s).to eq("Account")
     end
+
+    it "can return an OauthProvider object" do
+      expect(subject.get_oauth_providers[0].class.to_s).to eq("OauthProvider")
+    end
+
+    it "can return a collection of objects" do
+      request = MockResponse::MOCK_FARDAY_COLLECTION
+      responses = subject.collection_return(request, self, Account)
+      expect(responses.count).to eq(2)
+      expect(responses.first.class.to_s).to eq("Account")
+    end
   end
 end
