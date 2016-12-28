@@ -7,7 +7,7 @@ class ConnectToken
   include RequestHelper
   attr_reader :token, :account_id, :success, :status, *CONNECT_ATTRS
   def initialize(context_io:,
-                 account_id:,
+                 account_id: nil,
                  identifier: nil,
                  response: nil,
                  status: nil,

@@ -23,15 +23,15 @@ describe Files do
       expect(subject.success?).to be true
     end
   end
-  #
+
   # describe "A Files object fetched from an Accounts object" do
-  #   subject { MockResponse::MOCK_ACCOUNT.get_files }
+  #   subject { Files.new(account_id: "some_id", identifier: "some_file", context_io: CIO_OBJECT).get }
   #   it "Response does not come from the Contacts object path." do
-  #     expect(subject.addresses).not_to eq(JSON.parse(FILES_CONTACTS_PATH)[0]["addresses"])
+  #     expect(subject.email_addresses).not_to eq(JSON.parse(FILES_CONTACTS_PATH)[0]["addresses"])
   #   end
   #
   #   it "Response does not come from the Contacts object path." do
-  #     expect(subject.addresses).to eq(JSON.parse(FILES_ACCOUNTS_PATH)[0]["addresses"])
+  #     expect(subject.email_addresses).to eq(JSON.parse(FILES_ACCOUNTS_PATH)[0]["addresses"])
   #  end
   # end
 end
