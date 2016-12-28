@@ -7,9 +7,11 @@ require "json"
 module ContextIO
   class ContextIO
     include RequestHelper
-    attr_reader :connection
-    def initialize(key:, secret:)
+    attr_reader :connection, :call_url, :version
+    def initialize(key:, secret:, version:)
       @connection = Connection.new(key, secret)
+      @call_url = "/#{version}"
+      @version = version
     end
 
     def collection_return(request, context_io, klass)

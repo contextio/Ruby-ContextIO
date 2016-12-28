@@ -80,9 +80,9 @@ module MockResponse
 
   UNSUCCESSFUL_CALL = "404".freeze
 
-  MOCK_ACCOUNT = Account.new(context_io: CIO_OBJECT, identifier: "some_id")
+  MOCK_ACCOUNT = Account.new(context_io: CIO_2_POINT_0_OBJECT, identifier: "some_id")
 
-  MOCK_CONTACT = Contact.new(context_io: CIO_OBJECT,
+  MOCK_CONTACT = Contact.new(context_io: CIO_2_POINT_0_OBJECT,
                              account_id: "some_id",
                              identifier: "some_email@some_provider.com").get
 
