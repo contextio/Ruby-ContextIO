@@ -3,18 +3,18 @@ class Contact
                      received_count sent_from_account_count)
 
   private
-  attr_reader :context_io
+  attr_reader :parent
 
   public
   include RequestHelper
   attr_reader :response, :status, :success, :account_id, :email, *CONTACT_ATTRS
-  def initialize(context_io:,
+  def initialize(parent:,
                  account_id:,
                  identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)
-    @context_io = context_io
+    @parent = parent
     @account_id = account_id
     @email = identifier
     @status = status
@@ -25,8 +25,8 @@ class Contact
   end
 
   def get
-    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}")
-    Contact.new(context_io: context_io,
+    request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}")
+    Contact.new(parent: parent,
                 account_id: account_id,
                 identifier: email,
                 response: request.response,
@@ -35,13 +35,13 @@ class Contact
   end
 
   def get_files
-    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}/files")
-    collection_return(request, context_io, Files, account_id)
+    request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}/files")
+    collection_return(request, parent, Files, account_id)
   end
 
   def get_threads
-    request = Request.new(context_io.connection, :get, "2.0/accounts/#{account_id}/contacts/#{email}/threads")
-    Threads.new(context_io: context_io,
+    request = Request.new(parent.connection, :get, "2.0/accounts/#{account_id}/contacts/#{email}/threads")
+    Threads.new(parent: parent,
                account_id: account_id,
                response: request.response,
                status: request.status,
@@ -49,7 +49,7 @@ class Contact
   end
 
   def get_messages
-    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}/messages")
-    collection_return(request, context_io, Message, account_id)
+    request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}/messages")
+    collection_return(request, parent, Message, account_id)
   end
 end

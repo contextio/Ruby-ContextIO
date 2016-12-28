@@ -8,7 +8,7 @@ require_relative "./utilities/testing_constants.rb"
 
 describe Account do
   describe "An Account object holding just one account." do
-    subject { Account.new(context_io: CIO_2_POINT_0_OBJECT, identifier: "some_id").get }
+    subject { Account.new(parent: CIO_2_POINT_0_OBJECT, identifier: "some_id").get }
 
     it "Returns a 200 status." do
       expect(subject.status).to eq(200)

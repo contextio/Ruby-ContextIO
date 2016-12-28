@@ -1,17 +1,17 @@
 class OauthProvider
   OAUTH_ATTRS = %I(type provider_consumer_key provider_consumer_secret resource_url)
   private
-  attr_reader :contextio
+  attr_reader :parent
 
   public
   include RequestHelper
   attr_reader :status, :success, :token, *OAUTH_ATTRS
-  def initialize(context_io:,
+  def initialize(parent:,
                 token: nil,
                 response: nil,
                 status: nil,
                 success: nil)
-    @context_io = context_io
+    @parent = parent
     @response = response
     @status = status
     @success = success
@@ -22,8 +22,8 @@ class OauthProvider
   end
 
   def get
-    request = Request.new(context_io.connection, :get, "/2.0/oauth_providers/#{key}")
-    OauthProvider.new(context_io,
+    request = Request.new(parent.connection, :get, "/2.0/oauth_providers/#{key}")
+    OauthProvider.new(parent,
                       key,
                       request.response,
                       request.status,

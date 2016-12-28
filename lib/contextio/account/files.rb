@@ -6,18 +6,18 @@ class Files
                  created first_name id last_name resource_url sources)
 
   private
-  attr_reader :context_io
+  attr_reader :parent
 
   public
   include RequestHelper
   attr_reader :response, :status, :success, :account_id, :file_id, *FILE_ATTRS
-  def initialize(context_io:,
+  def initialize(parent:,
                  account_id:,
                  identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)
-    @context_io = context_io
+    @parent = parent
     @account_id = account_id
     @file_id = identifier
     @status = status
@@ -28,8 +28,8 @@ class Files
   end
 
   def get
-    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/files/#{file_id}")
-    Files.new(context_io: context_io,
+    request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/files/#{file_id}")
+    Files.new(parent: parent,
               account_id: account_id,
               identifier: account_id,
               response: request.response,

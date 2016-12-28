@@ -25,7 +25,7 @@ describe Files do
   end
 
   # describe "A Files object fetched from an Accounts object" do
-  #   subject { Files.new(account_id: "some_id", identifier: "some_file", context_io: CIO_2_POINT_0_OBJECT).get }
+  #   subject { Files.new(account_id: "some_id", identifier: "some_file", parent: CIO_2_POINT_0_OBJECT).get }
   #   it "Response does not come from the Contacts object path." do
   #     expect(subject.email_addresses).not_to eq(JSON.parse(FILES_CONTACTS_PATH)[0]["addresses"])
   #   end

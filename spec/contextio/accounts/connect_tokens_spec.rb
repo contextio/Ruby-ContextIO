@@ -5,7 +5,7 @@ require_relative "../utilities/testing_constants.rb"
 
 describe ConnectToken do
   describe "A ConnectToken object can be fetched" do
-    subject { ConnectToken.new(context_io: CIO_2_POINT_0_OBJECT,
+    subject { ConnectToken.new(parent: CIO_2_POINT_0_OBJECT,
                                account_id: "some_id",
                                identifier: "some_token_id").get }
 

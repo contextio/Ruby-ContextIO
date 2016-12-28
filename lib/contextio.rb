@@ -14,9 +14,9 @@ module ContextIO
       @version = version
     end
 
-    def collection_return(request, context_io, klass)
+    def collection_return(request, klass)
       request.response.map do |resp|
-        klass.new(context_io: context_io,
+        klass.new(parent: self,
                   response: resp,
                   status: request.status,
                   success: request.success)
@@ -25,12 +25,12 @@ module ContextIO
 
     def get_accounts
       request = Request.new(connection, :get, "#{call_url}/accounts")
-      collection_return(request, self, Account)
+      collection_return(request, Account)
     end
 
     def get_oauth_providers
       request = Request.new(connection, :get, "#{call_url}/oauth_providers")
-      collection_return(request, self, OauthProvider)
+      collection_return(request, OauthProvider)
     end
   end
 end

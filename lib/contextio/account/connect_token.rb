@@ -1,18 +1,18 @@
 class ConnectToken
   CONNECT_ATTRS = %I(email created used expires callback_url first_name last_name account)
   private
-  attr_reader :context_io
+  attr_reader :parent
 
   public
   include RequestHelper
   attr_reader :token, :account_id, :success, :status, *CONNECT_ATTRS
-  def initialize(context_io:,
+  def initialize(parent:,
                  account_id: nil,
                  identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)
-    @context_io = context_io
+    @parent = parent
     @account_id = account_id
     @token = identifier
     @response = response
@@ -24,8 +24,8 @@ class ConnectToken
   end
 
   def get
-    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/connect_tokens/#{token}")
-    ConnectToken.new(context_io: context_io,
+    request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/connect_tokens/#{token}")
+    ConnectToken.new(parent: parent,
                      account_id: account_id,
                      identifier: token,
                      response: request.response,

@@ -3,18 +3,18 @@ class Message
                      message_id gmail_message_id gmail_thread_id files subject
                      folders sources)
   private
-  attr_reader :context_io
+  attr_reader :parent
 
   public
   include RequestHelper
   attr_reader :status, :success, :account_id, :message_id, *MESSAGE_ATTRS
-  def initialize(context_io:,
+  def initialize(parent:,
                  account_id:,
                  identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)
-    @context_io = context_io
+    @parent = parent
     @account_id = account_id
     @message_id = identifier
     @response = response

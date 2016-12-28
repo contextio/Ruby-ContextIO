@@ -1,7 +1,7 @@
 module RequestHelper
-  def collection_return(request, context_io, klass, account_id)
+  def collection_return(request, parent, klass, account_id)
     request.response.map do |resp|
-      klass.new(context_io: context_io,
+      klass.new(parent: parent,
                 account_id: account_id,
                 response: resp,
                 status: request.status,
@@ -9,13 +9,13 @@ module RequestHelper
     end
   end
 
-  def contact_collection_return(request, context_io, account_id)
+  def contact_collection_return(request, parent, account_id)
     response = request.response
     matches = response["matches"].map do |resp|
       Contact.new(response: resp,
                   status: request.status,
                   success: request.success,
-                  context_io: context_io,
+                  parent: parent,
                   identifier: resp["email"],
                   account_id: account_id)
     end

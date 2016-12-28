@@ -1,17 +1,17 @@
 class Threads
   private
-  attr_reader :context_io
+  attr_reader :parent
 
   public
   include RequestHelper
   attr_reader :response, :status, :success, :account_id, :thread_id
-  def initialize(context_io:,
+  def initialize(parent:,
                  account_id:,
                  identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)
-    @context_io = context_io
+    @parent = parent
     @account_id = account_id
     @thread_id = identifier
     @response = response
