@@ -80,11 +80,11 @@ module MockResponse
 
   UNSUCCESSFUL_CALL = "404".freeze
 
-  MOCK_ACCOUNT = Account.new(parent: CIO_2_POINT_0_OBJECT, identifier: "some_id")
+  MOCK_ACCOUNT = ContextIO::Account.new(parent: TestingConstants::CIO_2_POINT_0_OBJECT, identifier: "some_id")
 
-  MOCK_CONTACT = Contact.new(parent: CIO_2_POINT_0_OBJECT,
-                             account_id: "some_id",
-                             identifier: "some_email@some_provider.com").get
+  MOCK_CONTACT = ContextIO::Contact.new(parent: TestingConstants::CIO_2_POINT_0_OBJECT,
+                                        account_id: "some_id",
+                                        identifier: "some_email@some_provider.com").get
 
   ACCOUNTS = [{"created"=>0,
       "username"=>"some_accoount.gmail.com_some_numbers",
