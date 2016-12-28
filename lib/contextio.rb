@@ -24,13 +24,13 @@ module ContextIO
     end
 
     def get_accounts
-      request = Request.new(connection, :get, "/2.0/accounts")
+      request = Request.new(connection, :get, "#{call_url}/accounts")
       collection_return(request, self, Account)
     end
 
     def get_oauth_providers
-      request = Request.new(connection, :get, "/2.0/oauth_providers")
-      collection_return(request, connection, OauthProvider)
+      request = Request.new(connection, :get, "#{call_url}/oauth_providers")
+      collection_return(request, self, OauthProvider)
     end
   end
 end
