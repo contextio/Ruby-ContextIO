@@ -6,12 +6,12 @@ require_relative "../utilities/testing_constants.rb"
 module ContextIO
   describe ConnectToken do
     describe "A ConnectToken object can be fetched" do
-      subject { ConnectToken.new(parent: CIO_2_POINT_0_OBJECT,
+      subject { ConnectToken.new(parent: TestingConstants::CIO_2_POINT_0_OBJECT,
                                  account_id: "some_id",
                                  identifier: "some_token_id").get }
 
       it "Created a ConnectTokens object" do
-        expect(subject.class.to_s).to eq("ConnectToken")
+        expect(subject.class.to_s).to eq("ContextIO::ConnectToken")
       end
 
       it "Was Successful." do

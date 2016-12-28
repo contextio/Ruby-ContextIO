@@ -9,7 +9,7 @@ require_relative "./utilities/testing_constants.rb"
 module ContextIO
   describe Account do
     describe "An Account object holding just one account." do
-      subject { Account.new(parent: CIO_2_POINT_0_OBJECT, identifier: "some_id").get }
+      subject { Account.new(parent: TestingConstants::CIO_2_POINT_0_OBJECT, identifier: "some_id").get }
 
       it "Returns a 200 status." do
         expect(subject.status).to eq(200)
@@ -20,19 +20,19 @@ module ContextIO
       end
 
       it "Can be used to find ConnectTokens." do
-        expect(subject.get_connect_tokens[0].class.to_s).to eq("ConnectToken")
+        expect(subject.get_connect_tokens[0].class.to_s).to eq("ContextIO::ConnectToken")
       end
 
       it "Can be used to find Contacts." do
-        expect(subject.get_contacts[1][0].class.to_s).to eq("Contact")
+        expect(subject.get_contacts[1][0].class.to_s).to eq("ContextIO::Contact")
       end
 
       it "Can be used to find EmailAdresses" do
-        expect(subject.get_email_addresses[1].class.to_s).to eq("EmailAddress")
+        expect(subject.get_email_addresses[1].class.to_s).to eq("ContextIO::EmailAddress")
       end
 
       it "Can be used to find Files" do
-        expect(subject.get_files[1].class.to_s).to eq("Files")
+        expect(subject.get_files[1].class.to_s).to eq("ContextIO::Files")
       end
     end
   end

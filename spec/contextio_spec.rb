@@ -17,15 +17,15 @@ describe ContextIO do
     end
 
     it "has a connection that is a Connection" do
-      expect(subject.connection.class.to_s).to eq("Connection")
+      expect(subject.connection.class.to_s).to eq("ContextIO::Connection")
     end
 
     it "can return an Accounts object" do
-      expect(subject.get_accounts[0].class.to_s).to eq("Account")
+      expect(subject.get_accounts[0].class.to_s).to eq("ContextIO::Account")
     end
 
     it "can return an OauthProvider object" do
-      expect(subject.get_oauth_providers[0].class.to_s).to eq("OauthProvider")
+      expect(subject.get_oauth_providers[0].class.to_s).to eq("ContextIO::OauthProvider")
     end
 
     it "has a version of 2.0" do
@@ -39,9 +39,9 @@ describe ContextIO do
 
     it "can return a collection of objects" do
       request = MockResponse::MOCK_FARDAY_COLLECTION
-      responses = subject.collection_return(request, Account)
+      responses = subject.collection_return(request, ContextIO::Account)
       expect(responses.count).to eq(2)
-      expect(responses.first.class.to_s).to eq("Account")
+      expect(responses.first.class.to_s).to eq("ContextIO::Account")
     end
   end
 end
