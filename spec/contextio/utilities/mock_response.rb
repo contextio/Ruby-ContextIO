@@ -2,7 +2,7 @@ module MockResponse
 
   Struct.new("MockFaraday", :response, :status, :success)
 
-  MOCK_FARADAY_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"someemail.gmail.com_12345\",
+  MOCK_FARADAY_SUCCESS_BODY = "{\"id\":\"some_id\",\"username\":\"someemail.gmail.com_12345\",
     \"created\":0,\"email_addresses\":[\"someemail@gmail.com\"],
     \"first_name\":\"Some\",\"last_name\":\"Account\",\"message_id\":\"12345\",\"password_expired\":0,\"nb_messages\":2067,
     \"sources\":[{\"server\":\"imap.googlemail.com\",\"label\":\"someemail::gmail\",
@@ -37,7 +37,7 @@ module MockResponse
   \"is_tnef_part\":false,\"supports_preview\":false,\"message_id\":\"an_id\",
   \"email_message_id\":\"an_id\",\"date_indexed\":23423423432,\"date_received\":43534534,
   \"person_info\":{\"an_email\":{\"thumbnail\":\"a_thumbnail\"},
-  \"myownfatherneverhitme@gmail.com\":{\"thumbnail\":\"a_thumbnail\"}},
+  \"gundam_reference@gmail.com\":{\"thumbnail\":\"a_thumbnail\"}},
   \"file_name_structure\":[[\"A file\",\"main\"],[\" \",\"boundary\"],[\"dasdassad\",
   \"date\"],[\".png\",\"ext\"]],\"is_embedded\":false,\"resource_url\":\"a url\"},
   {\"type\":\"image\\/png\",\"size\":49516,
@@ -47,7 +47,7 @@ module MockResponse
   \"is_tnef_part\":false,\"supports_preview\":false,\"message_id\":\"an_id\",
   \"email_message_id\":\"an_id\",\"date_indexed\":23423423432,\"date_received\":43534534,
   \"person_info\":{\"an_email\":{\"thumbnail\":\"a_thumbnail\"},
-  \"myownfatherneverhitme@gmail.com\":{\"thumbnail\":\"a_thumbnail\"}},
+  \"gundam_reference@gmail.com\":{\"thumbnail\":\"a_thumbnail\"}},
   \"file_name_structure\":[[\"A file\",\"main\"],[\" \",\"boundary\"],[\"dasdassad\",
   \"date\"],[\".png\",\"ext\"]],\"is_embedded\":false,\"resource_url\":\"a url\"}]".freeze
 
@@ -59,11 +59,11 @@ module MockResponse
   \"is_tnef_part\":false,\"supports_preview\":false,\"message_id\":\"an_id\",
   \"email_message_id\":\"an_id\",\"date_indexed\":23423423432,\"date_received\":43534534,
   \"person_info\":{\"an_email\":{\"thumbnail\":\"a_thumbnail\"},
-  \"myownfatherneverhitme@gmail.com\":{\"thumbnail\":\"a_thumbnail\"}},
+  \"gundam_reference@gmail.com\":{\"thumbnail\":\"a_thumbnail\"}},
   \"file_name_structure\":[[\"A file\",\"main\"],[\" \",\"boundary\"],[\"dasdassad\",
   \"date\"],[\".png\",\"ext\"]],\"is_embedded\":false,\"resource_url\":\"a url\"}]".freeze
 
-  FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY = "{\"id\":\"12345\",\"username\":\"fromaccount.gmail.com_12345\",
+  FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY = "{\"id\":\"some_id\",\"username\":\"fromaccount.gmail.com_12345\",
     \"created\":0,\"email_addresses\":[\"fromacccount@gmail.com\"],
     \"first_name\":\"Some\",\"last_name\":\"Account\",\"message_id\":\"12345\",\"password_expired\":0,\"nb_messages\":2067,
     \"sources\":[{\"server\":\"imap.googlemail.com\",\"label\":\"someemail::gmail\",

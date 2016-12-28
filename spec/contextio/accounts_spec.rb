@@ -29,5 +29,9 @@ describe Account do
     it "Can be used to find EmailAdresses" do
       expect(subject.get_email_addresses[1].class.to_s).to eq("EmailAddress")
     end
+
+    it "Can be used to find Files" do
+      expect(subject.get_files[1].class.to_s).to eq("Files")
+    end
   end
 end

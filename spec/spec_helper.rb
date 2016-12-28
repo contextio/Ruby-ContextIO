@@ -8,18 +8,19 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts/some_id",
   "accounts/some_id/connect_tokens/some_token_id",
   "accounts/some_id/contacts/some_email@some_provider.com",
-  "accounts/some_id/files",
   "accounts/some_id/messages",
   "accounts/some_id/sources",
   "accounts/some_id/sync",
   "accounts/some_id/threads",
-  "accounts/some_id/webhooks"
+  "accounts/some_id/webhooks",
+  "accounts/some_id/files/some_file"
   ]
 
   ACCOUNT_REQUEST_COLLECTION_ENDPOINTS = [
     "accounts",
     "accounts/some_id/connect_tokens",
     "accounts/some_id/email_addresses",
+    "accounts/some_id/files",
     "accounts/some_id/files/some_email@some_provider.com",
     "accounts/some_id/messages/some_email@some_provider.com"
   ]
