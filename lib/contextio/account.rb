@@ -1,56 +1,57 @@
 require "contextio/utilities/request_helper"
-
-ACCOUNT_ATTRS = %I(username created suspended email_addresses first_name last_name
-                   password_expired sources resource_url)
-
 class Account
+  ACCOUNT_READERS = %I(username created suspended email_addresses first_name last_name
+                     password_expired sources resource_url)
   private
-  attr_reader :parent
+  attr_reader :connection, :parent
 
   public
   include RequestHelper
-  attr_reader :id, :success, :status, *ACCOUNT_ATTRS
+  attr_reader :id, :success, :status, *ACCOUNT_READERS
   def initialize(parent:,
                  identifier: nil,
                  response: nil,
                  status: nil,
                  success: nil)
     @parent = parent
+    @connection = parent.connection
     @id = identifier
     @status = status
     @success = success
-    #TODO: Rewrite the object with get, isntead of returning new object
     if response
-      response.each { |k,v| instance_variable_set("@#{k}", v) }
+      parse_response(response)
     end
   end
 
+  def call_url
+    "#{parent.call_url}/accounts/#{id}"
+  end
+
   def get
-    request = Request.new(parent.connection, :get, "/2.0/accounts/#{id}")
-    Account.new(parent: parent,
-                identifier: id,
-                response: request.response,
-                status: request.status,
-                success: request.success)
+    request = Request.new(connection, :get, "#{call_url}")
+    parse_response(request.response)
+    @status = request.status
+    @success = check_success(status)
+    self
   end
 
   def get_connect_tokens
-    request = Request.new(parent.connection, :get, "/2.0/accounts/#{id}/connect_tokens")
-    collection_return(request, parent, ConnectToken, id)
+    request = Request.new(connection, :get, "#{call_url}/connect_tokens")
+    collection_return(request, self, ConnectToken, id)
   end
 
   def get_contacts
-    request = Request.new(parent.connection, :get, "/2.0/accounts/#{id}/contacts")
-    contact_collection_return(request, parent, id)
+    request = Request.new(connection, :get, "#{call_url}/contacts")
+    contact_collection_return(request, self, id)
   end
 
   def get_email_addresses
-    request = Request.new(parent.connection, :get, "/2.0/accounts/#{id}/email_addresses")
-    collection_return(request, parent, EmailAddress,id)
+    request = Request.new(connection, :get, "#{call_url}/email_addresses")
+    collection_return(request, self, EmailAddress, id)
   end
 
   def get_files
-    request = Request.new(parent.connection, :get, "/2.0/accounts/#{id}/files")
-    collection_return(request, parent, Files, id)
+    request = Request.new(connection, :get, "#{call_url}/files")
+    collection_return(request, self, Files, id)
   end
 end

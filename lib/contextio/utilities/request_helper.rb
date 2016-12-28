@@ -22,6 +22,14 @@ module RequestHelper
     [response["query"], matches]
   end
 
+  def parse_response(response)
+    response.each { |k,v| instance_variable_set("@#{k}", v) }
+  end
+
+  def check_success(status)
+    status >= 200 && status <= 299
+  end
+
   def success?
     self.success
   end

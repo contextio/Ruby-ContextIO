@@ -1,6 +1,5 @@
 Dir["./lib/contextio/*.rb"].each {|file| require file }
-Dir["./lib/contextio/account/*.rb"].each {|file| require file }
-Dir["./lib/contextio/utilities/*.rb"].each {|file| require file }
+Dir["./lib/contextio/**/*.rb"].each {|file| require file }
 
 require "json"
 
