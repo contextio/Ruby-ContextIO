@@ -26,7 +26,7 @@ module ContextIO
     end
 
     def call_url
-      "#{parent.call_url}/connect_tokens/#{token}"
+      build_url(parent, "connect_tokens", token)
     end
 
     def get

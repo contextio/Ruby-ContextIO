@@ -4,11 +4,11 @@ module ContextIO
                        received_count sent_from_account_count query email resource_url)
 
     private
-    attr_reader :parent
+    attr_reader :connection
 
     public
     include RequestHelper
-    attr_reader :response, :status, :success, :email, *CONTACT_READERS
+    attr_reader :response, :status, :parent, :success, :email, *CONTACT_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
@@ -25,7 +25,7 @@ module ContextIO
     end
 
     def call_url
-      "#{parent.call_url}/contacts/#{email}"
+      build_url(parent, "contacts", email)
     end
 
     def get

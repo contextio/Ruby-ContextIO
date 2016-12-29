@@ -29,6 +29,10 @@ module ContextIO
       status >= 200 && status <= 299
     end
 
+    def build_url(parent, resource, identifier)
+      "#{parent.call_url}/#{resource}/#{identifier}"
+    end
+
     def success?
       self.success
     end
