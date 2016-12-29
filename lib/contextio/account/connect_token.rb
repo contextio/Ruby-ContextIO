@@ -25,6 +25,10 @@ module ContextIO
       end
     end
 
+    def call_url
+      build_url("connect_tokens", token)
+    end
+
     def get
       call_api
     end

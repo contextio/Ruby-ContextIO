@@ -11,6 +11,14 @@ module ContextIO
     describe "A Messages object fetched from a Contacts object" do
       subject { TestingConstants::MOCK_CONTACT.get_messages[0] }
 
+      it "Returns a 200 status." do
+        expect(subject.status).to eq(200)
+      end
+
+      it "Was a successful API call." do
+        expect(subject.success?).to be true
+      end
+
       it "Response does not come from the Accounts object path." do
         expect(subject.addresses).not_to eq(JSON.parse(messages_account_path)[0]["addresses"])
       end
