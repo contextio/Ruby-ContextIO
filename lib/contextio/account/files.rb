@@ -1,41 +1,42 @@
 module ContextIO
   class Files
-    FILE_ATTRS = %I(size type subject date date_indexed addresses person_info
+    FILE_READERS = %I(size type subject date date_indexed addresses person_info
                    file_name file_name_structure body_section file_id supports_preview
                    is_embedded content_disposition content_id message_id
                    email_message_id gmail_message_id gmail_thread_id email_addresses
                    created first_name id last_name resource_url sources)
 
     private
-    attr_reader :parent
+    attr_reader :connection
 
     public
     include RequestHelper
-    attr_reader :response, :status, :success, :account_id, :file_id, *FILE_ATTRS
+    attr_reader :response, :parent, :status, :success, :account_id, :file_id, *FILE_READERS
     def initialize(parent:,
-                   account_id: nil,
                    identifier: nil,
                    response: nil,
                    status: nil,
                    success: nil)
       @parent = parent
-      @account_id = account_id
+      @connection = parent.connection
       @file_id = identifier
       @status = status
       @success = success
       if response
-        response.each { |k,v| instance_variable_set("@#{k}", v) }
+        parse_response(response)
       end
     end
 
+    def call_url
+      "#{parent.call_url}/files/#{file_id}"
+    end
+
     def get
-      request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/files/#{file_id}")
-      Files.new(parent: parent,
-                account_id: account_id,
-                identifier: account_id,
-                response: request.response,
-                status: request.status,
-                success: request.success)
+      request = Request.new(connection, :get, call_url)
+      parse_response(request.response)
+      @status = request.status
+      @success = check_success(status)
+      self
     end
   end
 end
