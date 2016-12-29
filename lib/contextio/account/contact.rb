@@ -28,10 +28,6 @@ module ContextIO
       build_url("contacts", email)
     end
 
-    def get
-      call_api
-    end
-
     def get_files
       request = Request.new(parent.connection, :get, "#{call_url}/files")
       collection_return(request, parent, Files)

@@ -9,13 +9,12 @@ module ContextIO
     include CollectionHelper
     attr_reader :response, :status, :parent, :success, :email, *EMAIL_ATTRS
     def initialize(parent:,
-                   account_id: nil,
                    identifier: nil,
                    response: nil,
                    status: nil,
                    success: nil)
       @parent = parent
-      @account_id = account_id
+      @connection = parent.connection
       @email = identifier
       @status = status
       @success =  success
@@ -24,8 +23,8 @@ module ContextIO
       end
     end
 
-    def get
-      call_api
+    def call_url
+      build_url("email_addresses", email)
     end
   end
 end

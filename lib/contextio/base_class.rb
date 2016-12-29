@@ -16,6 +16,10 @@ module ContextIO
       self
     end
 
+    def get
+      call_api
+    end
+
     def check_success(status)
       status >= 200 && status <= 299
     end

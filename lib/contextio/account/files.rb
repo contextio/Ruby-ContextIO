@@ -30,9 +30,5 @@ module ContextIO
     def call_url
       build_url("files", file_id)
     end
-
-    def get
-      call_api
-    end
   end
 end
