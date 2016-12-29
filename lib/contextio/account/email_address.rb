@@ -9,7 +9,7 @@ module ContextIO
     include RequestHelper
     attr_reader :response, :status, :success, :account_id, :email, *EMAIL_ATTRS
     def initialize(parent:,
-                   account_id:,
+                   account_id: nil,
                    identifier: nil,
                    response: nil,
                    status: nil,

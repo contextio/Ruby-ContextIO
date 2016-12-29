@@ -1,6 +1,8 @@
 module ContextIO
   class ConnectToken
-    CONNECT_READERS = %I(email created used expires callback_url first_name last_name account)
+    CONNECT_READERS = %I(email source_callback_url source_raw_file_list created
+                         used expires status_callback_url first_name last_name account
+                         resource_url server_label callback_url)
     private
     attr_reader :parent
 
@@ -8,7 +10,6 @@ module ContextIO
     include RequestHelper
     attr_reader :token, :connection, :success, :status, *CONNECT_READERS
     def initialize(parent:,
-                   account_id: nil,
                    identifier: nil,
                    response: nil,
                    status: nil,

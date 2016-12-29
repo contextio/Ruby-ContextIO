@@ -13,7 +13,7 @@ module ContextIO
     include RequestHelper
     attr_reader :response, :status, :success, :account_id, :file_id, *FILE_ATTRS
     def initialize(parent:,
-                   account_id:,
+                   account_id: nil,
                    identifier: nil,
                    response: nil,
                    status: nil,

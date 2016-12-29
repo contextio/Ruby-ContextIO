@@ -29,7 +29,7 @@ module ContextIO
     end
 
     def get
-      request = Request.new(connection, :get, "#{call_url}")
+      request = Request.new(connection, :get, call_url)
       parse_response(request.response)
       @status = request.status
       @success = check_success(status)
@@ -38,22 +38,22 @@ module ContextIO
 
     def get_connect_tokens
       request = Request.new(connection, :get, "#{call_url}/connect_tokens")
-      collection_return(request, self, ConnectToken, id)
+      collection_return(request, self, ConnectToken)
     end
 
     def get_contacts
       request = Request.new(connection, :get, "#{call_url}/contacts")
-      contact_collection_return(request, self, id)
+      contact_collection_return(request, self)
     end
 
     def get_email_addresses
       request = Request.new(connection, :get, "#{call_url}/email_addresses")
-      collection_return(request, self, EmailAddress, id)
+      collection_return(request, self, EmailAddress)
     end
 
     def get_files
       request = Request.new(connection, :get, "#{call_url}/files")
-      collection_return(request, self, Files, id)
+      collection_return(request, self, Files)
     end
   end
 end

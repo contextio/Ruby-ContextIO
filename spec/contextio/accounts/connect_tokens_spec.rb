@@ -7,7 +7,6 @@ module ContextIO
   describe ConnectToken do
     describe "A ConnectToken object can be fetched" do
       subject { ConnectToken.new(parent: TestingConstants::MOCK_ACCOUNT,
-                                 account_id: "some_id",
                                  identifier: "some_token_id").get }
 
       it "Created a ConnectTokens object" do

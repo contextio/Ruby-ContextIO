@@ -1,24 +1,22 @@
 module ContextIO
   module RequestHelper
-    def collection_return(request, parent, klass, account_id)
+    def collection_return(request, parent, klass)
       request.response.map do |resp|
         klass.new(parent: parent,
-                  account_id: account_id,
                   response: resp,
                   status: request.status,
                   success: request.success)
       end
     end
 
-    def contact_collection_return(request, parent, account_id)
+    def contact_collection_return(request, parent)
       response = request.response
       matches = response["matches"].map do |resp|
         Contact.new(response: resp,
                     status: request.status,
                     success: request.success,
                     parent: parent,
-                    identifier: resp["email"],
-                    account_id: account_id)
+                    identifier: resp["email"])
       end
       [response["query"], matches]
     end

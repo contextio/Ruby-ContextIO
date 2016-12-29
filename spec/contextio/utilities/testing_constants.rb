@@ -13,6 +13,6 @@ module TestingConstants
   UNSUCCESSFUL_CALL = "404".freeze
 
   MOCK_CONTACT = ContextIO::Contact.new(parent: MOCK_ACCOUNT,
-                                        account_id: "some_id",
+                                        parent: MOCK_ACCOUNT,
                                         identifier: "some_email@some_provider.com").get
 end

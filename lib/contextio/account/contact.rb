@@ -1,57 +1,57 @@
 module ContextIO
   class Contact
-    CONTACT_ATTRS =  %I(emails name thumbnail last_received last_sent count sent_count
-                       received_count sent_from_account_count)
+    CONTACT_READERS =  %I(emails name thumbnail last_received last_sent count sent_count
+                       received_count sent_from_account_count query email resource_url)
 
     private
     attr_reader :parent
 
     public
     include RequestHelper
-    attr_reader :response, :status, :success, :account_id, :email, *CONTACT_ATTRS
+    attr_reader :response, :status, :success, :email, *CONTACT_READERS
     def initialize(parent:,
-                   account_id:,
                    identifier: nil,
                    response: nil,
                    status: nil,
                    success: nil)
       @parent = parent
-      @account_id = account_id
+      @connection = parent.connection
       @email = identifier
       @status = status
       @success =  success
       if response
-        response.each { |k,v| instance_variable_set("@#{k}", v) }
+        parse_response(response)
       end
     end
 
+    def call_url
+      "#{parent.call_url}/contacts/#{email}"
+    end
+
     def get
-      request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}")
-      Contact.new(parent: parent,
-                  account_id: account_id,
-                  identifier: email,
-                  response: request.response,
-                  status: request.status,
-                  success: request.success)
+      request = Request.new(parent.connection, :get, call_url)
+      parse_response(request.response)
+      @status = request.status
+      @success = check_success(status)
+      self
     end
 
     def get_files
-      request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}/files")
-      collection_return(request, parent, Files, account_id)
+      request = Request.new(parent.connection, :get, "#{call_url}/files")
+      collection_return(request, parent, Files)
     end
 
     def get_threads
-      request = Request.new(parent.connection, :get, "2.0/accounts/#{account_id}/contacts/#{email}/threads")
+      request = Request.new(parent.connection, :get, "#{call_url}/threads")
       Threads.new(parent: parent,
-                 account_id: account_id,
                  response: request.response,
                  status: request.status,
                  success: request.success)
     end
 
     def get_messages
-      request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/contacts/#{email}/messages")
-      collection_return(request, parent, Message, account_id)
+      request = Request.new(parent.connection, :get, "#{call_url}/messages")
+      collection_return(request, parent, Message)
     end
   end
 end

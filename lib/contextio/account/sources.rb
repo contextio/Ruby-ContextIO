@@ -6,7 +6,7 @@ module ContextIO
     public
     include RequestHelper
     attr_reader :response, :status, :success
-    def initialize(request, connection, account_id, label = nil)
+    def initialize(request, connection, account_id = nil, label = nil)
       @response = request.response
       @status = request.status
       @success =  request.success
