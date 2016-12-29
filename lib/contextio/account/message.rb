@@ -10,19 +10,21 @@ module ContextIO
     include CollectionHelper
     attr_reader :status, :success, :account_id, :message_id, *MESSAGE_ATTRS
     def initialize(parent:,
-                   account_id: nil,
                    identifier: nil,
                    response: nil,
                    status: nil,
                    success: nil)
       @parent = parent
-      @account_id = account_id
       @message_id = identifier
       @response = response
       @status = status
       @success = success
       if response
-        response.each { |k,v| instance_variable_set("@#{k}", v) }
+        parse_response(response)
+      end
+
+      def call_url
+        build_url("messages", message_id)
       end
     end
   end

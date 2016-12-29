@@ -6,8 +6,8 @@ require_relative "../utilities/mock_response.rb"
 
 module ContextIO
   describe Message do
-    let(:messages_account_path)  { MockResponse::ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY }
-    let(:messages_contacts_path) { MockResponse::NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY }
+    let(:messages_account_path)  { "/2.0/accounts/some_id/message/some_id" }
+    let(:messages_contacts_path) { "2.0/accounts/some_id/contacts/some_email@some_provider.com/messages/an_id" }
     describe "A Messages object fetched from a Contacts object" do
       subject { TestingConstants::MOCK_CONTACT.get_messages[0] }
 
@@ -20,15 +20,11 @@ module ContextIO
       end
 
       it "Response does not come from the Accounts object path." do
-        expect(subject.addresses).not_to eq(JSON.parse(messages_account_path)[0]["addresses"])
+        expect(subject.call_url).not_to eq(messages_account_path)
       end
 
       it "Response does come from the Contacts object path." do
-        expect(subject.addresses).to eq(JSON.parse(messages_contacts_path)[0]["addresses"])
-      end
-
-      it "Was successful" do
-        expect(subject.success?).to be true
+        expect(subject.call_url).to eq(messages_contacts_path)
       end
     end
   end
