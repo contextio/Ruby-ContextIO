@@ -1,6 +1,6 @@
 module ContextIO
   class EmailAddress < BaseClass
-    EMAIL_ATTRS = %I(email validated primary)
+    EMAIL_ATTRS = %I(email validated primary resource_url)
 
     private
     attr_reader :connection
@@ -20,18 +20,12 @@ module ContextIO
       @status = status
       @success =  success
       if response
-        response.each { |k,v| instance_variable_set("@#{k}", v) }
+        parse_response(response)
       end
     end
 
     def get
-      request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/email_addresses/#{email}")
-      EmailAddress.new(parent: parent,
-                       account_id: account_id,
-                       identifier: email,
-                       response: request.response,
-                       status: request.status,
-                       success: request.success)
+      call_api
     end
   end
 end
