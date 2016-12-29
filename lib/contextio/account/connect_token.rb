@@ -1,12 +1,12 @@
 module ContextIO
   class ConnectToken
-    CONNECT_ATTRS = %I(email created used expires callback_url first_name last_name account)
+    CONNECT_READERS = %I(email created used expires callback_url first_name last_name account)
     private
     attr_reader :parent
 
     public
     include RequestHelper
-    attr_reader :token, :account_id, :success, :status, *CONNECT_ATTRS
+    attr_reader :token, :connection, :success, :status, *CONNECT_READERS
     def initialize(parent:,
                    account_id: nil,
                    identifier: nil,
@@ -14,24 +14,26 @@ module ContextIO
                    status: nil,
                    success: nil)
       @parent = parent
-      @account_id = account_id
+      @connection = parent.connection
       @token = identifier
       @response = response
       @status = status
       @success =  success
       if response
-        response.each { |k,v| instance_variable_set("@#{k}", v) }
+        parse_response(response)
       end
     end
 
+    def call_url
+      "#{parent.call_url}/connect_tokens/#{token}"
+    end
+
     def get
-      request = Request.new(parent.connection, :get, "/2.0/accounts/#{account_id}/connect_tokens/#{token}")
-      ConnectToken.new(parent: parent,
-                       account_id: account_id,
-                       identifier: token,
-                       response: request.response,
-                       status: request.status,
-                       success: request.success)
+      request = Request.new(connection, :get, call_url)
+      parse_response(request.response)
+      @status = request.status
+      @success = check_success(status)
+      self
     end
   end
 end

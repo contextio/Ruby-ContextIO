@@ -4,11 +4,11 @@ module ContextIO
     ACCOUNT_READERS = %I(username created suspended email_addresses first_name last_name
                        password_expired sources resource_url)
     private
-    attr_reader :connection, :parent
+    attr_reader :parent
 
     public
     include RequestHelper
-    attr_reader :id, :success, :status, *ACCOUNT_READERS
+    attr_reader :id, :success, :connection, :status, *ACCOUNT_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,

@@ -7,7 +7,7 @@ require_relative "../utilities/mock_response.rb"
 module ContextIO
   describe Contact do
     describe "A Contacts object created from an Account" do
-      subject { MockResponse::MOCK_CONTACT }
+      subject { TestingConstants::MOCK_CONTACT }
 
       it "can get files" do
         expect(subject.get_files[0].class.to_s).to eq("ContextIO::Files")

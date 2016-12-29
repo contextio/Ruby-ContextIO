@@ -71,21 +71,6 @@ module MockResponse
     \"authentication_type\":\"oauth2\",\"use_ssl\":true,\"status\":\"OK\",\"sync_flags\":false,
     \"type\":\"imap\",\"resource_url\":\"https:\\/\\/api.context.io\\/2.0\\/accounts\\/1234\\/sources\\/someemail%3A%3Agmail\"}]}".freeze
 
-
-  MOCK_FARADAY_OBJECT_FAILURE_BODY = []
-
-  SUCCESSFUL_CALL = 200
-
-  MOCK_FARADAY = Struct::MockFaraday.new(MOCK_FARADAY_SUCCESS_BODY, SUCCESSFUL_CALL, true)
-
-  UNSUCCESSFUL_CALL = "404".freeze
-
-  MOCK_ACCOUNT = ContextIO::Account.new(parent: TestingConstants::CIO_2_POINT_0_OBJECT, identifier: "some_id")
-
-  MOCK_CONTACT = ContextIO::Contact.new(parent: TestingConstants::CIO_2_POINT_0_OBJECT,
-                                        account_id: "some_id",
-                                        identifier: "some_email@some_provider.com").get
-
   ACCOUNTS = [{"created"=>0,
       "username"=>"some_accoount.gmail.com_some_numbers",
       "suspended"=>nil,
@@ -125,5 +110,7 @@ module MockResponse
          "resource_url"=>"https://api.context.io/2.0/accounts/"}],
       "resource_url"=>"https://api.context.io/2.0/accounts/"}].freeze
 
-  MOCK_FARDAY_COLLECTION = Struct::MockFaraday.new(ACCOUNTS, SUCCESSFUL_CALL, true)
+  MOCK_FARDAY_COLLECTION = Struct::MockFaraday.new(ACCOUNTS, TestingConstants::SUCCESSFUL_CALL, true)
+
+  MOCK_FARADAY = Struct::MockFaraday.new(MOCK_FARADAY_SUCCESS_BODY, TestingConstants::SUCCESSFUL_CALL, true)
 end

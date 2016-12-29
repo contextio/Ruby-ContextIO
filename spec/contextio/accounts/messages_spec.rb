@@ -9,7 +9,7 @@ module ContextIO
     let(:messages_account_path)  { MockResponse::ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY }
     let(:messages_contacts_path) { MockResponse::NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY }
     describe "A Messages object fetched from a Contacts object" do
-      subject { MockResponse::MOCK_CONTACT.get_messages[0] }
+      subject { TestingConstants::MOCK_CONTACT.get_messages[0] }
 
       it "Response does not come from the Accounts object path." do
         expect(subject.addresses).not_to eq(JSON.parse(messages_account_path)[0]["addresses"])
