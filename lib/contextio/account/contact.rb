@@ -25,7 +25,7 @@ module ContextIO
     end
 
     def call_url
-      build_url(parent, "contacts", email)
+      build_url("contacts", email)
     end
 
     def get

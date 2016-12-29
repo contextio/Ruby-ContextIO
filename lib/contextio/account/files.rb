@@ -28,7 +28,7 @@ module ContextIO
     end
 
     def call_url
-      build_url(parent, "files", file_id)
+      build_url("files", file_id)
     end
 
     def get
