@@ -1,39 +1,38 @@
-class Files
-  FILE_ATTRS = %I(size type subject date date_indexed addresses person_info
-                 file_name file_name_structure body_section file_id supports_preview
-                 is_embedded content_disposition content_id message_id
-                 email_message_id gmail_message_id gmail_thread_id email_addresses
-                 created first_name id last_name resource_url sources)
+module ContextIO
+  class Files < BaseClass
+    FILE_READERS = %I(size type subject date date_indexed addresses person_info
+                   file_name file_name_structure body_section supports_preview
+                   is_embedded content_disposition content_id message_id
+                   email_message_id gmail_message_id gmail_thread_id email_addresses
+                   created first_name id last_name resource_url sources is_tnef_part)
 
-  private
-  attr_reader :context_io
+    private
+    attr_reader :connection
 
-  public
-  include RequestHelper
-  attr_reader :response, :status, :success, :account_id, :file_id, *FILE_ATTRS
-  def initialize(context_io:,
-                 account_id:,
-                 identifier: nil,
-                 response: nil,
-                 status: nil,
-                 success: nil)
-    @context_io = context_io
-    @account_id = account_id
-    @file_id = identifier
-    @status = status
-    @success = success
-    if response
-      response.each { |k,v| instance_variable_set("@#{k}", v) }
+    public
+    include CollectionHelper
+    attr_reader :response, :parent, :status, :success, :account_id, :file_id, *FILE_READERS
+    def initialize(parent:,
+                   identifier: nil,
+                   response: nil,
+                   status: nil,
+                   success: nil)
+      @parent = parent
+      @connection = parent.connection
+      @file_id = identifier
+      @status = status
+      @success = success
+      if response
+        parse_response(response)
+      end
     end
-  end
 
-  def get
-    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/files/#{file_id}")
-    Files.new(context_io: context_io,
-              account_id: account_id,
-              identifier: account_id,
-              response: request.response,
-              status: request.status,
-              success: request.success)
+    def call_url
+      build_url("files", file_id)
+    end
+
+    def get
+      call_api
+    end
   end
 end

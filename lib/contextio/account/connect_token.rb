@@ -1,35 +1,36 @@
-class ConnectToken
-  CONNECT_ATTRS = %I(email created used expires callback_url first_name last_name account)
-  private
-  attr_reader :context_io
+module ContextIO
+  class ConnectToken < BaseClass
+    CONNECT_READERS = %I(email source_callback_url source_raw_file_list created
+                         used expires status_callback_url first_name last_name account
+                         resource_url server_label callback_url)
+    private
+    attr_reader :parent
 
-  public
-  include RequestHelper
-  attr_reader :token, :account_id, :success, :status, *CONNECT_ATTRS
-  def initialize(context_io:,
-                 account_id: nil,
-                 identifier: nil,
-                 response: nil,
-                 status: nil,
-                 success: nil)
-    @context_io = context_io
-    @account_id = account_id
-    @token = identifier
-    @response = response
-    @status = status
-    @success =  success
-    if response
-      response.each { |k,v| instance_variable_set("@#{k}", v) }
+    public
+    include CollectionHelper
+    attr_reader :token, :connection, :success, :status, *CONNECT_READERS
+    def initialize(parent:,
+                   identifier: nil,
+                   response: nil,
+                   status: nil,
+                   success: nil)
+      @parent = parent
+      @connection = parent.connection
+      @token = identifier
+      @response = response
+      @status = status
+      @success =  success
+      if response
+        parse_response(response)
+      end
     end
-  end
 
-  def get
-    request = Request.new(context_io.connection, :get, "/2.0/accounts/#{account_id}/connect_tokens/#{token}")
-    ConnectToken.new(context_io: context_io,
-                     account_id: account_id,
-                     identifier: token,
-                     response: request.response,
-                     status: request.status,
-                     success: request.success)
+    def call_url
+      build_url("connect_tokens", token)
+    end
+
+    def get
+      call_api
+    end
   end
 end

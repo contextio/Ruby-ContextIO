@@ -1,4 +1,5 @@
 require "contextio/utilities/request"
-
-describe Request do
+module ContextIO
+  describe Request do
+  end
 end
