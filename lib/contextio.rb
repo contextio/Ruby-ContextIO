@@ -6,7 +6,7 @@ require "json"
 
 module ContextIO
   class ContextIO
-    include RequestHelper
+    include CollectionHelper
     attr_reader :connection, :call_url, :version
     def initialize(key:, secret:, version:)
       @connection = Connection.new(key, secret)

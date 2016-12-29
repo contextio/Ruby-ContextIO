@@ -1,5 +1,5 @@
 module ContextIO
-  module RequestHelper
+  module CollectionHelper
     def collection_return(request, parent, klass)
       request.response.map do |resp|
         klass.new(parent: parent,

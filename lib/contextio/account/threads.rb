@@ -4,7 +4,7 @@ module ContextIO
     attr_reader :parent
 
     public
-    include RequestHelper
+    include CollectionHelper
     attr_reader :response, :status, :success, :account_id, :thread_id
     def initialize(parent:,
                    account_id: nil,

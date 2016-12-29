@@ -5,7 +5,7 @@ module ContextIO
     attr_reader :parent
 
     public
-    include RequestHelper
+    include CollectionHelper
     attr_reader :status, :success, :token, *OAUTH_ATTRS
     def initialize(parent:,
                   token: nil,

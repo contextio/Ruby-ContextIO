@@ -4,7 +4,7 @@ module ContextIO
     attr_reader :connection, :account_id, :webhook_id
 
     public
-    include RequestHelper
+    include CollectionHelper
     attr_reader :response, :status, :success
     def initialize(request, connection, account_id = nil, webhook_id = nil)
       @response = request.response

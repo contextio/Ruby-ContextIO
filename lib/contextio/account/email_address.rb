@@ -6,7 +6,7 @@ module ContextIO
     attr_reader :connection
 
     public
-    include RequestHelper
+    include CollectionHelper
     attr_reader :response, :status, :parent, :success, :email, *EMAIL_ATTRS
     def initialize(parent:,
                    account_id: nil,

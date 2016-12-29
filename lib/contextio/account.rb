@@ -1,4 +1,4 @@
-require "contextio/utilities/request_helper"
+require "contextio/utilities/collection_helper"
 module ContextIO
   class Account < BaseClass
     ACCOUNT_READERS = %I(username created suspended email_addresses first_name last_name
@@ -7,7 +7,7 @@ module ContextIO
     attr_reader :parent
 
     public
-    include RequestHelper
+    include CollectionHelper
     attr_reader :id, :success, :connection, :status, *ACCOUNT_READERS
     def initialize(parent:,
                    identifier: nil,
