@@ -30,11 +30,7 @@ module ContextIO
     end
 
     def get
-      request = Request.new(connection, :get, call_url)
-      parse_response(request.response)
-      @status = request.status
-      @success = check_success(status)
-      self
+      call_api
     end
   end
 end
