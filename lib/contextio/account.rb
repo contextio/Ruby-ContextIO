@@ -1,6 +1,6 @@
 require "contextio/utilities/request_helper"
 module ContextIO
-  class Account
+  class Account < BaseClass
     ACCOUNT_READERS = %I(username created suspended email_addresses first_name last_name
                        password_expired sources resource_url)
     private

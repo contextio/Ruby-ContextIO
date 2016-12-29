@@ -1,5 +1,5 @@
 module ContextIO
-  class EmailAddress
+  class EmailAddress < BaseClass
     EMAIL_ATTRS = %I(email validated primary)
 
     private

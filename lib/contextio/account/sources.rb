@@ -1,5 +1,5 @@
 module ContextIO
-  class Sources
+  class Sources < BaseClass
     private
     attr_reader :connection, :account_id, :label
 

@@ -1,5 +1,5 @@
 module ContextIO
-  class OauthProvider
+  class OauthProvider < BaseClass
     OAUTH_ATTRS = %I(type provider_consumer_key provider_consumer_secret resource_url)
     private
     attr_reader :parent

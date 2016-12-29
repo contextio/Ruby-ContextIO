@@ -1,5 +1,5 @@
 module ContextIO
-  class Threads
+  class Threads < BaseClass
     private
     attr_reader :parent
 

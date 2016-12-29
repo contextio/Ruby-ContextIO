@@ -1,5 +1,5 @@
 module ContextIO
-  class Webhooks
+  class Webhooks < BaseClass
     private
     attr_reader :connection, :account_id, :webhook_id
 

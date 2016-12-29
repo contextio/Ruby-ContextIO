@@ -1,5 +1,5 @@
 module ContextIO
-  class Message
+  class Message < BaseClass
     MESSAGE_ATTRS = %I(date date_indexed addresses person_info email_message_id
                        message_id gmail_message_id gmail_thread_id files subject
                        folders sources)

@@ -1,5 +1,5 @@
 module ContextIO
-  class Sync
+  class Sync < BaseClass
     include RequestHelper
     attr_reader :response, :status, :success
     def initialize(request)
