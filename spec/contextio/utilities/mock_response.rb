@@ -1,3 +1,4 @@
+require_relative './testing_constants'
 module MockResponse
 
   Struct.new("MockFaraday", :response, :status, :success)
