@@ -44,7 +44,7 @@ ACCOUNT_REQUEST_ENDPOINTS = [
     "accounts/some_id/contacts/some_email@some_provider.com/messages",
     "accounts/some_id/contacts/some_email@some_provider.com/threads"
   ]
-
+  
 WebMock.disable_net_connect!(allow_localhost: true)
 RSpec.configure do |config|
   config.before(:each) do

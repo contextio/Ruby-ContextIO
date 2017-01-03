@@ -6,7 +6,7 @@ require_relative "../utilities/testing_constants.rb"
 module ContextIO
   describe ConnectToken do
     describe "A ConnectToken object can be fetched" do
-      subject { ConnectToken.new(parent: TestingConstants::MOCK_ACCOUNT,
+      subject { ConnectToken.new(parent: TestingConstants::MOCK_ACCOUNT.get,
                                  identifier: "some_token_id").get }
 
       it "Returns a 200 status." do

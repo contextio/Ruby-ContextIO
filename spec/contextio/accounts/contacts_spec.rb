@@ -1,7 +1,6 @@
 require "contextio/connection"
 require "contextio"
 
-
 require_relative "../utilities/testing_constants.rb"
 require_relative "../utilities/mock_response.rb"
 module ContextIO

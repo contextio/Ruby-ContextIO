@@ -7,7 +7,7 @@ module TestingConstants
                                                   version: "2.0")
   MOCK_EMAIL = "some_email@some_provider.com".freeze
 
-  MOCK_ACCOUNT = ContextIO::Account.new(parent: TestingConstants::CIO_2_POINT_0_OBJECT, identifier: "some_id").get
+  MOCK_ACCOUNT = ContextIO::Account.new(parent: TestingConstants::CIO_2_POINT_0_OBJECT, identifier: "some_id")
 
   MOCK_FARADAY_OBJECT_FAILURE_BODY = []
 
