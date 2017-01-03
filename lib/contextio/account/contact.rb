@@ -2,13 +2,8 @@ module ContextIO
   class Contact < BaseClass
     CONTACT_READERS =  %I(emails name thumbnail last_received last_sent count sent_count
                        received_count sent_from_account_count query email resource_url)
-
-    private
-    attr_reader :connection
-
-    public
     include CollectionHelper
-    attr_reader :response, :status, :parent, :success, :email, *CONTACT_READERS
+    attr_reader :response, :status, :parent, :connection, :success, :email, *CONTACT_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
@@ -28,18 +23,14 @@ module ContextIO
       build_url("contacts", email)
     end
 
-    def get
-      call_api
-    end
-
     def get_files
       request = Request.new(parent.connection, :get, "#{call_url}/files")
-      collection_return(request, parent, Files)
+      collection_return(request, self, Files)
     end
 
     def get_threads
       request = Request.new(parent.connection, :get, "#{call_url}/threads")
-      Threads.new(parent: parent,
+      Threads.new(parent: self,
                  response: request.response,
                  status: request.status,
                  success: request.success)
@@ -47,7 +38,7 @@ module ContextIO
 
     def get_messages
       request = Request.new(parent.connection, :get, "#{call_url}/messages")
-      collection_return(request, parent, Message)
+      collection_return(request, self, Message)
     end
   end
 end

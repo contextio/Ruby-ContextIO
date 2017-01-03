@@ -1,34 +1,30 @@
 module ContextIO
   class OauthProvider < BaseClass
-    OAUTH_ATTRS = %I(type provider_consumer_key provider_consumer_secret resource_url)
+    OAUTH_READERS = %I(type provider_consumer_key provider_consumer_secret resource_url)
     private
-    attr_reader :parent
+    attr_reader :connection
 
     public
     include CollectionHelper
-    attr_reader :status, :success, :token, *OAUTH_ATTRS
+    attr_reader :status, :parent, :success, :token, *OAUTH_READERS
     def initialize(parent:,
                   token: nil,
                   response: nil,
                   status: nil,
                   success: nil)
       @parent = parent
+      @connection = parent.connection
       @response = response
       @status = status
       @success = success
       @token = token
       if response
-        response.each { |k,v| instance_variable_set("@#{k}", v) }
+        parse_response(response)
       end
     end
 
-    def get
-      request = Request.new(parent.connection, :get, "/2.0/oauth_providers/#{key}")
-      OauthProvider.new(parent,
-                        key,
-                        request.response,
-                        request.status,
-                        request.success)
+    def call_url
+      build_url("oauth_providers", token)
     end
   end
 end

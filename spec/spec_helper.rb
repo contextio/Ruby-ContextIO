@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "contextio"
 require "webmock/rspec"
@@ -8,6 +11,7 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts/some_id",
   "accounts/some_id/connect_tokens/some_token_id",
   "accounts/some_id/contacts/some_email@some_provider.com",
+  "accounts/some_id/email_addresses/some_email@some_provider.com",
   "accounts/some_id/messages",
   "accounts/some_id/sources",
   "accounts/some_id/sync",
@@ -40,7 +44,7 @@ ACCOUNT_REQUEST_ENDPOINTS = [
     "accounts/some_id/contacts/some_email@some_provider.com/messages",
     "accounts/some_id/contacts/some_email@some_provider.com/threads"
   ]
-
+  
 WebMock.disable_net_connect!(allow_localhost: true)
 RSpec.configure do |config|
   config.before(:each) do
