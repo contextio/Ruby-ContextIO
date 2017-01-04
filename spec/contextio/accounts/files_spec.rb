@@ -30,13 +30,21 @@ module ContextIO
 
     describe "A Files object fetched from an Accounts object" do
       subject { Files.new(identifier: "some_file", parent: TestingConstants::MOCK_ACCOUNT).get }
-      it "Response does not come from the Contacts object path." do
-        expect(subject.call_url).not_to eq(files_contacts_path)
+       it "Response does not come from the Contacts object path." do
+         expect(subject.call_url).not_to eq(files_contacts_path)
+       end
+
+       it "Response does come from the Acccounts object path." do
+         expect(subject.call_url).to eq(files_accounts_path)
       end
 
-      it "Response does come from the Acccounts object path." do
-        expect(subject.call_url).to eq(files_accounts_path)
-     end
+      it "Can fetch content." do
+        expect(subject.content.success?).to be true
+      end
+
+      it "Can fetch related files." do
+        expect(subject.related.success?).to be true
+      end
     end
   end
 end

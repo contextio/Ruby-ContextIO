@@ -1,15 +1,19 @@
 module ContextIO
   class BaseClass
     def parse_response(response)
-      response.each { |k,v| instance_variable_set("@#{k}", v) }
+      if response.class == String
+        @response = response
+      else
+        response.each { |k,v| instance_variable_set("@#{k}", v) }
+      end
     end
 
     def build_url(resource, identifier)
       "#{parent.call_url}/#{resource}/#{identifier}"
     end
 
-    def call_api
-      request = Request.new(connection, :get, call_url)
+    def call_api(url = nil)
+      request = Request.new(connection, :get, url || call_url)
       parse_response(request.response)
       @status = request.status
       @success = check_success(status)
