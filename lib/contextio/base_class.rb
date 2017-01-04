@@ -1,7 +1,11 @@
 module ContextIO
   class BaseClass
     def parse_response(response)
-      response.each { |k,v| instance_variable_set("@#{k}", v) }
+      if response.class == String
+        @response = response
+      else
+        response.each { |k,v| instance_variable_set("@#{k}", v) }
+      end
     end
 
     def build_url(resource, identifier)
