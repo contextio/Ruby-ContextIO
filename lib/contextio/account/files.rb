@@ -11,7 +11,7 @@ module ContextIO
 
     public
     include CollectionHelper
-    attr_reader :response, :parent, :status, :success, :account_id, :file_id, *FILE_READERS
+    attr_reader :response, :parent, :status, :success, :file_id, *FILE_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
@@ -29,6 +29,12 @@ module ContextIO
 
     def call_url
       build_url("files", file_id)
+    end
+
+    def content
+      url = "#{call_url}/content"
+      response = connection.connect.send(method, url)
+      File.open("#{file_name}", "wb") { |fp| fp.write(response.body) }
     end
   end
 end

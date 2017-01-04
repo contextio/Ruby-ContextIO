@@ -24,12 +24,12 @@ module ContextIO
     end
 
     def get_files
-      request = Request.new(parent.connection, :get, "#{call_url}/files")
+      request = Request.new(connection, :get, "#{call_url}/files")
       collection_return(request, self, Files)
     end
 
     def get_threads
-      request = Request.new(parent.connection, :get, "#{call_url}/threads")
+      request = Request.new(connection, :get, "#{call_url}/threads")
       Threads.new(parent: self,
                  response: request.response,
                  status: request.status,
