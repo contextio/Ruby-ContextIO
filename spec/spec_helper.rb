@@ -39,6 +39,10 @@ ACCOUNT_REQUEST_ENDPOINTS = [
     "oauth_providers"
   ]
 
+  NON_JSON_ENDPOINTS = [
+    "accounts/some_id/files/some_file/content"
+  ]
+
   NON_ACCOUNT_COLLECITION_ENDPOINTS = [
     "accounts/some_id/contacts/some_email@some_provider.com/files",
     "accounts/some_id/contacts/some_email@some_provider.com/messages",
@@ -83,5 +87,12 @@ RSpec.configure do |config|
                   body: MockResponse::NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
                   headers: {"content-type" => "application/json"})
     end
+    NON_JSON_ENDPOINTS.each do |endpoint|
+      stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        to_return(status: 200,
+                  body: MockResponse::NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
+                  headers: {})
+   end
   end
 end

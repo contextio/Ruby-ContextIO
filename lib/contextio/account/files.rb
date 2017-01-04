@@ -38,7 +38,7 @@ module ContextIO
                 identifier: file_id,
                 response: resp.response,
                 status: resp.status,
-                success: resp.status)
+                success: resp.success)
     end
   end
 end
