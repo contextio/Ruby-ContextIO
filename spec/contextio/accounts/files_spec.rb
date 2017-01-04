@@ -37,8 +37,13 @@ module ContextIO
        it "Response does come from the Acccounts object path." do
          expect(subject.call_url).to eq(files_accounts_path)
       end
+
       it "Can fetch content." do
-        expect(subject.content.success?).to be true 
+        expect(subject.content.success?).to be true
+      end
+
+      it "Can fetch related files." do
+        expect(subject.related.success?).to be true
       end
     end
   end

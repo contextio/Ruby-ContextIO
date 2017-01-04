@@ -40,5 +40,10 @@ module ContextIO
                 status: resp.status,
                 success: resp.success)
     end
+
+    def related
+      url = "#{call_url}/related"
+      call_api(url)
+    end
   end
 end

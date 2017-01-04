@@ -12,8 +12,8 @@ module ContextIO
       "#{parent.call_url}/#{resource}/#{identifier}"
     end
 
-    def call_api
-      request = Request.new(connection, :get, call_url)
+    def call_api(url = nil)
+      request = Request.new(connection, :get, url || call_url)
       parse_response(request.response)
       @status = request.status
       @success = check_success(status)
