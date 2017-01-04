@@ -33,7 +33,7 @@ module ContextIO
 
     def content
       url = "#{call_url}/content"
-      response = connection.connect.send(method, url)
+      response = connection.connect.send(:get, url)
       File.open("#{file_name}", "wb") { |fp| fp.write(response.body) }
     end
   end
