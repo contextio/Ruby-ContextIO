@@ -44,7 +44,7 @@ ACCOUNT_REQUEST_ENDPOINTS = [
     "accounts/some_id/contacts/some_email@some_provider.com/messages",
     "accounts/some_id/contacts/some_email@some_provider.com/threads"
   ]
-  
+
 WebMock.disable_net_connect!(allow_localhost: true)
 RSpec.configure do |config|
   config.before(:each) do
@@ -53,35 +53,35 @@ RSpec.configure do |config|
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY,
-                  headers: {})
+                  headers: {"content-type" => "application/json"})
     end
     ACCOUNT_REQUEST_COLLECTION_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
-                  headers: {})
+                  headers: {"content-type" => "application/json"})
     end
     CONTACT_COLLECTION_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::CONTACT_COLLECTION_FARADAY_SUCCESS_BODY,
-                  headers: {})
+                  headers: {"content-type" => "application/json"})
     end
     NON_ACCOUNT_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
-                  headers: {})
+                  headers: {"content-type" => "application/json"})
     end
     NON_ACCOUNT_COLLECITION_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
-                  headers: {})
+                  headers: {"content-type" => "application/json"})
     end
   end
 end
