@@ -3,6 +3,10 @@ module ContextIO
     def parse_response(response)
       if response.class == String
         @response = response
+      elsif response.class == Array
+        response.each do |index|
+          index.each { |k,v| instance_variable_set("@#{k}", v) }
+        end
       else
         response.each { |k,v| instance_variable_set("@#{k}", v) }
       end

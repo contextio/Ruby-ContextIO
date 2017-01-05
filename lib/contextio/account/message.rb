@@ -20,52 +20,43 @@ module ContextIO
       @message_id = identifier
       @status = status
       @success = success
-      if response.class == Array
-        binding.pry
-        parse_body_response(response)
-      else
+      if response
         parse_response(response)
       end
+    end
 
-      def parse_array_response(response)
-       response.each do |index|
-         index.each { |k,v| instance_variable_set("@#{k}", v) }
-       end
-      end
+    def call_url
+      build_url("messages", message_id)
+    end
 
-      def call_url
-        build_url("messages", message_id)
-      end
+    def body
+      url = "#{call_url}/body"
+      resp = Request.new(connection, :get, url)
+      Message.new(parent: parent,
+                  identifier: message_id,
+                  response: resp.response,
+                  status: resp.status,
+                  success: resp.success)
+    end
 
-      def body
-        url = "#{call_url}/body"
-        resp = Request.new(connection, :get, url)
-        Message.new(parent: parent,
-                    identifier: message_id,
-                    response: resp.response,
-                    status: resp.status,
-                    success: resp.success)
-      end
+    def flags
+      call_api("#{call_url}/flags")
+    end
 
-      def flags
-        call_api("#{call_url}/flags")
-      end
+    def folders
+      call_api("#{call_url}/folders")
+    end
 
-      def folders
-        call_api("#{call_url}/folders")
-      end
+    def headers
+      call_api("#{call_url}/headers")
+    end
 
-      def headers
-        call_api("#{call_url}/headers")
-      end
+    def source
+      call_api("#{call_url}/source")
+    end
 
-      def source
-        call_api("#{call_url}/source")
-      end
-
-      def threads
-        call_api("#{call_url}/threads")
-      end
+    def threads
+      call_api("#{call_url}/thread")
     end
   end
 end
