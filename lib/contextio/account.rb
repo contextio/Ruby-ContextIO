@@ -27,7 +27,7 @@ module ContextIO
     def call_url
       build_url("accounts", id)
     end
-    
+
     def get_connect_tokens
       request = Request.new(connection, :get, "#{call_url}/connect_tokens")
       collection_return(request, self, ConnectToken)
@@ -46,6 +46,11 @@ module ContextIO
     def get_files
       request = Request.new(connection, :get, "#{call_url}/files")
       collection_return(request, self, Files)
+    end
+
+    def get_messages
+      request = Request.new(connection, :get, "#{call_url}/messages")
+      collection_return(request, self, Message)
     end
   end
 end
