@@ -1,14 +1,15 @@
 module ContextIO
   class Message < BaseClass
-    MESSAGE_ATTRS = %I(date date_indexed addresses person_info email_message_id
+    MESSAGE_READERS = %I(date date_indexed date_received addresses person_info email_message_id
                        message_id gmail_message_id gmail_thread_id files subject
-                       folders sources content type charset body_section)
+                       folders sources content type charset body_section answered
+                       deleted draft flagged seen in_reply_to references resource_url)
     private
     attr_reader :parent
 
     public
     include CollectionHelper
-    attr_reader :status, :success, :connection, :message_id, *MESSAGE_ATTRS
+    attr_reader :status, :success, :connection, :message_id, *MESSAGE_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
