@@ -1,9 +1,9 @@
 module ContextIO
   class BaseClass
     def parse_response(response)
-      if response.class == String
+      if response.is_a? String
         @response = response
-      elsif response.class == Array
+      elsif response.is_a? Array
         response.each do |index|
           index.each { |k,v| instance_variable_set("@#{k}", v) }
         end
