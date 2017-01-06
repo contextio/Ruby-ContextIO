@@ -29,7 +29,7 @@ module MockResponse
   \"count\":4,\"sent_count\":0,\"received_count\":4,\"sent_from_account_count\":0,
   \"thumbnail\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/93915285723ad8335bcebfa1a4df0ec5?s=50&d=https%3A%2F%2Fs3.amazonaws.com%2Fcontextio-icons%2Fcontact.png\",
   \"name\":\"Yahoo Mail\",\"resource_url\":\"https:\\/\\/api.context.io\\/2.0\\/accounts\\/582f618c4968c3e22e8b4567\\/contacts\\/yahoo%40communications.yahoo.com\",
-  \"last_sent\":null,\"last_received\":1480690829}]}".freeze
+  \"last_sent\":null,\"last_received\":1480690829}]}"
 
   ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY = "[{\"type\":\"image\\/png\",\"size\":49516,
   \"subject\":\"Test-1-2 Test-1-2\",\"date\":1111111111,\"addresses\":{\"from\":{\"an account\":\"an_email\",
@@ -50,7 +50,7 @@ module MockResponse
   \"person_info\":{\"an_email\":{\"thumbnail\":\"a_thumbnail\"},
   \"gundam_reference@gmail.com\":{\"thumbnail\":\"a_thumbnail\"}},
   \"file_name_structure\":[[\"A file\",\"main\"],[\" \",\"boundary\"],[\"dasdassad\",
-  \"date\"],[\".png\",\"ext\"]],\"is_embedded\":false,\"resource_url\":\"a url\"}]".freeze
+  \"date\"],[\".png\",\"ext\"]],\"is_embedded\":false,\"resource_url\":\"a url\"}]"
 
 
   NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY = "[{\"type\":\"image\\/png\",\"size\":49516,
@@ -62,7 +62,7 @@ module MockResponse
   \"person_info\":{\"an_email\":{\"thumbnail\":\"a_thumbnail\"},
   \"gundam_reference@gmail.com\":{\"thumbnail\":\"a_thumbnail\"}},
   \"file_name_structure\":[[\"A file\",\"main\"],[\" \",\"boundary\"],[\"dasdassad\",
-  \"date\"],[\".png\",\"ext\"]],\"is_embedded\":false,\"resource_url\":\"a url\"}]".freeze
+  \"date\"],[\".png\",\"ext\"]],\"is_embedded\":false,\"resource_url\":\"a url\"}]"
 
   FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY = "{\"id\":\"some_id\",\"username\":\"fromaccount.gmail.com_12345\",
     \"created\":0,\"email_addresses\":[\"fromacccount@gmail.com\"],

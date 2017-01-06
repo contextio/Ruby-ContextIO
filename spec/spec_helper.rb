@@ -18,7 +18,13 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts/some_id/threads",
   "accounts/some_id/webhooks",
   "accounts/some_id/files/some_file",
-  "accounts/some_id/files/some_file/related"
+  "accounts/some_id/files/some_file/related",
+  "accounts/some_id/contacts/some_email@some_provider.com/messages/an_id/body",
+  "accounts/some_id/contacts/some_email@some_provider.com/messages/an_id/flags",
+  "accounts/some_id/contacts/some_email@some_provider.com/messages/an_id/folders",
+  "accounts/some_id/contacts/some_email@some_provider.com/messages/an_id/headers",
+  "accounts/some_id/contacts/some_email@some_provider.com/messages/an_id/source",
+  "accounts/some_id/contacts/some_email@some_provider.com/messages/an_id/thread"
 ]
 
 ACCOUNT_REQUEST_COLLECTION_ENDPOINTS = [

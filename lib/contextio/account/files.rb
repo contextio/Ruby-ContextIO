@@ -42,8 +42,7 @@ module ContextIO
     end
 
     def related
-      url = "#{call_url}/related"
-      call_api(url)
+      call_api("#{call_url}/related")
     end
   end
 end

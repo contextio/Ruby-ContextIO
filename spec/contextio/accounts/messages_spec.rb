@@ -26,6 +26,30 @@ module ContextIO
       it "Response does come from the Contacts object path." do
         expect(subject.call_url).to eq(messages_contacts_path)
       end
+
+      it "Can return a body" do
+        expect(subject.body.success?).to be true
+      end
+
+      it "Can return a flags" do
+        expect(subject.flags.success?).to be true
+      end
+
+      it "Can return a folders" do
+        expect(subject.folders.success?).to be true
+      end
+
+      it "Can return a headers" do
+        expect(subject.headers.success?).to be true
+      end
+
+      it "Can return a source" do
+        expect(subject.source.success?).to be true
+      end
+
+      it "Can return a threads" do
+        expect(subject.threads.success?).to be true
+      end
     end
   end
 end
