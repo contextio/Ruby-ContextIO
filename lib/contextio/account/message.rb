@@ -30,13 +30,7 @@ module ContextIO
     end
 
     def body
-      url = "#{call_url}/body"
-      resp = Request.new(connection, :get, url)
-      Message.new(parent: parent,
-                  identifier: message_id,
-                  response: resp.response,
-                  status: resp.status,
-                  success: resp.success)
+      call_api("#{call_url}/body")
     end
 
     def flags

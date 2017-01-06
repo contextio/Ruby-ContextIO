@@ -5,10 +5,17 @@ module ContextIO
         @response = response
       elsif response.is_a? Array
         response.each do |index|
-          index.each { |k,v| instance_variable_set("@#{k}", v) }
+          key = k.to_s.gsub('-', '_')
+          index.each do |k,v|
+            key = k.to_s.gsub('-', '_')
+            instance_variable_set("@#{key}", v)
+          end
         end
       else
-        response.each { |k,v| instance_variable_set("@#{k}", v) }
+        response.each do |k,v|
+          key = k.to_s.gsub('-', '_')
+          instance_variable_set("@#{key}", v)
+        end
       end
     end
 
