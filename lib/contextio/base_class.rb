@@ -17,7 +17,7 @@ module ContextIO
       "#{parent.call_url}/#{resource}/#{identifier}"
     end
 
-    def call_instance_endpoint(url = nil)
+    def call_api(url = nil)
       request = Request.new(connection, :get, url || call_url)
       parse_response(request.response)
       @status = request.status
@@ -25,13 +25,8 @@ module ContextIO
       self
     end
 
-    def call_collection_endpoint(url, klass)
-      request = Request.new(connection, :get, url || call_url)
-      collection_return(request, self ,klass)
-    end
-
     def get
-      call_instance_endpoint
+      call_api
     end
 
     def check_success(status)

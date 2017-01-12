@@ -29,7 +29,7 @@ module ContextIO
     end
 
     def get
-      call_instance_endpoint
+      call_api
     end
   end
 end

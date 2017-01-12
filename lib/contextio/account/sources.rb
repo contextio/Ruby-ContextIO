@@ -30,9 +30,9 @@ module ContextIO
 
     def folders(folder: nil)
       if folder
-        call_instance_endpoint("#{call_url}/folders/#{folder}")
+        call_api("#{call_url}/folders/#{folder}")
       else
-        call_instance_endpoint("#{call_url}/folders")
+        call_api("#{call_url}/folders")
       end
     end
   end
