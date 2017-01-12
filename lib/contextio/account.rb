@@ -52,5 +52,10 @@ module ContextIO
       request = Request.new(connection, :get, "#{call_url}/messages")
       collection_return(request, self, Message)
     end
+
+    def get_sources
+      request = Request.new(connection, :get, "#{call_url}/sources")
+      collection_return(request, self, Sources)
+    end
   end
 end
