@@ -10,7 +10,7 @@ module ContextIO
     attr_reader :connection
 
     public
-    attr_reader :parent, :response, :status, :success, :file_id, *FILE_READERS
+    attr_reader :parent, :response, :status, :success, :file_id, :response, *FILE_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,

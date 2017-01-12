@@ -8,7 +8,7 @@ module ContextIO
     attr_reader :parent
 
     public
-    attr_reader :status, :success, :connection, :message_id, *SOURCE_READERS
+    attr_reader :status, :success, :connection, :message_id, :response, *SOURCE_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
@@ -24,23 +24,6 @@ module ContextIO
       end
     end
 
-    def parse_response(response)
-      if response.is_a? String
-        @response = response
-      elsif response.is_a? Array
-        return_array = []
-        response.each do |index|
-          return_array << Sources.new(parent: parent, identifier: label, response: index)
-        end
-        return_array
-      else
-        response.each do |k,v|
-          key = k.to_s.gsub('-', '_')
-          instance_variable_set("@#{key}", v)
-        end
-      end
-    end
-
     def call_url
       build_url("sources", label)
     end
@@ -49,7 +32,7 @@ module ContextIO
       if folder
         call_instance_endpoint("#{call_url}/folders/#{folder}")
       else
-        call_collection_endpoint("#{call_url}/folders")
+        call_instance_endpoint("#{call_url}/folders")
       end
     end
   end

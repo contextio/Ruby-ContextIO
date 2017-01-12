@@ -3,15 +3,8 @@ module ContextIO
     require_relative './utilities/collection_helper.rb'
     include ContextIO::CollectionHelper
     def parse_response(response)
-      if response.is_a? String
+      if [Array, String].include?(response.class)
         @response = response
-      elsif response.is_a? Array
-        response.each do |index|
-          index.each do |k,v|
-            key = k.to_s.gsub('-', '_')
-            instance_variable_set("@#{key}", v)
-          end
-        end
       else
         response.each do |k,v|
           key = k.to_s.gsub('-', '_')
@@ -32,9 +25,9 @@ module ContextIO
       self
     end
 
-    def call_collection_endpoint(url = nil)
+    def call_collection_endpoint(url, klass)
       request = Request.new(connection, :get, url || call_url)
-      parse_response(request.response)
+      collection_return(request, self ,klass)
     end
 
     def get
