@@ -7,7 +7,6 @@ module ContextIO
     attr_reader :parent
 
     public
-    include CollectionHelper
     attr_reader :token, :connection, :success, :status, *CONNECT_READERS
     def initialize(parent:,
                    identifier: nil,

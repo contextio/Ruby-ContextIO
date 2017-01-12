@@ -1,5 +1,7 @@
 module ContextIO
   class BaseClass
+    require_relative './utilities/collection_helper.rb'
+    include ContextIO::CollectionHelper
     def parse_response(response)
       if response.is_a? String
         @response = response
