@@ -5,7 +5,6 @@ module ContextIO
         @response = response
       elsif response.is_a? Array
         response.each do |index|
-          key = k.to_s.gsub('-', '_')
           index.each do |k,v|
             key = k.to_s.gsub('-', '_')
             instance_variable_set("@#{key}", v)
@@ -23,7 +22,7 @@ module ContextIO
       "#{parent.call_url}/#{resource}/#{identifier}"
     end
 
-    def call_api(url = nil)
+    def call_instance_endpoint(url = nil)
       request = Request.new(connection, :get, url || call_url)
       parse_response(request.response)
       @status = request.status
@@ -31,8 +30,13 @@ module ContextIO
       self
     end
 
+    def call_collection_endpoint(url = nil)
+      request = Request.new(connection, :get, url || call_url)
+      parse_response(request.response)
+    end
+
     def get
-      call_api
+      call_instance_endpoint
     end
 
     def check_success(status)

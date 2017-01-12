@@ -42,7 +42,7 @@ module ContextIO
     end
 
     def related
-      call_api("#{call_url}/related")
+      call_instance_endpoint("#{call_url}/related")
     end
   end
 end
