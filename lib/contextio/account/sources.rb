@@ -15,7 +15,7 @@ module ContextIO
                    status: nil,
                    success: nil)
       @status = status
-      @success =  success
+      @success = success
       @parent = parent
       @connection = parent.connection
       @label = identifier

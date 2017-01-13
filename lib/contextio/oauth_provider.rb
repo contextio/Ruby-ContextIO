@@ -5,25 +5,25 @@ module ContextIO
     attr_reader :connection
 
     public
-    attr_reader :status, :parent, :success, :token, *OAUTH_READERS
+    attr_reader :status, :parent, :success, :key, *OAUTH_READERS
     def initialize(parent:,
-                  token: nil,
-                  response: nil,
-                  status: nil,
-                  success: nil)
+                   identifier: nil,
+                   response: nil,
+                   status: nil,
+                   success: nil)
       @parent = parent
       @connection = parent.connection
       @response = response
       @status = status
       @success = success
-      @token = token
+      @key = identifier
       if response
         parse_response(response)
       end
     end
 
     def call_url
-      build_url("oauth_providers", token)
+      build_url("oauth_providers", key)
     end
   end
 end

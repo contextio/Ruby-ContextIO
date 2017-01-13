@@ -33,6 +33,14 @@ module ContextIO
       it "Can be used to find Files" do
         expect(subject.get_files[1].class.to_s).to eq("ContextIO::Files")
       end
+
+      it "Can be used to find Messages" do
+        expect(subject.get_messages[1].class.to_s).to eq("ContextIO::Message")
+      end
+
+      it "Can be used to find Sources" do
+        expect(subject.get_sources[1].class.to_s).to eq("ContextIO::Sources")
+      end
     end
   end
 end

@@ -46,9 +46,13 @@ CONTACT_COLLECTION_ENDPOINTS = ["accounts/some_id/contacts"]
 #Some of these endpoints will have account in the URL. The purpose of these URLs
 #is to ensure there is a different return for endpoints such as
 # accounts/:id/files and account/:id/contacts/:email/files
-NON_ACCOUNT_ENDPOINTS = [
+NON_ACCOUNT_COLLECTION_ENDPOINTS = [
   "connect_tokens/",
   "oauth_providers"
+]
+
+NON_ACCOUNT_ENDPOINTS = [
+  "oauth_providers/some_key"
 ]
 
 NON_JSON_ENDPOINTS = [
@@ -86,6 +90,13 @@ RSpec.configure do |config|
                   headers: {"content-type" => "application/json"})
     end
     NON_ACCOUNT_ENDPOINTS.each do |endpoint|
+      stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        to_return(status: 200,
+                  body: MockResponse::FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY,
+                  headers: {"content-type" => "application/json"})
+    end
+    NON_ACCOUNT_COLLECTION_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
         to_return(status: 200,
