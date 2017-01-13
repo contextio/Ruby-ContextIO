@@ -17,10 +17,13 @@ module TestingConstants
 
   account_parent = Struct::MockParent.new(CIO_2_POINT_0_OBJECT.connection, "2.0/accounts/some_id")
 
-  source_parent = Struct::MockParent.new(CIO_2_POINT_0_OBJECT.connection, "2.0/accounts/some_id/source/0")
+  source_parent = Struct::MockParent.new(CIO_2_POINT_0_OBJECT.connection, "2.0/accounts/some_id/sources/0")
 
   MOCK_CONTACT = ContextIO::Contact.new(parent: account_parent,
                                         identifier: "some_email@some_provider.com")
+
+  MOCK_SOURCE = ContextIO::Sources.new(parent: account_parent,
+                                       identifier: "0")
 
   MOCK_SOURCE_FOLDER = ContextIO::Folder.new(parent: source_parent,
                                              identifier: "[Gmail]/Sent Mail")

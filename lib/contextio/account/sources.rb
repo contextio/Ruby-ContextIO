@@ -30,7 +30,7 @@ module ContextIO
 
     def folders(folder: nil)
       if folder
-        call_api("#{call_url}/folders/#{folder}")
+        call_api_return_new_class(Folder, folder)
       else
         request = Request.new(connection, :get, "#{call_url}/folders")
         collection_return(request, self, Folder)

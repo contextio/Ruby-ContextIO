@@ -25,6 +25,10 @@ module ContextIO
       self
     end
 
+    def call_api_return_new_class(klass, identifier)
+      klass.new(parent: self, identifier: identifier).get
+    end
+
     def get
       call_api
     end

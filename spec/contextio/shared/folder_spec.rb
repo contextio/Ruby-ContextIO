@@ -19,10 +19,10 @@ module ContextIO
       end
 
       it "Can return a call URL" do
-        expect(subject.call_url).to eq("2.0/accounts/some_id/source/0/folders/%5BGmail%5D%2FSent%20Mail")
+        expect(subject.call_url).to eq("2.0/accounts/some_id/sources/0/folders/%5BGmail%5D%2FSent%20Mail")
       end
 
-      it "can get messages" do
+      it "Can get messages" do
         expect(subject.messages[0].class.to_s).to eq("ContextIO::Message")
       end
     end
