@@ -32,7 +32,8 @@ module ContextIO
       if folder
         call_api("#{call_url}/folders/#{folder}")
       else
-        call_api("#{call_url}/folders")
+        request = Request.new(connection, :get, "#{call_url}/folders")
+        collection_return(request, self, Folder)
       end
     end
   end
