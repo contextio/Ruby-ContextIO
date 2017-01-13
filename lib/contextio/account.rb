@@ -7,7 +7,6 @@ module ContextIO
     attr_reader :parent
 
     public
-    include CollectionHelper
     attr_reader :id, :success, :connection, :status, *ACCOUNT_READERS
     def initialize(parent:,
                    identifier: nil,
@@ -51,6 +50,11 @@ module ContextIO
     def get_messages
       request = Request.new(connection, :get, "#{call_url}/messages")
       collection_return(request, self, Message)
+    end
+
+    def get_sources
+      request = Request.new(connection, :get, "#{call_url}/sources")
+      collection_return(request, self, Sources)
     end
   end
 end

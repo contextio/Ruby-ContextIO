@@ -1,16 +1,10 @@
 module ContextIO
   class BaseClass
+    require_relative './utilities/collection_helper.rb'
+    include ContextIO::CollectionHelper
     def parse_response(response)
-      if response.is_a? String
+      if [Array, String].include?(response.class)
         @response = response
-      elsif response.is_a? Array
-        response.each do |index|
-          key = k.to_s.gsub('-', '_')
-          index.each do |k,v|
-            key = k.to_s.gsub('-', '_')
-            instance_variable_set("@#{key}", v)
-          end
-        end
       else
         response.each do |k,v|
           key = k.to_s.gsub('-', '_')
@@ -29,6 +23,10 @@ module ContextIO
       @status = request.status
       @success = check_success(status)
       self
+    end
+
+    def call_api_return_new_class(klass, identifier)
+      klass.new(parent: self, identifier: identifier).get
     end
 
     def get

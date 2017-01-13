@@ -8,8 +8,7 @@ module ContextIO
     attr_reader :parent
 
     public
-    include CollectionHelper
-    attr_reader :status, :success, :connection, :message_id, *MESSAGE_READERS
+    attr_reader :status, :success, :connection, :message_id, :response, *MESSAGE_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
