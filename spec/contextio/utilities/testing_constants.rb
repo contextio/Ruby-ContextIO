@@ -15,8 +15,13 @@ module TestingConstants
 
   UNSUCCESSFUL_CALL = "404".freeze
 
-  contact_parent = Struct::MockParent.new(CIO_2_POINT_0_OBJECT.connection, "2.0/accounts/some_id")
+  account_parent = Struct::MockParent.new(CIO_2_POINT_0_OBJECT.connection, "2.0/accounts/some_id")
 
-  MOCK_CONTACT = ContextIO::Contact.new(parent: contact_parent,
+  source_parent = Struct::MockParent.new(CIO_2_POINT_0_OBJECT.connection, "2.0/accounts/some_id/source/0")
+
+  MOCK_CONTACT = ContextIO::Contact.new(parent: account_parent,
                                         identifier: "some_email@some_provider.com")
+
+  MOCK_SOURCE_FOLDER = ContextIO::Folder.new(parent: source_parent,
+                                             identifier: "[Gmail]/Sent Mail")
 end
