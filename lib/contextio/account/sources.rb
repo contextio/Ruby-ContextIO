@@ -36,5 +36,19 @@ module ContextIO
         collection_return(request, self, Folder)
       end
     end
+
+    def sync
+      Sync.new(parent: self).get
+    end
+
+    def connect_tokens(token: nil)
+      if token
+        url = "#{call_url}/connect_tokens/#{token}"
+        call_api_return_new_class(ConnectToken, token)
+      else
+        request = Request.new(connection, :get, "#{call_url}/connect_tokens")
+        collection_return(request, self, ConnectToken)
+      end
+    end
   end
 end

@@ -18,13 +18,26 @@ module ContextIO
         expect(subject.call_url).to eq("2.0/accounts/some_id/sources/0")
       end
 
-      it "Can return a folder" do
+      it "Can return a Folder" do
         expect(subject.folders(folder: "Hello").class.to_s).to eq("ContextIO::Folder")
       end
 
       it "Can return a collection of Folders" do
         expect(subject.folders[0].class.to_s).to eq("ContextIO::Folder")
         expect(subject.folders.count).to eq(2)
+      end
+
+      it "Can return a Sync" do
+        expect(subject.sync.class.to_s).to eq("ContextIO::Sync")
+      end
+
+      it "Can return a single ConnectToken" do
+        expect(subject.connect_tokens(token: "some_token").class.to_s).to eq("ContextIO::ConnectToken")
+      end
+
+      it "Can return a collection ConnectToken" do
+        expect(subject.connect_tokens[0].class.to_s).to eq("ContextIO::ConnectToken")
+        expect(subject.connect_tokens.count).to eq(2)
       end
     end
   end

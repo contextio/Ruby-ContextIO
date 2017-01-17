@@ -56,5 +56,9 @@ module ContextIO
       request = Request.new(connection, :get, "#{call_url}/sources")
       collection_return(request, self, Sources)
     end
+
+    def get_sync
+      Sync.new(parent: self).get
+    end
   end
 end
