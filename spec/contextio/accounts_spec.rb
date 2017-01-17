@@ -1,8 +1,3 @@
-require "contextio/connection"
-require "contextio/account"
-require "contextio/account/connect_token"
-require "contextio/account/contact"
-
 require_relative "./utilities/testing_constants.rb"
 
 module ContextIO
