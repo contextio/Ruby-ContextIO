@@ -60,5 +60,18 @@ module ContextIO
     def get_sync
       Sync.new(parent: self).get
     end
+
+    def get_threads
+      request = Request.new(connection, :get, "#{call_url}/threads")
+      Threads.new(parent: self,
+                 response: request.response,
+                 success: request.success,
+                 status: request.status)
+    end
+
+    def get_webhooks
+      request = Request.new(connection, :get, "#{call_url}/webhooks")
+      collection_return(request, self, Webhooks)
+    end
   end
 end

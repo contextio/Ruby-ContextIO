@@ -1,18 +1,19 @@
 module ContextIO
   class Threads < BaseClass
+    THREADS_READERS = %I(gmail_thread_id email_message_ids person_info messages)
+
     private
     attr_reader :parent
 
     public
-    attr_reader :response, :status, :success, :account_id, :thread_id
+    attr_reader :status, :success, :connection, :thread_id, *THREADS_READERS
     def initialize(parent:,
-                   account_id: nil,
                    identifier: nil,
                    response: nil,
                    status: nil,
                    success: nil)
       @parent = parent
-      @account_id = account_id
+      @connection = parent.connection
       @thread_id = identifier
       @response = response
       @status = status

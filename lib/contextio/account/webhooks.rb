@@ -1,24 +1,25 @@
 module ContextIO
   class Webhooks < BaseClass
+    WEBHOOK_READERS = %I(callback_url failure_notif_url active webhook_id resource_url)
+
     private
-    attr_reader :connection, :account_id, :webhook_id
+    attr_reader :parent
 
     public
-    attr_reader :response, :status, :success
-    def initialize(request, connection, account_id = nil, webhook_id = nil)
-      @response = request.response
-      @status = request.status
-      @success =  request.success
-      @connection = connection
-      @account_id = account_id
-      @webhook_id = webhook_id
-    end
-
-    def self.fetch(connection, id: nil, method: :get)
-      Webhooks.new(Request.new(connection,
-                               method,
-                               "/2.0/webhooks/#{id}"),
-                               connection)
+    attr_reader :webhook_id, :success, :connection, :status, *WEBHOOK_READERS
+    def initialize(parent:,
+                   identifier: nil,
+                   response: nil,
+                   status: nil,
+                   success: nil)
+      @parent = parent
+      @connection = parent.connection
+      @webhook_id = identifier
+      @status = status
+      @success = success
+      if response
+        parse_response(response)
+      end
     end
   end
 end
