@@ -27,6 +27,12 @@ module TestingConstants
   MOCK_SOURCE = ContextIO::Sources.new(parent: account_parent,
                                        identifier: "0")
 
+  MOCK_THREADS = ContextIO::Threads.new(parent: account_parent,
+                                       identifier: "some_thread")
+
+  MOCK_WEBHOOK = ContextIO::Webhook.new(parent: account_parent,
+                                       identifier: "some_webhook")
+
   MOCK_SOURCE_FOLDER = ContextIO::Folder.new(parent: source_parent,
                                              identifier: "[Gmail]/Sent Mail")
 end

@@ -51,7 +51,7 @@ module ContextIO
       end
 
       it "Can be used to find Sources" do
-        expect(subject.get_webhooks[1].class.to_s).to eq("ContextIO::Webhooks")
+        expect(subject.get_webhooks[1].class.to_s).to eq("ContextIO::Webhook")
       end
     end
   end

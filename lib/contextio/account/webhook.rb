@@ -1,5 +1,5 @@
 module ContextIO
-  class Webhooks < BaseClass
+  class Webhook < BaseClass
     WEBHOOK_READERS = %I(callback_url failure_notif_url active webhook_id resource_url)
 
     private
@@ -20,6 +20,10 @@ module ContextIO
       if response
         parse_response(response)
       end
+    end
+
+    def call_url
+      build_url("webhooks", webhook_id)
     end
   end
 end

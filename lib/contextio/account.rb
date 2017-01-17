@@ -71,7 +71,7 @@ module ContextIO
 
     def get_webhooks
       request = Request.new(connection, :get, "#{call_url}/webhooks")
-      collection_return(request, self, Webhooks)
+      collection_return(request, self, Webhook)
     end
   end
 end

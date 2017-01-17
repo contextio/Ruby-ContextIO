@@ -19,5 +19,9 @@ module ContextIO
       @status = status
       @success =  success
     end
+
+    def call_url
+      build_url("threads", thread_id)
+    end
   end
 end
