@@ -22,8 +22,20 @@ describe ContextIO do
       expect(subject.get_accounts[0].class.to_s).to eq("ContextIO::Account")
     end
 
+    it "can return an ConnectToken object" do
+      expect(subject.get_connect_tokens[0].class.to_s).to eq("ContextIO::ConnectToken")
+    end
+
+    it "can return an Discovery object" do
+      expect(subject.discovery(email: "some_email").class.to_s).to eq("ContextIO::Discovery")
+    end
+
     it "can return an OauthProvider object" do
       expect(subject.get_oauth_providers[0].class.to_s).to eq("ContextIO::OauthProvider")
+    end
+
+    it "can return an Webhook object" do
+      expect(subject.get_webhooks[0].class.to_s).to eq("ContextIO::Webhook")
     end
 
     it "has a version of 2.0" do
@@ -37,7 +49,7 @@ describe ContextIO do
 
     it "can return a collection of objects" do
       request = MockResponse::MOCK_FARDAY_COLLECTION
-      responses = subject.collection_return(request, ContextIO::Account)
+      responses = subject.collection_return(request, subject, ContextIO::Account)
       expect(responses.count).to eq(2)
       expect(responses.first.class.to_s).to eq("ContextIO::Account")
     end

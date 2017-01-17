@@ -14,23 +14,28 @@ module ContextIO
       @version = version
     end
 
-    def collection_return(request, klass)
-      request.response.map do |resp|
-        klass.new(parent: self,
-                  response: resp,
-                  status: request.status,
-                  success: request.success)
-      end
-    end
-
     def get_accounts
       request = Request.new(connection, :get, "#{call_url}/accounts")
-      collection_return(request, Account)
+      collection_return(request, self, Account)
+    end
+
+    def get_connect_tokens
+      request = Request.new(connection, :get, "#{call_url}/connect_tokens")
+      collection_return(request, self, ConnectToken)
+    end
+
+    def discovery(email:)
+      Discovery.new(parent: self, email: email).get
     end
 
     def get_oauth_providers
       request = Request.new(connection, :get, "#{call_url}/oauth_providers")
-      collection_return(request, OauthProvider)
+      collection_return(request, self, OauthProvider)
+    end
+
+    def get_webhooks
+      request = Request.new(connection, :get, "#{call_url}/webhooks")
+      collection_return(request, self, Webhook)
     end
   end
 end
