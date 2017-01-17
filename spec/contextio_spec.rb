@@ -37,7 +37,7 @@ describe ContextIO do
 
     it "can return a collection of objects" do
       request = MockResponse::MOCK_FARDAY_COLLECTION
-      responses = subject.collection_return(request, ContextIO::Account)
+      responses = subject.collection_return(request, subject, ContextIO::Account)
       expect(responses.count).to eq(2)
       expect(responses.first.class.to_s).to eq("ContextIO::Account")
     end
