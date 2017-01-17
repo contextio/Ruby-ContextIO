@@ -43,7 +43,6 @@ module ContextIO
 
     def connect_tokens(token: nil)
       if token
-        url = "#{call_url}/connect_tokens/#{token}"
         call_api_return_new_class(ConnectToken, token)
       else
         request = Request.new(connection, :get, "#{call_url}/connect_tokens")

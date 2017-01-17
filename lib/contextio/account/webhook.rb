@@ -1,12 +1,12 @@
 module ContextIO
-  class Threads < BaseClass
-    THREADS_READERS = %I(gmail_thread_id email_message_ids person_info messages)
+  class Webhook < BaseClass
+    WEBHOOK_READERS = %I(callback_url failure_notif_url active webhook_id resource_url)
 
     private
     attr_reader :parent
 
     public
-    attr_reader :status, :success, :connection, :thread_id, *THREADS_READERS
+    attr_reader :webhook_id, :success, :connection, :status, *WEBHOOK_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
@@ -14,14 +14,16 @@ module ContextIO
                    success: nil)
       @parent = parent
       @connection = parent.connection
-      @thread_id = identifier
-      @response = response
+      @webhook_id = identifier
       @status = status
-      @success =  success
+      @success = success
+      if response
+        parse_response(response)
+      end
     end
 
     def call_url
-      build_url("threads", thread_id)
+      build_url("webhooks", webhook_id)
     end
   end
 end

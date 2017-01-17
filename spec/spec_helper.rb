@@ -29,7 +29,9 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts/some_id/sources/0/folders/Hello",
   "accounts/some_id/sources/0/folders/%5BGmail%5D%2FSent%20Mail",
   "accounts/some_id/sources/0/sync",
-  "accounts/some_id/sources/0/connect_tokens/some_token"
+  "accounts/some_id/sources/0/connect_tokens/some_token",
+  "accounts/some_id/webhooks/some_webhook",
+  "accounts/some_id/threads/some_thread"
 ]
 
 ACCOUNT_REQUEST_COLLECTION_ENDPOINTS = [

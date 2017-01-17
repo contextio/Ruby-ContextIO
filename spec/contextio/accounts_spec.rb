@@ -45,6 +45,14 @@ module ContextIO
       it "Can be used to find Sync" do
         expect(subject.get_sync.class.to_s).to eq("ContextIO::Sync")
       end
+
+      it "Can be used to find Threads" do
+        expect(subject.get_threads.class.to_s).to eq("ContextIO::Threads")
+      end
+
+      it "Can be used to find Sources" do
+        expect(subject.get_webhooks[1].class.to_s).to eq("ContextIO::Webhook")
+      end
     end
   end
 end
