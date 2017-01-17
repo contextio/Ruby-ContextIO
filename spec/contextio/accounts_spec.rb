@@ -41,6 +41,10 @@ module ContextIO
       it "Can be used to find Sources" do
         expect(subject.get_sources[1].class.to_s).to eq("ContextIO::Sources")
       end
+
+      it "Can be used to find Sync" do
+        expect(subject.get_sync.class.to_s).to eq("ContextIO::Sync")
+      end
     end
   end
 end
