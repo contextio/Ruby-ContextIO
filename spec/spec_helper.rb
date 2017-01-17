@@ -52,12 +52,14 @@ CONTACT_COLLECTION_ENDPOINTS = ["accounts/some_id/contacts"]
 #is to ensure there is a different return for endpoints such as
 # accounts/:id/files and account/:id/contacts/:email/files
 NON_ACCOUNT_COLLECTION_ENDPOINTS = [
-  "connect_tokens/",
+  "connect_tokens",
+  "webhooks",
   "oauth_providers"
 ]
 
 NON_ACCOUNT_ENDPOINTS = [
-  "oauth_providers/some_key"
+  "oauth_providers/some_key",
+  "discovery?email=some_email&source_type=IMAP"
 ]
 
 NON_JSON_ENDPOINTS = [
