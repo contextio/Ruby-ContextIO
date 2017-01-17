@@ -19,9 +19,23 @@ module ContextIO
       collection_return(request, self, Account)
     end
 
+    def get_connect_tokens
+      request = Request.new(connection, :get, "#{call_url}/connect_tokens")
+      collection_return(request, self, ConnectToken)
+    end
+
+    def discovery(email:)
+      Discovery.new(parent: self, email: email).get
+    end
+
     def get_oauth_providers
       request = Request.new(connection, :get, "#{call_url}/oauth_providers")
       collection_return(request, self, OauthProvider)
+    end
+
+    def get_webhooks
+      request = Request.new(connection, :get, "#{call_url}/webhooks")
+      collection_return(request, self, Webhook)
     end
   end
 end
