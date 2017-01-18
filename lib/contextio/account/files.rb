@@ -1,5 +1,6 @@
 module ContextIO
-  class Files < BaseClass
+  class Files
+    include ContextIO::CallHelpers
     FILE_READERS = %I(size type subject date date_indexed addresses person_info
                    file_name file_name_structure body_section supports_preview
                    is_embedded content_disposition content_id message_id

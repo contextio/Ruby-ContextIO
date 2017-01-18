@@ -1,5 +1,6 @@
 module ContextIO
-  class Threads < BaseClass
+  class Threads
+    include ContextIO::CallHelpers
     THREADS_READERS = %I(gmail_thread_id email_message_ids person_info messages)
 
     private

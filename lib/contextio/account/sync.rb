@@ -1,5 +1,6 @@
 module ContextIO
-  class Sync < BaseClass
+  class Sync
+    include ContextIO::CallHelpers
     private
     attr_reader :parent
 

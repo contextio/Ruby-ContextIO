@@ -1,6 +1,8 @@
 require "contextio/utilities/collection_helper"
+require "contextio/utilities/call_helpers"
 module ContextIO
-  class Account < BaseClass
+  class Account
+    include ContextIO::CallHelpers
     ACCOUNT_READERS = %I(username created suspended email_addresses first_name last_name
                        password_expired sources resource_url)
     private
@@ -28,33 +30,27 @@ module ContextIO
     end
 
     def get_connect_tokens
-      request = Request.new(connection, :get, "#{call_url}/connect_tokens")
-      collection_return(request, self, ConnectToken)
+      collection_return("#{call_url}/connect_tokens", self, ConnectToken)
     end
 
     def get_contacts
-      request = Request.new(connection, :get, "#{call_url}/contacts")
-      contact_collection_return(request, self)
+      contact_collection_return("#{call_url}/contacts")
     end
 
     def get_email_addresses
-      request = Request.new(connection, :get, "#{call_url}/email_addresses")
-      collection_return(request, self, EmailAddress)
+      collection_return("#{call_url}/email_addresses", self, EmailAddress)
     end
 
     def get_files
-      request = Request.new(connection, :get, "#{call_url}/files")
-      collection_return(request, self, Files)
+      collection_return("#{call_url}/files", self, Files)
     end
 
     def get_messages
-      request = Request.new(connection, :get, "#{call_url}/messages")
-      collection_return(request, self, Message)
+      collection_return("#{call_url}/messages", self, Message)
     end
 
     def get_sources
-      request = Request.new(connection, :get, "#{call_url}/sources")
-      collection_return(request, self, Sources)
+      collection_return("#{call_url}/sources", self, Sources)
     end
 
     def get_sync
@@ -70,8 +66,7 @@ module ContextIO
     end
 
     def get_webhooks
-      request = Request.new(connection, :get, "#{call_url}/webhooks")
-      collection_return(request, self, Webhook)
+      collection_return("#{call_url}/webhooks", self, Webhook)
     end
   end
 end

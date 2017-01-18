@@ -1,8 +1,5 @@
-require_relative "contextio/base_class"
 Dir["./lib/contextio/*.rb"].each {|file| require file }
 Dir["./lib/contextio/**/*.rb"].each {|file| require file }
-
-require "json"
 
 module ContextIO
   class ContextIO
@@ -15,13 +12,11 @@ module ContextIO
     end
 
     def get_accounts
-      request = Request.new(connection, :get, "#{call_url}/accounts")
-      collection_return(request, self, Account)
+      collection_return("#{call_url}/accounts", self, Account)
     end
 
     def get_connect_tokens
-      request = Request.new(connection, :get, "#{call_url}/connect_tokens")
-      collection_return(request, self, ConnectToken)
+      collection_return("#{call_url}/connect_tokens", self, ConnectToken)
     end
 
     def discovery(email:)
@@ -29,13 +24,11 @@ module ContextIO
     end
 
     def get_oauth_providers
-      request = Request.new(connection, :get, "#{call_url}/oauth_providers")
-      collection_return(request, self, OauthProvider)
+      collection_return("#{call_url}/oauth_providers", self, OauthProvider)
     end
 
     def get_webhooks
-      request = Request.new(connection, :get, "#{call_url}/webhooks")
-      collection_return(request, self, Webhook)
+      collection_return("#{call_url}/webhooks", self, Webhook)
     end
   end
 end

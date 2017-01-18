@@ -1,5 +1,6 @@
 module ContextIO
-  class Discovery < BaseClass
+  class Discovery
+    include ContextIO::CallHelpers
     DISCOVERY_READERS = %I(email found resource_url type imap documentation)
 
     private

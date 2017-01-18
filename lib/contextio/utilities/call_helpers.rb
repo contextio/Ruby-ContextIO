@@ -1,6 +1,6 @@
 module ContextIO
-  class BaseClass
-    require_relative './utilities/collection_helper.rb'
+  module CallHelpers
+    require_relative './collection_helper.rb'
     include ContextIO::CollectionHelper
     def parse_response(response)
       if [Array, String].include?(response.class)

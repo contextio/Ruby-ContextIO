@@ -1,5 +1,6 @@
 module ContextIO
-  class Folder < BaseClass
+  class Folder
+    include ContextIO::CallHelpers
     require "erb"
     FOLDER_READERS = %I(symbolic_name attributes delim nb_messages xlist_name
                         nb_unseen_messages resource_url name)
@@ -33,8 +34,7 @@ module ContextIO
     end
 
     def messages
-      request = Request.new(connection, :get, "#{call_url}/messages")
-      collection_return(request, self, Message)
+      collection_return("#{call_url}/messages", self, Message)
     end
   end
 end
