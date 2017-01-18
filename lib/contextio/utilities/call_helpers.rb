@@ -29,6 +29,14 @@ module ContextIO
       klass.new(parent: self, identifier: identifier).get
     end
 
+    def get_params(inputed_params, valid_params)
+      params = inputed_params.map do |key, value|
+        if valid_params.include?(key)
+          [key, value]
+        end
+      end
+    end
+
     def get
       call_api
     end
