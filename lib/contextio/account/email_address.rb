@@ -1,5 +1,6 @@
 module ContextIO
-  class EmailAddress < BaseClass
+  class EmailAddress
+    include ContextIO::CallHelpers
     EMAIL_ATTRS = %I(email validated primary resource_url)
 
     private

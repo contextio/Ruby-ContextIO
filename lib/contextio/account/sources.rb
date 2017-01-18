@@ -1,5 +1,6 @@
 module ContextIO
-  class Sources < BaseClass
+  class Sources
+  include ContextIO::CallHelpers
   SOURCE_READERS = %I(username status type label use_ssl resource_url server
                       port mailserviceAccountId callbackUrl delimiter
                       authentication_type sync_flags type)

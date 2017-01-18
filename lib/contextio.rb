@@ -1,4 +1,3 @@
-require_relative "contextio/base_class"
 Dir["./lib/contextio/*.rb"].each {|file| require file }
 Dir["./lib/contextio/**/*.rb"].each {|file| require file }
 

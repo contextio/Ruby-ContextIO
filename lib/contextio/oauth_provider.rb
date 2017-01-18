@@ -1,5 +1,6 @@
 module ContextIO
-  class OauthProvider < BaseClass
+  class OauthProvider
+    include ContextIO::CallHelpers
     OAUTH_READERS = %I(type provider_consumer_key provider_consumer_secret resource_url)
     private
     attr_reader :connection

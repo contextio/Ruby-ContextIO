@@ -1,6 +1,8 @@
 require "contextio/utilities/collection_helper"
+require "contextio/utilities/call_helpers"
 module ContextIO
-  class Account < BaseClass
+  class Account
+    include ContextIO::CallHelpers
     ACCOUNT_READERS = %I(username created suspended email_addresses first_name last_name
                        password_expired sources resource_url)
     private

@@ -1,5 +1,6 @@
 module ContextIO
-  class Contact < BaseClass
+  class Contact
+    include ContextIO::CallHelpers
     CONTACT_READERS =  %I(emails name thumbnail last_received last_sent count sent_count
                        received_count sent_from_account_count query email resource_url)
 
