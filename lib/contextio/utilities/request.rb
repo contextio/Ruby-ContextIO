@@ -1,5 +1,6 @@
 module ContextIO
   class Request
+    require "json"
     attr_reader :response, :status, :success
     def initialize(connection, method, url)
       request = connection.connect.send(method, url)

@@ -1,8 +1,6 @@
 Dir["./lib/contextio/*.rb"].each {|file| require file }
 Dir["./lib/contextio/**/*.rb"].each {|file| require file }
 
-require "json"
-
 module ContextIO
   class ContextIO
     include CollectionHelper
