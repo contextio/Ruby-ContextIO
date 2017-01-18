@@ -15,7 +15,7 @@ module ContextIO
     def get_accounts(**kwargs)
       valid_params = %I(email status status_ok limit offset)
       params = get_params(kwargs, valid_params)
-      collection_return("#{call_url}/accounts", params, self, Account)
+      collection_return("#{call_url}/accounts", self, Account, params)
     end
 
     def get_connect_tokens

@@ -1,7 +1,7 @@
 module ContextIO
   module CollectionHelper
-    def collection_return(url, params, parent, klass)
-      request = Request.new(connection, :get, url, params)
+    def collection_return(url, parent, klass, params = nil)
+      request = Request.new(connection, :get, url, params = nil)
       request.response.map do |resp|
         klass.new(parent: parent,
                   response: resp,
