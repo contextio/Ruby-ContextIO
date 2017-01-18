@@ -51,7 +51,7 @@ module ContextIO
       collection_return("#{call_url}/files", self, Files, params)
     end
 
-    def get_messages
+    def get_messages(**kwargs)
       valid_params = %I(subject email to from cc bcc folder source file_name file_size_min
                         file_size_max date_before date_after indexed_before indexed_after
                         include_thread_size include_body include_headers include_flags
@@ -60,7 +60,7 @@ module ContextIO
       collection_return("#{call_url}/messages", self, Message, params)
     end
 
-    def get_sources
+    def get_sources(**kwargs)
       valid_params = %I(status status_ok)
       params = get_params(kwargs, valid_params)
       collection_return("#{call_url}/sources", self, Sources, params)
@@ -70,7 +70,7 @@ module ContextIO
       Sync.new(parent: self).get
     end
 
-    def get_threads
+    def get_threads(**kwargs)
       valid_params = %I(subject email to from cc bcc folder indexed_before indexed_after
                         activity_before activity_after started_before started_after
                         limit offset)
