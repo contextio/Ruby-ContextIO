@@ -4,6 +4,7 @@ Dir["./lib/contextio/**/*.rb"].each {|file| require file }
 module ContextIO
   class ContextIO
     include CollectionHelper
+    include CallHelpers
     attr_reader :connection, :call_url, :version
     def initialize(key:, secret:, version:)
       @connection = Connection.new(key, secret)
@@ -11,8 +12,10 @@ module ContextIO
       @version = version
     end
 
-    def get_accounts
-      collection_return("#{call_url}/accounts", self, Account)
+    def get_accounts(**kwargs)
+      valid_params = %I(email status status_ok limit offset)
+      params = get_params(kwargs, valid_params)
+      collection_return("#{call_url}/accounts", self, Account, params)
     end
 
     def get_connect_tokens

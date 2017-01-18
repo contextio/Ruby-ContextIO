@@ -1,7 +1,7 @@
 module ContextIO
   module CollectionHelper
-    def collection_return(url, parent, klass)
-      request = Request.new(connection, :get, url)
+    def collection_return(url, parent, klass, params = nil)
+      request = Request.new(connection, :get, url, params)
       request.response.map do |resp|
         klass.new(parent: parent,
                   response: resp,
@@ -10,8 +10,8 @@ module ContextIO
       end
     end
 
-    def contact_collection_return(url)
-      request = Request.new(connection, :get, url)
+    def contact_collection_return(url, params = nil)
+      request = Request.new(connection, :get, url, params)
       response = request.response
       matches = response["matches"].map do |resp|
         Contact.new(response: resp,
