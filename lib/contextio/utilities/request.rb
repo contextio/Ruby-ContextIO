@@ -3,6 +3,7 @@ module ContextIO
     require "json"
     attr_reader :response, :status, :success
     def initialize(connection, method, url, params = nil)
+      binding.pry
       request = connection.connect.send(method, url, params)
       if request.headers["content-type"] == "application/json"
         @response = JSON.parse(request.body)

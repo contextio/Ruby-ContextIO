@@ -33,24 +33,37 @@ module ContextIO
       collection_return("#{call_url}/connect_tokens", self, ConnectToken)
     end
 
-    def get_contacts
-      contact_collection_return("#{call_url}/contacts")
+    def get_contacts(**kwargs)
+      valid_params = %I(search activity_before activity_after sort_by sort_order limit offset)
+      params = get_params(kwargs, valid_params)
+      contact_collection_return("#{call_url}/contacts", params)
     end
 
     def get_email_addresses
       collection_return("#{call_url}/email_addresses", self, EmailAddress)
     end
 
-    def get_files
-      collection_return("#{call_url}/files", self, Files)
+    def get_files(**kwargs)
+      valid_params = %I(file_name file_size_min file_size_max email to from cc bcc
+                        date_before date_after indexed_before indexed_after source
+                        sort_order limit offset)
+      params = get_params(kwargs, valid_params)
+      collection_return("#{call_url}/files", self, Files, params)
     end
 
     def get_messages
-      collection_return("#{call_url}/messages", self, Message)
+      valid_params = %I(subject email to from cc bcc folder source file_name file_size_min
+                        file_size_max date_before date_after indexed_before indexed_after
+                        include_thread_size include_body include_headers include_flags
+                        body_type include_source sort_order limit offset)
+      params = get_params(kwargs, valid_params)
+      collection_return("#{call_url}/messages", self, Message, params)
     end
 
     def get_sources
-      collection_return("#{call_url}/sources", self, Sources)
+      valid_params = %I(status status_ok)
+      params = get_params(kwargs, valid_params)
+      collection_return("#{call_url}/sources", self, Sources, params)
     end
 
     def get_sync
@@ -58,7 +71,11 @@ module ContextIO
     end
 
     def get_threads
-      request = Request.new(connection, :get, "#{call_url}/threads")
+      valid_params = %I(subject email to from cc bcc folder indexed_before indexed_after
+                        activity_before activity_after started_before started_after
+                        limit offset)
+      params = get_params(kwargs, valid_params)
+      request = Request.new(connection, :get, "#{call_url}/threads", params)
       Threads.new(parent: self,
                  response: request.response,
                  success: request.success,

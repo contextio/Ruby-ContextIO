@@ -35,6 +35,7 @@ module ContextIO
           [key, value]
         end
       end
+      params.compact!
     end
 
     def get
