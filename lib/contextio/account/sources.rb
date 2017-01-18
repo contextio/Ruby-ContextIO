@@ -33,8 +33,7 @@ module ContextIO
       if folder
         call_api_return_new_class(Folder, folder)
       else
-        request = Request.new(connection, :get, "#{call_url}/folders")
-        collection_return(request, self, Folder)
+        collection_return("#{call_url}/folders", self, Folder)
       end
     end
 
@@ -46,8 +45,7 @@ module ContextIO
       if token
         call_api_return_new_class(ConnectToken, token)
       else
-        request = Request.new(connection, :get, "#{call_url}/connect_tokens")
-        collection_return(request, self, ConnectToken)
+        collection_return("#{call_url}/connect_tokens", self, ConnectToken)
       end
     end
   end

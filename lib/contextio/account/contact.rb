@@ -25,8 +25,7 @@ module ContextIO
     end
 
     def get_files
-      request = Request.new(connection, :get, "#{call_url}/files")
-      collection_return(request, self, Files)
+      collection_return("#{call_url}/files", self, Files)
     end
 
     def get_threads
@@ -38,8 +37,7 @@ module ContextIO
     end
 
     def get_messages
-      request = Request.new(parent.connection, :get, "#{call_url}/messages")
-      collection_return(request, self, Message)
+      collection_return("#{call_url}/messages", self, Message)
     end
   end
 end
