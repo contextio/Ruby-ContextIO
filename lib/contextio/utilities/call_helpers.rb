@@ -17,8 +17,10 @@ module ContextIO
       "#{parent.call_url}/#{resource}/#{identifier}"
     end
 
-    def call_api(url = nil)
-      request = Request.new(connection, :get, url || call_url)
+    def call_api(kwargs = nil, url = nil)
+      valid_params = Array( (valid_get_params if self.respond_to?(:valid_get_params)) )
+      params = get_params(kwargs, valid_params)
+      request = Request.new(connection, :get, url || call_url, params)
       parse_response(request.response)
       @status = request.status
       @success = check_success(status)
@@ -36,10 +38,13 @@ module ContextIO
         end
       end
       params.compact!
+      if !params.empty?
+        params = params.to_h
+      end
     end
 
-    def get
-      call_api
+    def get(**kwargs)
+      call_api(kwargs)
     end
 
     def check_success(status)

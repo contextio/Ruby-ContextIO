@@ -1,6 +1,7 @@
 module ContextIO
   class Message
     include ContextIO::CallHelpers
+    require "erb"
     MESSAGE_READERS = %I(date date_indexed date_received addresses person_info email_message_id
                        message_id gmail_message_id gmail_thread_id files subject
                        folders sources content type charset body_section answered
@@ -25,8 +26,16 @@ module ContextIO
       end
     end
 
+    def encoded_message_id
+      ERB::Util.url_encode(message_id)
+    end
+
     def call_url
-      build_url("messages", message_id)
+      build_url("messages", encoded_message_id)
+    end
+
+    def valid_get_params
+      ValidParams::MESSAGE_GET_PARAMS
     end
 
     def body

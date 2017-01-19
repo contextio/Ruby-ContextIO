@@ -16,5 +16,11 @@ module ContextIO
     GET_THREADS_PARAMS = %I(subject email to from cc bcc folder indexed_before indexed_after
                             activity_before activity_after started_before started_after
                             limit offset)
+
+    MESSAGE_GET_PARAMS = %I(include_thread_size include_body include_headers include_flags
+                            body_type include_source)
+
+    THREADS_GET_PARAMS = %I(include_body include_headers include_flags body_type
+                            include_source limit offset)
   end
 end
