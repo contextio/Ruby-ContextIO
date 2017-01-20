@@ -1,7 +1,6 @@
 module ContextIO
   class Message
     include ContextIO::CallHelpers
-    require "erb"
     MESSAGE_READERS = %I(date date_indexed date_received addresses person_info email_message_id
                        message_id gmail_message_id gmail_thread_id files subject
                        folders sources content type charset body_section answered
