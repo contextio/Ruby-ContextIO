@@ -28,5 +28,7 @@ module ContextIO
     GET_CONTACT_MESSAGES_PARAMS = %I(limit offset)
 
     GET_CONTACT_THREADS_PARAMS = %I(limit offset)
+
+    GET_FILES_CONTENT_PARAMS = %I(as_link)
   end
 end
