@@ -17,7 +17,7 @@ module ContextIO
         Contact.new(response: resp,
                     status: request.status,
                     success: request.success,
-                    parent: parent,
+                    parent: self,
                     identifier: resp["email"])
       end
       [response["query"], matches]

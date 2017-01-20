@@ -22,5 +22,11 @@ module ContextIO
 
     THREADS_GET_PARAMS = %I(include_body include_headers include_flags body_type
                             include_source limit offset)
+
+    GET_CONTACT_FILES_PARAMS = %I(limit offset)
+
+    GET_CONTACT_MESSAGES_PARAMS = %I(limit offset)
+
+    GET_CONTACT_THREADS_PARAMS = %I(limit offset)
   end
 end
