@@ -11,7 +11,7 @@ module ContextIO
                    identifier: nil,
                    response: nil,
                    status: nil,
-                   success: nil.
+                   success: nil,
                    api_call_made: nil)
       @parent = parent
       @connection = parent.connection

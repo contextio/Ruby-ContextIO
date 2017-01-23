@@ -14,8 +14,8 @@ module ContextIO
       end
     end
 
-    def contact_collection_return(url, params = nil)
-      request = Request.new(connection, :get, url, params)
+    def contact_collection_return(url, allowed_params = nil, rejected_params = nil)
+      request = Request.new(connection, :get, url, allowed_params)
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
                                                         allowed_params,
                                                         rejected_params)
@@ -25,7 +25,7 @@ module ContextIO
                     status: request.status,
                     success: request.success,
                     parent: self,
-                    identifier: resp["email"].
+                    identifier: resp["email"],
                     api_call_made: api_call_made)
       end
       [response["query"], matches]

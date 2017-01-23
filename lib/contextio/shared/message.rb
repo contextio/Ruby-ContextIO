@@ -40,27 +40,27 @@ module ContextIO
     end
 
     def body
-      call_api("#{call_url}/body")
+      call_api(url: "#{call_url}/body")
     end
 
     def flags
-      call_api("#{call_url}/flags")
+      call_api(url: "#{call_url}/flags")
     end
 
     def folders
-      call_api("#{call_url}/folders")
+      call_api(url: "#{call_url}/folders")
     end
 
     def headers
-      call_api("#{call_url}/headers")
+      call_api(url: "#{call_url}/headers")
     end
 
     def source
-      call_api("#{call_url}/source")
+      call_api(url: "#{call_url}/source")
     end
 
     def threads
-      call_api("#{call_url}/thread")
+      call_api(url: "#{call_url}/thread")
     end
   end
 end
