@@ -34,5 +34,9 @@ module ContextIO
     FOLDERS_SOURCES_GET_PARAMS = %I(include_extended_counts no_cache)
 
     GET_SOURCE_FOLDER_PARAMS = %I(include_extended_counts delim)
+
+    GET_SOURCE_FOLDER_MESSAGES_PARAMS = %I(include_thread_size include_body body_type
+                                           include_headers include_flags flag_seen
+                                           limit offset)
   end
 end

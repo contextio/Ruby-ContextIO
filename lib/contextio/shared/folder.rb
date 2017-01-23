@@ -32,8 +32,9 @@ module ContextIO
       build_url("folders", encoded_name)
     end
 
-    def messages
-      collection_return("#{call_url}/messages", self, Message)
+    def messages(**kwargs)
+      params = get_params(kwargs, ValidParams::GET_SOURCE_FOLDER_MESSAGES_PARAMS)
+      collection_return("#{call_url}/messages", self, Message, params)
     end
   end
 end
