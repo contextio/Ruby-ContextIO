@@ -27,8 +27,12 @@ module ContextIO
       self
     end
 
-    def call_api_return_new_class(klass, identifier)
-      klass.new(parent: self, identifier: identifier).get
+    def call_api_return_new_class(klass, identifier, url, params = nil)
+      request = Request.new(connection, :get, url, params)
+      klass.new(parent: self,
+                response: resp,
+                status: request.status,
+                success: request.success)
     end
 
     def get_params(inputed_params, valid_params)
