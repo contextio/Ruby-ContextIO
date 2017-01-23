@@ -13,12 +13,14 @@ module ContextIO
                    identifier: nil,
                    response: nil,
                    status: nil,
-                   success: nil)
+                   success: nil,
+                   api_call_made: nil)
       @status = status
-      @success =  success
+      @success = success
       @parent = parent
       @connection = parent.connection
       @name = identifier
+      @api_call_made = api_call_made
       if response
         parse_response(response)
       end

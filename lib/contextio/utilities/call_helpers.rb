@@ -22,6 +22,9 @@ module ContextIO
       params = get_params(kwargs, valid_params)
       request = Request.new(connection, :get, url || call_url, params)
       parse_response(request.response)
+      @api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
+                                                         allowed_params,
+                                                         rejected_params)
       @status = request.status
       @success = check_success(status)
       self
