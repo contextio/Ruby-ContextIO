@@ -8,7 +8,7 @@ module ContextIO
     attr_reader :parent
 
     public
-    attr_reader :status, :success, :connection, :response, *FOLDER_READERS
+    attr_reader :status, :success, :connection, :response, :api_call_made, *FOLDER_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,

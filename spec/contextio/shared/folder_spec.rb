@@ -14,6 +14,11 @@ module ContextIO
         expect(subject.success?).to be true
       end
 
+      it "Has an API call made" do
+        expect(subject).to respond_to(:api_call_made)
+        expect(subject.api_call_made).not_to be_nil
+      end
+
       it "Can return an encoded name" do
         expect(subject.encoded_name).to eq("%5BGmail%5D%2FSent%20Mail")
       end

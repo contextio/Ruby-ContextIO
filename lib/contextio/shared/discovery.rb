@@ -7,7 +7,7 @@ module ContextIO
     attr_reader :parent
 
     public
-    attr_reader :status, :success, :connection, :response, *DISCOVERY_READERS
+    attr_reader :status, :success, :connection, :response, :api_call_made, *DISCOVERY_READERS
     def initialize(parent:,
                    email:,
                    response: nil,

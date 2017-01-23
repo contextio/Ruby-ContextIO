@@ -6,7 +6,7 @@ module ContextIO
     attr_reader :connection
 
     public
-    attr_reader :status, :parent, :success, :key, *OAUTH_READERS
+    attr_reader :status, :parent, :success, :key, :api_call_made, *OAUTH_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,

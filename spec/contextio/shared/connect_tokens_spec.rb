@@ -17,6 +17,11 @@ module ContextIO
         expect(subject.success?).to be true
       end
 
+      it "Has an API call made" do
+        expect(subject).to respond_to(:api_call_made)
+        expect(subject.api_call_made).not_to be_nil
+      end
+
       it "Created a ConnectTokens object" do
         expect(subject.class.to_s).to eq("ContextIO::ConnectToken")
       end

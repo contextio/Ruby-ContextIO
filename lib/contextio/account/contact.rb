@@ -4,7 +4,8 @@ module ContextIO
     CONTACT_READERS =  %I(emails name thumbnail last_received last_sent count sent_count
                        received_count sent_from_account_count query email resource_url)
 
-    attr_reader :response, :status, :parent, :connection, :success, :email, *CONTACT_READERS
+    attr_reader :response, :status, :parent, :connection, :success, :email,
+                :api_call_made, *CONTACT_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,

@@ -14,6 +14,11 @@ module ContextIO
         expect(subject.success?).to be true
       end
 
+      it "Has an API call made" do
+        expect(subject).to respond_to(:api_call_made)
+        expect(subject.api_call_made).not_to be_nil
+      end
+
       it "Can return a call URL" do
         expect(subject.call_url).to eq("2.0/accounts/some_id/sources/0")
       end

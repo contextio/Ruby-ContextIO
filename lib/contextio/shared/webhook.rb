@@ -7,7 +7,7 @@ module ContextIO
     attr_reader :parent
 
     public
-    attr_reader :webhook_id, :success, :connection, :status, *WEBHOOK_READERS
+    attr_reader :webhook_id, :success, :connection, :status, :api_call_made, *WEBHOOK_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,

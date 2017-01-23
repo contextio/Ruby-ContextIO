@@ -5,7 +5,7 @@ module ContextIO
     attr_reader :parent
 
     public
-    attr_reader :status, :success, :connection, :response
+    attr_reader :status, :success, :connection, :response, :api_call_made
     def initialize(parent:,
                    response: nil,
                    status: nil,
