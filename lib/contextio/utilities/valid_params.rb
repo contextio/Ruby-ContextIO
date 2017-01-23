@@ -17,6 +17,8 @@ module ContextIO
                             activity_before activity_after started_before started_after
                             limit offset)
 
+    GET_SOURCES_PARAMS =  %I(status status_ok)
+
     MESSAGE_GET_PARAMS = %I(include_thread_size include_body include_headers include_flags
                             body_type include_source)
 

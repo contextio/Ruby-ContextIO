@@ -14,12 +14,14 @@ module ContextIO
                    identifier: nil,
                    response: nil,
                    status: nil,
-                   success: nil)
+                   success: nil,
+                   api_call_made: nil)
       @parent = parent
       @connection = parent.connection
       @message_id = identifier
       @status = status
       @success = success
+      @api_call_made = api_call_made
       if response
         parse_response(response)
       end
@@ -38,27 +40,27 @@ module ContextIO
     end
 
     def body
-      call_api("#{call_url}/body")
+      call_api(url: "#{call_url}/body")
     end
 
     def flags
-      call_api("#{call_url}/flags")
+      call_api(url: "#{call_url}/flags")
     end
 
     def folders
-      call_api("#{call_url}/folders")
+      call_api(url: "#{call_url}/folders")
     end
 
     def headers
-      call_api("#{call_url}/headers")
+      call_api(url: "#{call_url}/headers")
     end
 
     def source
-      call_api("#{call_url}/source")
+      call_api(url: "#{call_url}/source")
     end
 
     def threads
-      call_api("#{call_url}/thread")
+      call_api(url: "#{call_url}/thread")
     end
   end
 end

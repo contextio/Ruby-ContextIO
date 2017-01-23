@@ -12,13 +12,15 @@ module ContextIO
                    identifier: nil,
                    response: nil,
                    status: nil,
-                   success: nil)
+                   success: nil,
+                   api_call_made: nil)
       @parent = parent
       @connection = parent.connection
       @thread_id = identifier
       @response = response
       @status = status
-      @success =  success
+      @success = success
+      @api_call_made = api_call_made
     end
 
     def valid_params

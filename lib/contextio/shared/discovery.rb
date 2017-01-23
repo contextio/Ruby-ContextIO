@@ -12,13 +12,15 @@ module ContextIO
                    email:,
                    response: nil,
                    status: nil,
-                   success: nil)
+                   success: nil,
+                   api_call_made: nil)
       @parent = parent
       @connection = parent.connection
       @email = email
       @response = response
       @status = status
-      @success =  success
+      @success = success
+      @api_call_made = api_call_made
     end
 
     def call_url

@@ -13,12 +13,14 @@ module ContextIO
                    identifier: nil,
                    response: nil,
                    status: nil,
-                   success: nil)
+                   success: nil,
+                   api_call_made: nil)
       @status = status
-      @success =  success
+      @success = success
       @parent = parent
       @connection = parent.connection
       @name = identifier
+      @api_call_made = api_call_made
       if response
         parse_response(response)
       end
@@ -33,8 +35,8 @@ module ContextIO
     end
 
     def messages(**kwargs)
-      params = get_params(kwargs, ValidParams::GET_SOURCE_FOLDER_MESSAGES_PARAMS)
-      collection_return("#{call_url}/messages", self, Message, params)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_SOURCE_FOLDER_MESSAGES_PARAMS)
+      collection_return("#{call_url}/messages", self, Message, allowed_params, rejected_params)
     end
   end
 end

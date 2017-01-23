@@ -9,12 +9,14 @@ module ContextIO
                    identifier: nil,
                    response: nil,
                    status: nil,
-                   success: nil)
+                   success: nil,
+                   api_call_made: nil)
       @parent = parent
       @connection = parent.connection
       @email = identifier
       @status = status
-      @success =  success
+      @success = success
+      @api_call_made = api_call_made
       if response
         parse_response(response)
       end
@@ -41,22 +43,26 @@ module ContextIO
     end
 
     def get_files(**kwargs)
-      valid_params = get_params(kwargs, valid_get_files_params)
-      collection_return("#{call_url}/files", self, Files, valid_params)
+      allowed_params, rejected_params  = get_params(kwargs, valid_get_files_params)
+      collection_return("#{call_url}/files", self, Files, allowed_params, rejected_params )
     end
 
     def get_messages(**kwargs)
-      valid_params = get_params(kwargs, valid_get_messages_params)
-      collection_return("#{call_url}/messages", self, Message, valid_params)
+      allowed_params, rejected_params  = get_params(kwargs, valid_get_messages_params)
+      collection_return("#{call_url}/messages", self, Message, allowed_params, rejected_params )
     end
 
     def get_threads(**kwargs)
-      valid_params = get_params(kwargs, valid_get_threads_params)
-      request = Request.new(connection, :get, "#{call_url}/threads", valid_params)
+      allowed_params, rejected_params = get_params(kwargs, valid_get_threads_params)
+      request = Request.new(connection, :get, "#{call_url}/threads", allowed_params)
+      api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
+                                                        allowed_params,
+                                                        rejected_params)
       Threads.new(parent: self,
                  response: request.response,
                  status: request.status,
-                 success: request.success)
+                 success: request.success,
+                 api_call_made: api_call_made)
     end
   end
 end
