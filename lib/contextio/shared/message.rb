@@ -25,8 +25,16 @@ module ContextIO
       end
     end
 
+    def encoded_message_id
+      ERB::Util.url_encode(message_id)
+    end
+
     def call_url
-      build_url("messages", message_id)
+      build_url("messages", encoded_message_id)
+    end
+
+    def valid_get_params
+      ValidParams::MESSAGE_GET_PARAMS
     end
 
     def body

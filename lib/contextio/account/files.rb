@@ -31,9 +31,14 @@ module ContextIO
       build_url("files", file_id)
     end
 
-    def content
+    def valid_content_params
+      ValidParams::GET_FILES_CONTENT_PARAMS
+    end
+
+    def content(**kwargs)
       url = "#{call_url}/content"
-      resp = Request.new(connection, :get, url)
+      valid_params = get_params(kwargs, valid_content_params)
+      resp = Request.new(connection, :get, url, valid_params)
       Files.new(parent: parent,
                 identifier: file_id,
                 response: resp.response,

@@ -13,8 +13,30 @@ module ContextIO
                              include_thread_size include_body include_headers include_flags
                              body_type include_source sort_order limit offset)
 
-     GET_THREADS_PARAMS = %I(subject email to from cc bcc folder indexed_before indexed_after
-                             activity_before activity_after started_before started_after
-                             limit offset)
+    GET_THREADS_PARAMS = %I(subject email to from cc bcc folder indexed_before indexed_after
+                            activity_before activity_after started_before started_after
+                            limit offset)
+
+    MESSAGE_GET_PARAMS = %I(include_thread_size include_body include_headers include_flags
+                            body_type include_source)
+
+    THREADS_GET_PARAMS = %I(include_body include_headers include_flags body_type
+                            include_source limit offset)
+
+    GET_CONTACT_FILES_PARAMS = %I(limit offset)
+
+    GET_CONTACT_MESSAGES_PARAMS = %I(limit offset)
+
+    GET_CONTACT_THREADS_PARAMS = %I(limit offset)
+
+    GET_FILES_CONTENT_PARAMS = %I(as_link)
+
+    FOLDERS_SOURCES_GET_PARAMS = %I(include_extended_counts no_cache)
+
+    GET_SOURCE_FOLDER_PARAMS = %I(include_extended_counts delim)
+
+    GET_SOURCE_FOLDER_MESSAGES_PARAMS = %I(include_thread_size include_body body_type
+                                           include_headers include_flags flag_seen
+                                           limit offset)
   end
 end

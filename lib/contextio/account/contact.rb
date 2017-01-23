@@ -20,24 +20,43 @@ module ContextIO
       end
     end
 
+    def encoded_email
+      ERB::Util.url_encode(email)
+    end
+
     def call_url
-      build_url("contacts", email)
+      build_url("contacts", encoded_email)
     end
 
-    def get_files
-      collection_return("#{call_url}/files", self, Files)
+    def valid_get_files_params
+      ValidParams::GET_CONTACT_FILES_PARAMS
     end
 
-    def get_threads
-      request = Request.new(connection, :get, "#{call_url}/threads")
+    def valid_get_messages_params
+      ValidParams::GET_CONTACT_MESSAGES_PARAMS
+    end
+
+    def valid_get_threads_params
+      ValidParams::GET_CONTACT_THREADS_PARAMS
+    end
+
+    def get_files(**kwargs)
+      valid_params = get_params(kwargs, valid_get_files_params)
+      collection_return("#{call_url}/files", self, Files, valid_params)
+    end
+
+    def get_messages(**kwargs)
+      valid_params = get_params(kwargs, valid_get_messages_params)
+      collection_return("#{call_url}/messages", self, Message, valid_params)
+    end
+
+    def get_threads(**kwargs)
+      valid_params = get_params(kwargs, valid_get_threads_params)
+      request = Request.new(connection, :get, "#{call_url}/threads", valid_params)
       Threads.new(parent: self,
                  response: request.response,
                  status: request.status,
                  success: request.success)
-    end
-
-    def get_messages
-      collection_return("#{call_url}/messages", self, Message)
     end
   end
 end

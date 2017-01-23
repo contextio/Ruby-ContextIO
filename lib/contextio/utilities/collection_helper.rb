@@ -3,7 +3,7 @@ module ContextIO
     def collection_return(url, parent, klass, params = nil)
       request = Request.new(connection, :get, url, params)
       request.response.map do |resp|
-        klass.new(parent: parent,
+        klass.new(parent: self,
                   response: resp,
                   status: request.status,
                   success: request.success)
@@ -17,7 +17,7 @@ module ContextIO
         Contact.new(response: resp,
                     status: request.status,
                     success: request.success,
-                    parent: parent,
+                    parent: self,
                     identifier: resp["email"])
       end
       [response["query"], matches]

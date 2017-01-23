@@ -1,5 +1,6 @@
 Dir["./lib/contextio/*.rb"].each {|file| require file }
 Dir["./lib/contextio/**/*.rb"].each {|file| require file }
+require "erb"
 
 module ContextIO
   class ContextIO
