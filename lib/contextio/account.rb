@@ -9,17 +9,19 @@ module ContextIO
     attr_reader :parent
 
     public
-    attr_reader :id, :success, :connection, :status, *ACCOUNT_READERS
+    attr_reader :id, :success, :connection, :status, :api_call_made, *ACCOUNT_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
                    status: nil,
-                   success: nil)
+                   success: nil,
+                   api_call_made: nil)
       @parent = parent
       @connection = parent.connection
       @id = identifier
       @status = status
       @success = success
+      @api_call_made = api_call_made
       if response
         parse_response(response)
       end

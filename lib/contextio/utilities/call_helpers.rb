@@ -36,15 +36,20 @@ module ContextIO
     end
 
     def get_params(inputed_params, valid_params)
-      params = inputed_params.map do |key, value|
+      rejected_params = []
+      params = []
+      inputed_params.map do |key, value|
         if valid_params.include?(key)
-          [key, value]
+          params << [key, value]
+        else
+          rejected_params << key
         end
       end
-      params.compact!
+      params = params.compact
       if !params.empty?
         params = params.to_h
       end
+      [params, rejected_params]
     end
 
     def get(**kwargs)
