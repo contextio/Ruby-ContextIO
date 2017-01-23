@@ -36,8 +36,8 @@ module ContextIO
     end
 
     def get_contacts(**kwargs)
-      params = get_params(kwargs, ValidParams::GET_CONTACTS_PARAMS)
-      contact_collection_return("#{call_url}/contacts", params)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_CONTACTS_PARAMS)
+      contact_collection_return("#{call_url}/contacts", allowed_params, rejected_params)
     end
 
     def get_email_addresses
@@ -45,19 +45,18 @@ module ContextIO
     end
 
     def get_files(**kwargs)
-      params = get_params(kwargs, ValidParams::GET_FILES_PARAMS)
-      collection_return("#{call_url}/files", self, Files, params)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_FILES_PARAMS)
+      collection_return("#{call_url}/files", self, Files, allowed_params, rejected_params)
     end
 
     def get_messages(**kwargs)
-      params = get_params(kwargs, ValidParams::GET_MESSAGES_PARAMS)
-      collection_return("#{call_url}/messages", self, Message, params)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_MESSAGES_PARAMS)
+      collection_return("#{call_url}/messages", self, Message, allowed_params, rejected_params)
     end
 
     def get_sources(**kwargs)
-      valid_params = %I(status status_ok)
-      params = get_params(kwargs, valid_params)
-      collection_return("#{call_url}/sources", self, Sources, params)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_SOURCES_PARAMS)
+      collection_return("#{call_url}/sources", self, Sources, allowed_params, rejected_params)
     end
 
     def get_sync
@@ -65,12 +64,16 @@ module ContextIO
     end
 
     def get_threads(**kwargs)
-      params = get_params(kwargs, ValidParams::GET_THREADS_PARAMS)
-      request = Request.new(connection, :get, "#{call_url}/threads", params)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_THREADS_PARAMS)
+      request = Request.new(connection, :get, "#{call_url}/threads", allowed_params)
+      api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
+                                                        allowed_params,
+                                                        rejected_params)
       Threads.new(parent: self,
                  response: request.response,
                  success: request.success,
-                 status: request.status)
+                 status: request.status,
+                 api_call_made: api_call_made)
     end
 
     def get_webhooks

@@ -39,13 +39,16 @@ module ContextIO
 
     def content(**kwargs)
       url = "#{call_url}/content"
-      valid_params = get_params(kwargs, valid_content_params)
-      resp = Request.new(connection, :get, url, valid_params)
+      allowed_params, rejected_params= get_params(kwargs, valid_content_params)
+      request = Request.new(connection, :get, url, allowed_params)
+      api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
+                                                        allowed_params,
+                                                        rejected_params)
       Files.new(parent: parent,
                 identifier: file_id,
-                response: resp.response,
-                status: resp.status,
-                success: resp.success)
+                response: request.response,
+                status: request.status,
+                success: request.success)
     end
 
     def related
