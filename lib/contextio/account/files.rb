@@ -8,10 +8,10 @@ module ContextIO
                    created first_name id last_name resource_url sources is_tnef_part)
 
     private
-    attr_reader :connection
+    attr_reader :parent
 
     public
-    attr_reader :parent, :response, :status, :success, :file_id, :response, :api_call_made, *FILE_READERS
+    attr_reader :connection, :response, :status, :success, :file_id, :api_call_made, *FILE_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
@@ -38,17 +38,7 @@ module ContextIO
     end
 
     def content(**kwargs)
-      url = "#{call_url}/content"
-      allowed_params, rejected_params= get_params(kwargs, valid_content_params)
-      request = Request.new(connection, :get, url, allowed_params)
-      api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
-                                                        allowed_params,
-                                                        rejected_params)
-      Files.new(parent: parent,
-                identifier: file_id,
-                response: request.response,
-                status: request.status,
-                success: request.success)
+      call_api_return_new_object(Files, file_id, "#{call_url}/content")
     end
 
     def related

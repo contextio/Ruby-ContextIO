@@ -43,7 +43,9 @@ module ContextIO
       end
 
       it "Can fetch content." do
-        expect(subject.content.success?).to be true
+        content_file = subject.content
+        expect(content_file.class).to eq(Files)
+        # expect(content_file.call_url).to eq("files/some_file/files/")
       end
 
       it "Can fetch related files." do
