@@ -64,6 +64,12 @@ module ContextIO
         expect(threads.class).to eq(Threads)
         expect(threads.call_url).to eq("/2.0/accounts/some_id/threads/")
       end
+
+      it "Can be used to find Webhooks" do
+        webhook = subject.get_webhooks.first
+        expect(webhook.class).to eq(Webhook)
+        expect(webhook.call_url).to eq("/2.0/accounts/some_id/webhooks/")
+      end
     end
   end
 end

@@ -31,7 +31,8 @@ module MockResponse
   \"name\":\"Yahoo Mail\",\"resource_url\":\"https:\\/\\/api.context.io\\/2.0\\/accounts\\/582f618c4968c3e22e8b4567\\/contacts\\/yahoo%40communications.yahoo.com\",
   \"last_sent\":null,\"last_received\":1480690829}]}"
 
-  ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY = "[{\"message_id\":\"a_message_id\",\"label\":\"a_label\",\"file_id\":\"a_file_id\",\"email\":\"an_email\",\"webhook_id\":\"a_webhook_id\",\"key\":\"a_key\",
+  ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY = "[{\"message_id\":\"a_message_id\",\"label\":\"a_label\",\"file_id\":\"a_file_id\",
+  \"email\":\"an_email\",\"webhook_id\":\"a_webhook_id\",\"key\":\"a_key\",
   \"id\":\"an_id\",\"token\":\"a_token\",\"type\":\"image\\/png\",\"size\":49516,
   \"subject\":\"Test-1-2 Test-1-2\",\"date\":1111111111,\"addresses\":{\"from\":{\"an account\":\"an_email\",
   \"name\":\"A name\"},\"to\":[{\"email\":\"a_second_email\"}]},\"file_name\":\"Screen Shot\",
