@@ -3,7 +3,7 @@ describe ContextIO do
     expect(ContextIO::VERSION).not_to be false
   end
 
-  describe "new 2.0 ContextIO object" do
+  describe "a new 2.0 ContextIO object" do
     subject { ContextIO::ContextIO.new(key: "key", secret: "secret", version: "2.0") }
 
     it "needs arguments to for a ContextIO object" do
@@ -19,23 +19,33 @@ describe ContextIO do
     end
 
     it "can return an Accounts object" do
-      expect(subject.get_accounts[0].class.to_s).to eq("ContextIO::Account")
+      account = subject.get_accounts.first
+      expect(account.class).to eq(ContextIO::Account)
+      expect(account.call_url).to eq("/2.0/accounts/")
     end
 
-    it "can return an ConnectToken object" do
-      expect(subject.get_connect_tokens[0].class.to_s).to eq("ContextIO::ConnectToken")
+    it "can return a ConnectToken object" do
+      connect_token = subject.get_connect_tokens.first
+      expect(connect_token.class).to eq(ContextIO::ConnectToken)
+      expect(connect_token.call_url).to eq("/2.0/connect_tokens/")
     end
 
-    it "can return an Discovery object" do
-      expect(subject.discovery(email: "some_email").class.to_s).to eq("ContextIO::Discovery")
+    it "can return a Discovery object" do
+      discovery = subject.discovery(email: "some_email")
+      expect(discovery.class).to eq(ContextIO::Discovery)
+      expect(discovery.call_url).to eq("/2.0/discovery?email=some_email&source_type=IMAP")
     end
 
-    it "can return an OauthProvider object" do
-      expect(subject.get_oauth_providers[0].class.to_s).to eq("ContextIO::OauthProvider")
+    it "can return a OauthProvider object" do
+      oauth = subject.get_oauth_providers.first
+      expect(oauth.class).to eq(ContextIO::OauthProvider)
+      expect(oauth.call_url).to eq("/2.0/oauth_providers/")
     end
 
-    it "can return an Webhook object" do
-      expect(subject.get_webhooks[0].class.to_s).to eq("ContextIO::Webhook")
+    it "can return a Webhook object" do
+      webhook = subject.get_webhooks.first
+      expect(webhook.class).to eq(ContextIO::Webhook)
+      expect(webhook.call_url).to eq("/2.0/webhooks/")
     end
 
     it "has a version of 2.0" do
