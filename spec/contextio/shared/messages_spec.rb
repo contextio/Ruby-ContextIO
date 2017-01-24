@@ -20,8 +20,11 @@ module ContextIO
       end
 
       it "Has an API call made" do
-        expect(subject).to respond_to(:api_call_made)
         expect(subject.api_call_made).not_to be_nil
+      end
+
+      it "Has a call url" do
+        expect(subject.call_url).to eq(messages_contacts_path)
       end
 
       it "Response does not come from the Accounts object path." do
@@ -33,26 +36,32 @@ module ContextIO
       end
 
       it "Can return a body" do
+        expect(subject.body.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/body")
         expect(subject.body.success?).to be true
       end
 
       it "Can return a flags" do
+        expect(subject.flags.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/flags")
         expect(subject.flags.success?).to be true
       end
 
       it "Can return a folders" do
+        expect(subject.folders.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/folders")
         expect(subject.folders.success?).to be true
       end
 
       it "Can return a headers" do
+        expect(subject.headers.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/headers")
         expect(subject.headers.success?).to be true
       end
 
       it "Can return a source" do
+        expect(subject.source.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/source")
         expect(subject.source.success?).to be true
       end
 
       it "Can return a threads" do
+        expect(subject.threads.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/thread")
         expect(subject.threads.success?).to be true
       end
     end
