@@ -14,44 +14,55 @@ module ContextIO
       end
 
       it "Has an API call made" do
-        expect(subject).to respond_to(:api_call_made)
         expect(subject.api_call_made).not_to be_nil
       end
 
       it "Can be used to find ConnectTokens." do
-        expect(subject.get_connect_tokens[0].class.to_s).to eq("ContextIO::ConnectToken")
+        connect_token = subject.get_connect_tokens.first
+        expect(connect_token.class).to eq(ConnectToken)
+        expect(connect_token.call_url).to eq("/2.0/accounts/some_id/connect_tokens/a_token")
       end
 
       it "Can be used to find Contacts." do
-        expect(subject.get_contacts[1][0].class.to_s).to eq("ContextIO::Contact")
+        contact = subject.get_contacts[1].first
+        expect(contact.class).to eq(Contact)
+        expect(contact.call_url).to eq("/2.0/accounts/some_id/contacts/an_account_email_address")
       end
 
       it "Can be used to find EmailAdresses" do
-        expect(subject.get_email_addresses[1].class.to_s).to eq("ContextIO::EmailAddress")
+        email = subject.get_email_addresses.first
+        expect(email.class).to eq(EmailAddress)
+        expect(email.call_url).to eq("/2.0/accounts/some_id/email_addresses/an_email")
       end
 
       it "Can be used to find Files" do
-        expect(subject.get_files[1].class.to_s).to eq("ContextIO::Files")
+        files = subject.get_files.first
+        expect(files.class).to eq(Files)
+        expect(files.call_url).to eq("/2.0/accounts/some_id/files/an_id")
       end
 
       it "Can be used to find Messages" do
-        expect(subject.get_messages[1].class.to_s).to eq("ContextIO::Message")
+        message = subject.get_messages.first
+        expect(message.class).to eq(Message)
+        expect(message.call_url).to eq("/2.0/accounts/some_id/messages/")
       end
 
       it "Can be used to find Sources" do
-        expect(subject.get_sources[1].class.to_s).to eq("ContextIO::Sources")
+        sources = subject.get_sources.first
+        expect(sources.class).to eq(Sources)
+        expect(sources.call_url).to eq("/2.0/accounts/some_id/sources/")
       end
 
       it "Can be used to find Sync" do
-        expect(subject.get_sync.class.to_s).to eq("ContextIO::Sync")
+        sync = subject.get_sync
+        expect(sync.class).to eq(Sync)
+        expect(sync.call_url).to eq("/2.0/accounts/some_id/sync")
       end
 
       it "Can be used to find Threads" do
-        expect(subject.get_threads.class.to_s).to eq("ContextIO::Threads")
-      end
-
-      it "Can be used to find Sources" do
-        expect(subject.get_webhooks[1].class.to_s).to eq("ContextIO::Webhook")
+        threads = subject.get_threads
+        expect(threads.class).to eq(Threads)
+        expect(threads.call_url).to eq("/2.0/accounts/some_id/threads/")
       end
     end
   end

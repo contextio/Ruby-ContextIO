@@ -21,13 +21,13 @@ describe ContextIO do
     it "can return an Accounts object" do
       account = subject.get_accounts.first
       expect(account.class).to eq(ContextIO::Account)
-      expect(account.call_url).to eq("/2.0/accounts/")
+      expect(account.call_url).to eq("/2.0/accounts/an_id")
     end
 
     it "can return a ConnectToken object" do
       connect_token = subject.get_connect_tokens.first
       expect(connect_token.class).to eq(ContextIO::ConnectToken)
-      expect(connect_token.call_url).to eq("/2.0/connect_tokens/")
+      expect(connect_token.call_url).to eq("/2.0/connect_tokens/a_token")
     end
 
     it "can return a Discovery object" do
@@ -39,13 +39,13 @@ describe ContextIO do
     it "can return a OauthProvider object" do
       oauth = subject.get_oauth_providers.first
       expect(oauth.class).to eq(ContextIO::OauthProvider)
-      expect(oauth.call_url).to eq("/2.0/oauth_providers/")
+      expect(oauth.call_url).to eq("/2.0/oauth_providers/a_key")
     end
 
     it "can return a Webhook object" do
       webhook = subject.get_webhooks.first
       expect(webhook.class).to eq(ContextIO::Webhook)
-      expect(webhook.call_url).to eq("/2.0/webhooks/")
+      expect(webhook.call_url).to eq("/2.0/webhooks/a_webhook_id")
     end
 
     it "has a version of 2.0" do
