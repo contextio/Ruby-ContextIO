@@ -17,20 +17,25 @@ module ContextIO
       end
 
       it "Has an API call made" do
-        expect(subject).to respond_to(:api_call_made)
         expect(subject.api_call_made).not_to be_nil
       end
 
       it "can get files" do
-        expect(subject.get_files[0].class.to_s).to eq("ContextIO::Files")
+        files = subject.get_files.first
+        expect(files.class).to eq(Files)
+        expect(files.call_url).to eq("2.0/accounts/some_id/contacts/some_email%40some_provider.com/files/an_id")
       end
 
       it "can get threads" do
-        expect(subject.get_threads.class.to_s).to eq("ContextIO::Threads")
+        threads = subject.get_threads
+        expect(threads.class).to eq(Threads)
+        expect(threads.call_url).to eq("2.0/accounts/some_id/contacts/some_email%40some_provider.com/threads/")
       end
 
       it "can get messages" do
-        expect(subject.get_messages[0].class.to_s).to eq("ContextIO::Message")
+        messages = subject.get_messages.first
+        expect(messages.class).to eq(Message)
+        expect(messages.call_url).to eq("2.0/accounts/some_id/contacts/some_email%40some_provider.com/messages/an_id")
       end
     end
   end

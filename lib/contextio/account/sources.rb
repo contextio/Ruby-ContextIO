@@ -40,7 +40,7 @@ module ContextIO
     def folders(folder:, **kwargs)
       allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_SOURCE_FOLDER_PARAMS)
       url = "#{call_url}/folders/#{folder}"
-      call_api_return_new_class(Folder, folder, url, allowed_params, rejected_params)
+      call_api_return_new_object(Folder, folder, url, allowed_params, rejected_params)
     end
 
     def sync
@@ -52,7 +52,7 @@ module ContextIO
     end
 
     def connect_tokens(token:)
-      call_api_return_new_class(ConnectToken, token, "#{call_url}/connect_tokens/#{token}" )
+      call_api_return_new_object(ConnectToken, token, "#{call_url}/connect_tokens/#{token}" )
     end
   end
 end

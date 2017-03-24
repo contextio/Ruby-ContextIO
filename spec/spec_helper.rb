@@ -13,6 +13,8 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts/some_id/contacts/some_email@some_provider.com",
   "accounts/some_id/email_addresses/some_email@some_provider.com",
   "accounts/some_id/messages",
+  "accounts/some_id/messages/some_email@some_provider.com",
+  "accounts/some_id/messages/12345",
   "accounts/some_id/sources",
   "accounts/some_id/sync",
   "accounts/some_id/threads",
@@ -40,7 +42,6 @@ ACCOUNT_REQUEST_COLLECTION_ENDPOINTS = [
   "accounts/some_id/email_addresses",
   "accounts/some_id/files",
   "accounts/some_id/files/some_email@some_provider.com",
-  "accounts/some_id/messages/some_email@some_provider.com",
   "accounts/some_id/sources/0/folders",
   "accounts/some_id/sources/0/folders/%5BGmail%5D%2FSent%20Mail/messages",
   "accounts/some_id/sources/0/connect_tokens"
