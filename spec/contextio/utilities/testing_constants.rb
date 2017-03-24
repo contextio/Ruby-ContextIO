@@ -24,6 +24,11 @@ module TestingConstants
   MOCK_CONTACT = ContextIO::Contact.new(parent: account_parent,
                                         identifier: "some_email@some_provider.com")
 
+  MOCK_ACCOUNT_MESSAGE = ContextIO::Message.new(parent: account_parent,
+                                                identifier: "12345")
+
+  MOCK_ACCOUNT_FILE =  ContextIO::Files.new(identifier: "some_file", parent: account_parent)
+
   MOCK_SOURCE = ContextIO::Sources.new(parent: account_parent,
                                        identifier: "0")
 

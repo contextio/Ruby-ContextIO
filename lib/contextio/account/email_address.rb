@@ -1,7 +1,7 @@
 module ContextIO
   class EmailAddress
     include ContextIO::CallHelpers
-    EMAIL_ATTRS = %I(email validated primary resource_url)
+    EMAIL_ATTRS = %I(validated primary resource_url)
 
     private
     attr_reader :connection

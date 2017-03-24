@@ -6,7 +6,7 @@ require_relative "../utilities/mock_response.rb"
 
 module ContextIO
   describe Files do
-    let(:files_accounts_path)  { "/2.0/accounts/some_id/files/some_file" }
+    let(:files_accounts_path)  { "2.0/accounts/some_id/files/some_file" }
     let(:files_contacts_path) { "2.0/accounts/some_id/contacts/some_email%40some_provider.com/files/an_id" }
     describe "A Files object fetched from a Contacts object" do
       subject { TestingConstants::MOCK_CONTACT.get.get_files[0] }
@@ -20,7 +20,6 @@ module ContextIO
       end
 
       it "Has an API call made" do
-        expect(subject).to respond_to(:api_call_made)
         expect(subject.api_call_made).not_to be_nil
       end
 
@@ -34,7 +33,7 @@ module ContextIO
     end
 
     describe "A Files object fetched from an Accounts object" do
-      subject { Files.new(identifier: "some_file", parent: TestingConstants::MOCK_ACCOUNT).get }
+      subject { TestingConstants::MOCK_ACCOUNT_FILE.get }
        it "Response does not come from the Contacts object path." do
          expect(subject.call_url).not_to eq(files_contacts_path)
        end
@@ -44,7 +43,8 @@ module ContextIO
       end
 
       it "Can fetch content." do
-        expect(subject.content.success?).to be true
+        content_file = subject.content
+        expect(content_file.class).to eq(Files)
       end
 
       it "Can fetch related files." do

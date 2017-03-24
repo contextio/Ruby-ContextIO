@@ -31,7 +31,7 @@ module ContextIO
       self
     end
 
-    def call_api_return_new_class(klass, identifier, url, allowed_params = nil, rejected_params = nil )
+    def call_api_return_new_object(klass, identifier, url, allowed_params = nil, rejected_params = nil )
       request = Request.new(connection, :get, url, allowed_params)
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
                                                         allowed_params,
