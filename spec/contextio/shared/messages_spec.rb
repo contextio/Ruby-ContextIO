@@ -6,7 +6,7 @@ require_relative "../utilities/mock_response.rb"
 
 module ContextIO
   describe Message do
-    let(:messages_account_path)  { "/2.0/accounts/some_id/message/some_id" }
+    let(:messages_account_path)  { "2.0/accounts/some_id/messages/12345" }
     let(:messages_contacts_path) { "2.0/accounts/some_id/contacts/some_email%40some_provider.com/messages/an_id" }
     describe "A Messages object fetched from a Contacts object" do
       subject { TestingConstants::MOCK_CONTACT.get_messages[0] }
@@ -63,6 +63,18 @@ module ContextIO
       it "Can return a threads" do
         expect(subject.threads.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/thread")
         expect(subject.threads.success?).to be true
+      end
+    end
+
+    describe "A Messages object fetched from an Accounts object" do
+      subject { TestingConstants::MOCK_ACCOUNT_MESSAGE.get }
+
+      it "Response does not come from the Contacts object path." do
+        expect(subject.call_url).not_to eq(messages_contacts_path)
+      end
+
+      it "Response does come from the Accounts object path." do
+        expect(subject.call_url).to eq(messages_account_path)
       end
     end
   end
