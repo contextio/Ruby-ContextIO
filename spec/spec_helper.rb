@@ -73,6 +73,14 @@ CONTACTS_COLLECITION_ENDPOINTS = [
   "accounts/some_id/contacts/some_email@some_provider.com/threads"
 ]
 
+NO_MESSAGE_FAILURE = [
+  "no-message-failure"
+]
+
+NON_JSON_FAILURE = [
+  "non-json-failure"
+]
+
 WebMock.disable_net_connect!(allow_localhost: true)
 RSpec.configure do |config|
   config.before(:each) do
@@ -125,5 +133,19 @@ RSpec.configure do |config|
                   body: MockResponse::NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
                   headers: {})
    end
+   NO_MESSAGE_FAILURE.each do |endpoint|
+     stub_request(:get, "https://api.context.io/#{endpoint}").
+       with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+       to_return(status: 500,
+                 body: "[]",
+                 headers: {"content-type" => "application/json"})
+   end
+   NON_JSON_FAILURE.each do |endpoint|
+     stub_request(:get, "https://api.context.io/#{endpoint}").
+       with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+       to_return(status: 500,
+                 body: "This is a failed request",
+                 headers: {})
+    end
   end
 end

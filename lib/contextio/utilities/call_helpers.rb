@@ -21,6 +21,7 @@ module ContextIO
       valid_params = Array( (valid_get_params if self.respond_to?(:valid_get_params)) )
       allowed_params, rejected_params = get_params(kwargs, valid_params)
       request = Request.new(connection, :get, url || call_url, allowed_params)
+      raise StandardError, build_error_message(request.status, request.response) if request.success == false
       parse_response(request.response)
       @api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
                                                          allowed_params,
@@ -70,6 +71,14 @@ module ContextIO
 
     def success?
       self.success
+    end
+
+    def build_error_message(status, body)
+      if body.empty?
+        "HTTP code #{status}. No API error given."
+      else
+        "HTTP code #{status}. Response #{body}"
+      end
     end
   end
 end
