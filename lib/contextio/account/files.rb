@@ -33,10 +33,6 @@ module ContextIO
       build_url("files", file_id)
     end
 
-    def valid_content_params
-      ValidParams::GET_FILES_CONTENT_PARAMS
-    end
-
     def content(**kwargs)
       call_api_return_new_object(Files, file_id, "#{call_url}/content")
     end

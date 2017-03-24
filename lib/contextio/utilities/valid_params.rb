@@ -31,8 +31,6 @@ module ContextIO
 
     GET_CONTACT_THREADS_PARAMS = %I(limit offset)
 
-    GET_FILES_CONTENT_PARAMS = %I(as_link)
-
     FOLDERS_SOURCES_GET_PARAMS = %I(include_extended_counts no_cache)
 
     GET_SOURCE_FOLDER_PARAMS = %I(include_extended_counts delim)

@@ -6,7 +6,7 @@ require_relative "../utilities/mock_response.rb"
 
 module ContextIO
   describe Files do
-    let(:files_accounts_path)  { "/2.0/accounts/some_id/files/some_file" }
+    let(:files_accounts_path)  { "2.0/accounts/some_id/files/some_file" }
     let(:files_contacts_path) { "2.0/accounts/some_id/contacts/some_email%40some_provider.com/files/an_id" }
     describe "A Files object fetched from a Contacts object" do
       subject { TestingConstants::MOCK_CONTACT.get.get_files[0] }
@@ -33,7 +33,7 @@ module ContextIO
     end
 
     describe "A Files object fetched from an Accounts object" do
-      subject { Files.new(identifier: "some_file", parent: TestingConstants::MOCK_ACCOUNT).get }
+      subject { TestingConstants::MOCK_ACCOUNT_FILE.get }
        it "Response does not come from the Contacts object path." do
          expect(subject.call_url).not_to eq(files_contacts_path)
        end
@@ -45,7 +45,6 @@ module ContextIO
       it "Can fetch content." do
         content_file = subject.content
         expect(content_file.class).to eq(Files)
-        # expect(content_file.call_url).to eq("files/some_file/files/")
       end
 
       it "Can fetch related files." do
