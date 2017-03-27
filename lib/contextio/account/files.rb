@@ -34,7 +34,7 @@ module ContextIO
     end
 
     def content(**kwargs)
-      call_api_return_new_object(Files, file_id, "#{call_url}/content", ValidParams::GET_FILE_CONTENT)
+      call_api_return_new_object(Files, file_id, "#{call_url}/content", ValidParams::GET_FILE_CONTENT, kwargs)
     end
 
     def related

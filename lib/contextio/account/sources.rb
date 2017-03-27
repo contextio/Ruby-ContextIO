@@ -38,9 +38,8 @@ module ContextIO
     end
 
     def folders(folder:, **kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_SOURCE_FOLDER)
       url = "#{call_url}/folders/#{folder}"
-      call_api_return_new_object(Folder, folder, url, allowed_params, rejected_params)
+      call_api_return_new_object(Folder, folder, url, ValidParams::GET_SOURCE_FOLDER, kwargs)
     end
 
     def sync
