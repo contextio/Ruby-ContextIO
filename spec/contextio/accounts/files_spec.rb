@@ -47,6 +47,19 @@ module ContextIO
         expect(content_file.class).to eq(Files)
       end
 
+      it "Can fetch content with optional paramters" do
+        content_file = subject.content(as_link: 1)
+        expect(content_file.class).to eq(Files)
+        expect(content_file.api_call_made.url.to_s).to eq("https://api.context.io/2.0/accounts/some_id/files/some_file/content?as_link=1")
+      end
+
+      it "Can fetch content." do
+        content_file = subject.content(bad_param: "bad_param")
+        expect(content_file.class).to eq(Files)
+        expect(content_file.api_call_made.url.to_s).to eq("https://api.context.io/2.0/accounts/some_id/files/some_file/content")
+        expect(content_file.api_call_made.rejected_params).to eq([:bad_param])
+      end
+
       it "Can fetch related files." do
         expect(subject.related.success?).to be true
       end
