@@ -30,6 +30,13 @@ module ContextIO
       it "Response does come from the Contacts object path." do
         expect(subject.call_url).to eq(files_contacts_path)
       end
+
+      it "Cannot call non-contact methods" do
+        expect{ subject.content }.to raise_error(StandardError,
+                                                 "This method can only be called from '2.0/accounts/:account/file/:file_id'")
+        expect{ subject.related }.to raise_error(StandardError,
+                                                 "This method can only be called from '2.0/accounts/:account/file/:file_id'")
+      end
     end
 
     describe "A Files object fetched from an Accounts object" do

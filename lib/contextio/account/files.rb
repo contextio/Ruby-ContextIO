@@ -33,11 +33,21 @@ module ContextIO
       build_url("files", file_id)
     end
 
+    def contact_url?
+      parent.call_url.include?("/contacts/")
+    end
+
+    def contact_url_error
+      raise StandardError, "This method can only be called from '2.0/accounts/:account/file/:file_id'" if contact_url?
+    end
+
     def content(**kwargs)
+      contact_url_error
       call_api_return_new_object(Files, file_id, "#{call_url}/content", ValidParams::GET_FILE_CONTENT, kwargs)
     end
 
     def related
+      contact_url_error
       call_api(url: "#{call_url}/related")
     end
   end
