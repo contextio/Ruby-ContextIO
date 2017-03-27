@@ -17,8 +17,7 @@ module ContextIO
       "#{parent.call_url}/#{resource}/#{identifier}"
     end
 
-    def call_api(kwargs: nil, url: nil)
-      valid_params = Array( (valid_get_params if self.respond_to?(:valid_get_params)) )
+    def call_api(kwargs: nil, url: nil, valid_params: nil)
       allowed_params, rejected_params = get_params(kwargs, valid_params)
       request = Request.new(connection, :get, url || call_url, allowed_params)
       raise StandardError, build_error_message(request.status, request.response) if request.success == false
@@ -31,8 +30,10 @@ module ContextIO
       self
     end
 
-    def call_api_return_new_object(klass, identifier, url, allowed_params = nil, rejected_params = nil )
+    def call_api_return_new_object(klass, identifier, url, valid_params = nil, given_params = nil)
+      allowed_params, rejected_params = get_params(given_params, valid_params)
       request = Request.new(connection, :get, url, allowed_params)
+      raise StandardError, build_error_message(request.status, request.response) if request.success == false
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
                                                         allowed_params,
                                                         rejected_params)

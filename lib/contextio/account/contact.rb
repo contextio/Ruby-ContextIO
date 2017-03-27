@@ -31,31 +31,18 @@ module ContextIO
       build_url("contacts", encoded_email)
     end
 
-    def valid_get_files_params
-      ValidParams::GET_CONTACT_FILES_PARAMS
-    end
-
-    def valid_get_messages_params
-      ValidParams::GET_CONTACT_MESSAGES_PARAMS
-    end
-
-    def valid_get_threads_params
-      ValidParams::GET_CONTACT_THREADS_PARAMS
-    end
-
     def get_files(**kwargs)
-      allowed_params, rejected_params  = get_params(kwargs, valid_get_files_params)
-      collection_return("#{call_url}/files", self, Files, allowed_params, rejected_params )
+      collection_return("#{call_url}/files", self, Files, ValidParams::GET_CONTACT_FILES, kwargs)
     end
 
     def get_messages(**kwargs)
-      allowed_params, rejected_params  = get_params(kwargs, valid_get_messages_params)
-      collection_return("#{call_url}/messages", self, Message, allowed_params, rejected_params )
+      collection_return("#{call_url}/messages", self, Message, ValidParams::GET_CONTACT_MESSAGES, kwargs)
     end
 
     def get_threads(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, valid_get_threads_params)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_CONTACT_THREADS)
       request = Request.new(connection, :get, "#{call_url}/threads", allowed_params)
+      raise StandardError, build_error_message(request.status, request.response) if request.success == false
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
                                                         allowed_params,
                                                         rejected_params)

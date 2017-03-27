@@ -1,42 +1,54 @@
 module ContextIO
   module ValidParams
-    GET_ACCOUNTS_PARAMS= %I(email status status_ok limit offset)
 
-    GET_CONTACTS_PARAMS = %I(search activity_before activity_after sort_by sort_order limit offset)
+    # Accounts
+    GET_ACCOUNTS= %I(email status status_ok limit offset)
 
-    GET_FILES_PARAMS = %I(file_name file_size_min file_size_max email to from cc bcc
+    #Contacts
+    GET_CONTACTS = %I(search activity_before activity_after sort_by sort_order limit offset)
+
+    GET_CONTACT_FILES = %I(limit offset)
+
+    GET_CONTACT_MESSAGES = %I(limit offset)
+
+    GET_CONTACT_THREADS = %I(limit offset)
+
+    #Files
+    GET_FILES = %I(file_name file_size_min file_size_max email to from cc bcc
                           date_before date_after indexed_before indexed_after source
                           sort_order limit offset)
 
-    GET_MESSAGES_PARAMS = %I(subject email to from cc bcc folder source file_name file_size_min
+    GET_FILE_CONTENT = %I(as_link)
+
+    #Messages
+    GET_MESSAGES = %I(subject email to from cc bcc folder source file_name file_size_min
                              file_size_max date_before date_after indexed_before indexed_after
                              include_thread_size include_body include_headers include_flags
                              body_type include_source sort_order limit offset)
 
-    GET_THREADS_PARAMS = %I(subject email to from cc bcc folder indexed_before indexed_after
+    #Account/Threads
+    GET_THREADS = %I(subject email to from cc bcc folder indexed_before indexed_after
                             activity_before activity_after started_before started_after
                             limit offset)
-
-    GET_SOURCES_PARAMS =  %I(status status_ok)
-
-    MESSAGE_GET_PARAMS = %I(include_thread_size include_body include_headers include_flags
-                            body_type include_source)
-
-    THREADS_GET_PARAMS = %I(include_body include_headers include_flags body_type
+    #Threads
+    THREADS_GET = %I(include_body include_headers include_flags body_type
                             include_source limit offset)
 
-    GET_CONTACT_FILES_PARAMS = %I(limit offset)
+    #Sources
+    GET_SOURCES =  %I(status status_ok)
 
-    GET_CONTACT_MESSAGES_PARAMS = %I(limit offset)
 
-    GET_CONTACT_THREADS_PARAMS = %I(limit offset)
+    FOLDERS_SOURCES_GET = %I(include_extended_counts no_cache)
 
-    FOLDERS_SOURCES_GET_PARAMS = %I(include_extended_counts no_cache)
+    GET_SOURCE_FOLDER = %I(include_extended_counts delim)
 
-    GET_SOURCE_FOLDER_PARAMS = %I(include_extended_counts delim)
-
-    GET_SOURCE_FOLDER_MESSAGES_PARAMS = %I(include_thread_size include_body body_type
+    GET_SOURCE_FOLDER_MESSAGES = %I(include_thread_size include_body body_type
                                            include_headers include_flags flag_seen
                                            limit offset)
+
+    #Messages
+    MESSAGE_GET = %I(include_thread_size include_body include_headers include_flags
+                            body_type include_source)
+
   end
 end

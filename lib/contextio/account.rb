@@ -36,8 +36,7 @@ module ContextIO
     end
 
     def get_contacts(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_CONTACTS_PARAMS)
-      contact_collection_return("#{call_url}/contacts", allowed_params, rejected_params)
+      contact_collection_return("#{call_url}/contacts", ValidParams::GET_CONTACTS, kwargs)
     end
 
     def get_email_addresses
@@ -45,18 +44,15 @@ module ContextIO
     end
 
     def get_files(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_FILES_PARAMS)
-      collection_return("#{call_url}/files", self, Files, allowed_params, rejected_params)
+      collection_return("#{call_url}/files", self, Files, ValidParams::GET_FILES, kwargs)
     end
 
     def get_messages(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_MESSAGES_PARAMS)
-      collection_return("#{call_url}/messages", self, Message, allowed_params, rejected_params)
+      collection_return("#{call_url}/messages", self, Message, ValidParams::GET_MESSAGES, kwargs)
     end
 
     def get_sources(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_SOURCES_PARAMS)
-      collection_return("#{call_url}/sources", self, Sources, allowed_params, rejected_params)
+      collection_return("#{call_url}/sources", self, Sources, ValidParams::GET_SOURCES, kwargs)
     end
 
     def get_sync
@@ -64,8 +60,9 @@ module ContextIO
     end
 
     def get_threads(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_THREADS_PARAMS)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_THREADS)
       request = Request.new(connection, :get, "#{call_url}/threads", allowed_params)
+      raise StandardError, build_error_message(request.status, request.response) if request.success == false
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
                                                         allowed_params,
                                                         rejected_params)

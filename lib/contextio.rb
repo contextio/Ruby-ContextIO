@@ -14,8 +14,7 @@ module ContextIO
     end
 
     def get_accounts(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_ACCOUNTS_PARAMS)
-      collection_return("#{call_url}/accounts", self, Account, allowed_params, rejected_params)
+      collection_return("#{call_url}/accounts", self, Account, ValidParams::GET_ACCOUNTS, kwargs)
     end
 
     def get_connect_tokens

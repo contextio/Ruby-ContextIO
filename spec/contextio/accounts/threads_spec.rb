@@ -14,10 +14,6 @@ module ContextIO
       it "Has an API call made" do
         expect(subject.api_call_made).not_to be_nil
       end
-
-      it "Has Valid Get Paramaters" do
-        expect(subject.valid_params).not_to be_nil
-      end
     end
   end
 end

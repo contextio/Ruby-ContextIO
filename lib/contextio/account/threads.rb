@@ -23,10 +23,6 @@ module ContextIO
       @api_call_made = api_call_made
     end
 
-    def valid_params
-      ValidParams::GET_THREADS_PARAMS
-    end
-
     def call_url
       build_url("threads", thread_id)
     end

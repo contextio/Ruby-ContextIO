@@ -1,7 +1,9 @@
 module ContextIO
   module CollectionHelper
-    def collection_return(url, parent, klass, allowed_params = nil, rejected_params = nil)
+    def collection_return(url, parent, klass, valid_params = nil, given_params = nil)
+      allowed_params, rejected_params = get_params(given_params, valid_params)
       request = Request.new(connection, :get, url, allowed_params)
+      raise StandardError, build_error_message(request.status, request.response) if request.success == false
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
                                                         allowed_params,
                                                         rejected_params)
@@ -14,8 +16,10 @@ module ContextIO
       end
     end
 
-    def contact_collection_return(url, allowed_params = nil, rejected_params = nil)
+    def contact_collection_return(url, valid_params = nil, given_params = nil)
+      allowed_params, rejected_params = get_params(given_params, valid_params)
       request = Request.new(connection, :get, url, allowed_params)
+      raise StandardError, build_error_message(request.status, request.response) if request.success == false
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
                                                         allowed_params,
                                                         rejected_params)
