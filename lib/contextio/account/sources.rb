@@ -33,8 +33,7 @@ module ContextIO
     end
 
     def get_folders(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::FOLDERS_SOURCES_GET)
-      collection_return("#{call_url}/folders", self, Folder, allowed_params, rejected_params)
+      collection_return("#{call_url}/folders", self, Folder, ValidParams::FOLDERS_SOURCES_GET, kwargs)
     end
 
     def folders(folder:, **kwargs)
