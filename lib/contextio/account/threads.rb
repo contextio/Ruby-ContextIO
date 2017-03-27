@@ -24,7 +24,7 @@ module ContextIO
     end
 
     def valid_params
-      ValidParams::GET_THREADS_PARAMS
+      ValidParams::GET_THREADS
     end
 
     def call_url

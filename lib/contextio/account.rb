@@ -36,7 +36,7 @@ module ContextIO
     end
 
     def get_contacts(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_CONTACTS_PARAMS)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_CONTACTS)
       contact_collection_return("#{call_url}/contacts", allowed_params, rejected_params)
     end
 
@@ -45,17 +45,17 @@ module ContextIO
     end
 
     def get_files(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_FILES_PARAMS)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_FILES)
       collection_return("#{call_url}/files", self, Files, allowed_params, rejected_params)
     end
 
     def get_messages(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_MESSAGES_PARAMS)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_MESSAGES)
       collection_return("#{call_url}/messages", self, Message, allowed_params, rejected_params)
     end
 
     def get_sources(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_SOURCES_PARAMS)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_SOURCES)
       collection_return("#{call_url}/sources", self, Sources, allowed_params, rejected_params)
     end
 
@@ -64,7 +64,7 @@ module ContextIO
     end
 
     def get_threads(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_THREADS_PARAMS)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_THREADS)
       request = Request.new(connection, :get, "#{call_url}/threads", allowed_params)
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
                                                         allowed_params,

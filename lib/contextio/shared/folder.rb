@@ -35,7 +35,7 @@ module ContextIO
     end
 
     def messages(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_SOURCE_FOLDER_MESSAGES_PARAMS)
+      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_SOURCE_FOLDER_MESSAGES)
       collection_return("#{call_url}/messages", self, Message, allowed_params, rejected_params)
     end
   end

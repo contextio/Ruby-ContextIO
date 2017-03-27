@@ -36,7 +36,7 @@ module ContextIO
     end
 
     def valid_get_params
-      ValidParams::MESSAGE_GET_PARAMS
+      ValidParams::MESSAGE_GET
     end
 
     def body

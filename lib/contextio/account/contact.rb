@@ -32,15 +32,15 @@ module ContextIO
     end
 
     def valid_get_files_params
-      ValidParams::GET_CONTACT_FILES_PARAMS
+      ValidParams::GET_CONTACT_FILES
     end
 
     def valid_get_messages_params
-      ValidParams::GET_CONTACT_MESSAGES_PARAMS
+      ValidParams::GET_CONTACT_MESSAGES
     end
 
     def valid_get_threads_params
-      ValidParams::GET_CONTACT_THREADS_PARAMS
+      ValidParams::GET_CONTACT_THREADS
     end
 
     def get_files(**kwargs)

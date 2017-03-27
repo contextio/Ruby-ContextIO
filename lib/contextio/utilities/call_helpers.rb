@@ -17,8 +17,7 @@ module ContextIO
       "#{parent.call_url}/#{resource}/#{identifier}"
     end
 
-    def call_api(kwargs: nil, url: nil)
-      valid_params = Array( (valid_get_params if self.respond_to?(:valid_get_params)) )
+    def call_api(kwargs: nil, url: nil, valid_params: nil)
       allowed_params, rejected_params = get_params(kwargs, valid_params)
       request = Request.new(connection, :get, url || call_url, allowed_params)
       raise StandardError, build_error_message(request.status, request.response) if request.success == false
