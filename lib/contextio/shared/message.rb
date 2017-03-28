@@ -35,6 +35,10 @@ module ContextIO
       build_url("messages", encoded_message_id)
     end
 
+    def get(**kwargs)
+      call_api(kwargs: kwargs, valid_params: ValidGetParams::MESSAGE)
+    end
+
     def body(**kwargs)
       call_api_return_new_object(Message,
                                  message_id,

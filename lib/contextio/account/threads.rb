@@ -26,5 +26,9 @@ module ContextIO
     def call_url
       build_url("threads", thread_id)
     end
+
+    def get(**kwargs)
+      call_api(kwargs: kwargs, valid_params: ValidGetParams::THREAD)
+    end
   end
 end

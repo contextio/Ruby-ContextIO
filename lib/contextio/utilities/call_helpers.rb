@@ -18,7 +18,7 @@ module ContextIO
     end
 
     def call_api(kwargs: nil, url: nil, valid_params: nil)
-      allowed_params, rejected_params = get_params(kwargs, valid_params)
+      allowed_params, rejected_params = validate_params(kwargs, valid_params)
       request = Request.new(connection, :get, url || call_url, allowed_params)
       raise StandardError, build_error_message(request.status, request.response) if request.success == false
       parse_response(request.response)
@@ -31,7 +31,7 @@ module ContextIO
     end
 
     def call_api_return_new_object(klass, identifier, url, valid_params = nil, given_params = nil)
-      allowed_params, rejected_params = get_params(given_params, valid_params)
+      allowed_params, rejected_params = validate_params(given_params, valid_params)
       request = Request.new(connection, :get, url, allowed_params)
       raise StandardError, build_error_message(request.status, request.response) if request.success == false
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
@@ -44,7 +44,7 @@ module ContextIO
                 api_call_made: api_call_made)
     end
 
-    def get_params(inputed_params, valid_params)
+    def validate_params(inputed_params, valid_params)
       return [nil, nil] if inputed_params.nil?
       rejected_params = []
       params = []
