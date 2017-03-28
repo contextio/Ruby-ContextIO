@@ -35,8 +35,12 @@ module ContextIO
       build_url("messages", encoded_message_id)
     end
 
-    def body
-      call_api_return_new_object(Message, message_id, "#{call_url}/body")
+    def body(**kwargs)
+      call_api_return_new_object(Message,
+                                 message_id,
+                                 "#{call_url}/body",
+                                 ValidParams::MESSAGE_BODY,
+                                 kwargs)
     end
 
     def flags
@@ -47,8 +51,12 @@ module ContextIO
       call_api_return_new_object(Message, message_id, "#{call_url}/folders")
     end
 
-    def headers
-      call_api_return_new_object(Message, message_id, "#{call_url}/headers")
+    def headers(**kwargs)
+      call_api_return_new_object(Message,
+                                 message_id,
+                                 "#{call_url}/headers",
+                                 ValidParams::MESSAGE_HEADER,
+                                 kwargs)
     end
 
     def source
@@ -56,7 +64,11 @@ module ContextIO
     end
 
     def threads
-      call_api_return_new_object(Message, message_id, "#{call_url}/thread")
+      call_api_return_new_object(Message,
+                                 message_id,
+                                 "#{call_url}/thread",
+                                 ValidParams::MESSAGE_THREADS_GET,
+                                 kwargs)
     end
   end
 end
