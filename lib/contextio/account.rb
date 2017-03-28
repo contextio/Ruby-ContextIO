@@ -36,7 +36,9 @@ module ContextIO
     end
 
     def get_contacts(**kwargs)
-      contact_collection_return("#{call_url}/contacts", ValidGetParams::CONTACTS, kwargs)
+      contact_collection_return(url: "#{call_url}/contacts",
+                                valid_params: ValidGetParams::CONTACTS,
+                                given_params: kwargs)
     end
 
     def get_email_addresses
