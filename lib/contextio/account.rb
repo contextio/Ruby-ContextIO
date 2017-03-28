@@ -36,7 +36,7 @@ module ContextIO
     end
 
     def get_contacts(**kwargs)
-      contact_collection_return("#{call_url}/contacts", ValidParams::GET_CONTACTS, kwargs)
+      contact_collection_return("#{call_url}/contacts", ValidGetParams::CONTACTS, kwargs)
     end
 
     def get_email_addresses
@@ -44,15 +44,15 @@ module ContextIO
     end
 
     def get_files(**kwargs)
-      collection_return("#{call_url}/files", self, Files, ValidParams::GET_FILES, kwargs)
+      collection_return("#{call_url}/files", self, Files, ValidGetParams::FILES, kwargs)
     end
 
     def get_messages(**kwargs)
-      collection_return("#{call_url}/messages", self, Message, ValidParams::GET_MESSAGES, kwargs)
+      collection_return("#{call_url}/messages", self, Message, ValidGetParams::MESSAGES, kwargs)
     end
 
     def get_sources(**kwargs)
-      collection_return("#{call_url}/sources", self, Sources, ValidParams::GET_SOURCES, kwargs)
+      collection_return("#{call_url}/sources", self, Sources, ValidGetParams::SOURCES, kwargs)
     end
 
     def get_sync
@@ -60,7 +60,7 @@ module ContextIO
     end
 
     def get_threads(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_THREADS)
+      allowed_params, rejected_params = get_params(kwargs, ValidGetParams::THREADS)
       request = Request.new(connection, :get, "#{call_url}/threads", allowed_params)
       raise StandardError, build_error_message(request.status, request.response) if request.success == false
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,

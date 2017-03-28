@@ -39,7 +39,7 @@ module ContextIO
       call_api_return_new_object(Message,
                                  message_id,
                                  "#{call_url}/body",
-                                 ValidParams::MESSAGE_BODY,
+                                 ValidGetParams::MESSAGE_BODY,
                                  kwargs)
     end
 
@@ -55,7 +55,7 @@ module ContextIO
       call_api_return_new_object(Message,
                                  message_id,
                                  "#{call_url}/headers",
-                                 ValidParams::MESSAGE_HEADER,
+                                 ValidGetParams::MESSAGE_HEADER,
                                  kwargs)
     end
 
@@ -63,11 +63,11 @@ module ContextIO
       call_api_return_new_object(Message, message_id, "#{call_url}/source")
     end
 
-    def threads
+    def threads(**kwargs)
       call_api_return_new_object(Message,
                                  message_id,
                                  "#{call_url}/thread",
-                                 ValidParams::MESSAGE_THREADS_GET,
+                                 ValidGetParams::MESSAGE_THREADS,
                                  kwargs)
     end
   end
