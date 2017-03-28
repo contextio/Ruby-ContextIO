@@ -60,11 +60,11 @@ module ContextIO
     end
 
     def get_threads(**kwargs)
-      call_api_return_new_object(Threads,
-                                 "no identifier",
-                                 "#{call_url}/threads",
-                                 ValidGetParams::THREADS,
-                                 kwargs)
+      call_api_return_new_object(klass: Threads,
+                                 identifier: "no identifier",
+                                 url: "#{call_url}/threads",
+                                 valid_params: ValidGetParams::THREADS,
+                                 given_params: kwargs)
     end
 
     def get_webhooks
