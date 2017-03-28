@@ -71,6 +71,10 @@ module ContextIO
       call_api(kwargs: kwargs)
     end
 
+    def puts(**kwargs)
+      call_api(kwargs: kwargs. method: :put)
+    end
+
     def check_success(status)
       status >= 200 && status <= 299
     end
