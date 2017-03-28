@@ -40,17 +40,11 @@ module ContextIO
     end
 
     def get_threads(**kwargs)
-      allowed_params, rejected_params = validate_params(kwargs, ValidGetParams::CONTACT_THREADS)
-      request = Request.new(connection, :get, "#{call_url}/threads", allowed_params)
-      raise StandardError, build_error_message(request.status, request.response) if request.success == false
-      api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
-                                                        allowed_params,
-                                                        rejected_params)
-      Threads.new(parent: self,
-                 response: request.response,
-                 status: request.status,
-                 success: request.success,
-                 api_call_made: api_call_made)
+      call_api_return_new_object(Threads,
+                                 "no identifier",
+                                 "#{call_url}/threads",
+                                 ValidGetParams::THREADS,
+                                 kwargs)
     end
   end
 end
