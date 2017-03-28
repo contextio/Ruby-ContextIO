@@ -33,12 +33,12 @@ module ContextIO
     end
 
     def get_folders(**kwargs)
-      collection_return("#{call_url}/folders", self, Folder, ValidParams::FOLDERS_SOURCES_GET, kwargs)
+      collection_return("#{call_url}/folders", self, Folder, ValidGetParams::FOLDERS_SOURCES, kwargs)
     end
 
     def folders(folder:, **kwargs)
       url = "#{call_url}/folders/#{folder}"
-      call_api_return_new_object(Folder, folder, url, ValidParams::GET_SOURCE_FOLDER, kwargs)
+      call_api_return_new_object(Folder, folder, url, ValidGetParams::SOURCE_FOLDER, kwargs)
     end
 
     def sync

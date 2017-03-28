@@ -32,25 +32,19 @@ module ContextIO
     end
 
     def get_files(**kwargs)
-      collection_return("#{call_url}/files", self, Files, ValidParams::GET_CONTACT_FILES, kwargs)
+      collection_return("#{call_url}/files", self, Files, ValidGetParams::CONTACT_FILES, kwargs)
     end
 
     def get_messages(**kwargs)
-      collection_return("#{call_url}/messages", self, Message, ValidParams::GET_CONTACT_MESSAGES, kwargs)
+      collection_return("#{call_url}/messages", self, Message, ValidGetParams::CONTACT_MESSAGES, kwargs)
     end
 
     def get_threads(**kwargs)
-      allowed_params, rejected_params = get_params(kwargs, ValidParams::GET_CONTACT_THREADS)
-      request = Request.new(connection, :get, "#{call_url}/threads", allowed_params)
-      raise StandardError, build_error_message(request.status, request.response) if request.success == false
-      api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
-                                                        allowed_params,
-                                                        rejected_params)
-      Threads.new(parent: self,
-                 response: request.response,
-                 status: request.status,
-                 success: request.success,
-                 api_call_made: api_call_made)
+      call_api_return_new_object(Threads,
+                                 "no identifier",
+                                 "#{call_url}/threads",
+                                 ValidGetParams::THREADS,
+                                 kwargs)
     end
   end
 end
