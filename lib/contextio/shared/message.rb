@@ -40,39 +40,45 @@ module ContextIO
     end
 
     def body(**kwargs)
-      call_api_return_new_object(Message,
-                                 message_id,
-                                 "#{call_url}/body",
-                                 ValidGetParams::MESSAGE_BODY,
-                                 kwargs)
+      call_api_return_new_object(klass: Message,
+                                 identifier: message_id,
+                                 url: "#{call_url}/body",
+                                 valid_params: ValidGetParams::MESSAGE_BODY,
+                                 given_params: kwargs)
     end
 
     def flags
-      call_api_return_new_object(Message, message_id, "#{call_url}/flags")
+      call_api_return_new_object(klass: Message,
+                                 identifier: message_id,
+                                 url: "#{call_url}/flags")
     end
 
     def folders
-      call_api_return_new_object(Message, message_id, "#{call_url}/folders")
+      call_api_return_new_object(klass: Message,
+                                 identifier: message_id,
+                                 url: "#{call_url}/folders")
     end
 
     def headers(**kwargs)
-      call_api_return_new_object(Message,
-                                 message_id,
-                                 "#{call_url}/headers",
-                                 ValidGetParams::MESSAGE_HEADER,
-                                 kwargs)
+      call_api_return_new_object(klass: Message,
+                                 identifier: message_id,
+                                 url: "#{call_url}/headers",
+                                 valid_params: ValidGetParams::MESSAGE_HEADER,
+                                 given_params: kwargs)
     end
 
     def source
-      call_api_return_new_object(Message, message_id, "#{call_url}/source")
+      call_api_return_new_object(klass: Message,
+                                 identifier: message_id,
+                                 url: "#{call_url}/source")
     end
 
     def threads(**kwargs)
-      call_api_return_new_object(Message,
-                                 message_id,
-                                 "#{call_url}/thread",
-                                 ValidGetParams::MESSAGE_THREADS,
-                                 kwargs)
+      call_api_return_new_object(klass: Message,
+                                 identifier: message_id,
+                                 url: "#{call_url}/thread",
+                                 valid_params: ValidGetParams::MESSAGE_THREADS,
+                                 given_params: kwargs)
     end
   end
 end

@@ -14,11 +14,17 @@ module ContextIO
     end
 
     def get_accounts(**kwargs)
-      collection_return("#{call_url}/accounts", self, Account, ValidGetParams::ACCOUNTS, kwargs)
+      collection_return(url: "#{call_url}/accounts",
+                        parent: self,
+                        klass: Account,
+                        valid_params: ValidGetParams::ACCOUNTS,
+                        given_params: kwargs)
     end
 
     def get_connect_tokens
-      collection_return("#{call_url}/connect_tokens", self, ConnectToken)
+      collection_return(url: "#{call_url}/connect_tokens",
+                        parent: self,
+                        klass: ConnectToken)
     end
 
     def discovery(email:)
@@ -26,11 +32,15 @@ module ContextIO
     end
 
     def get_oauth_providers
-      collection_return("#{call_url}/oauth_providers", self, OauthProvider)
+      collection_return(url: "#{call_url}/oauth_providers",
+                        parent: self,
+                        klass: OauthProvider)
     end
 
     def get_webhooks
-      collection_return("#{call_url}/webhooks", self, Webhook)
+      collection_return(url: "#{call_url}/webhooks",
+                        parent: self,
+                        klass: Webhook)
     end
   end
 end

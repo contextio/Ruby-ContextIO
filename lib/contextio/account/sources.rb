@@ -33,12 +33,20 @@ module ContextIO
     end
 
     def get_folders(**kwargs)
-      collection_return("#{call_url}/folders", self, Folder, ValidGetParams::FOLDERS_SOURCES, kwargs)
+      collection_return(url: "#{call_url}/folders",
+                        parent: self,
+                        klass: Folder,
+                        valid_params: ValidGetParams::FOLDERS_SOURCES,
+                        given_params: kwargs)
     end
 
     def folders(folder:, **kwargs)
       url = "#{call_url}/folders/#{folder}"
-      call_api_return_new_object(Folder, folder, url, ValidGetParams::SOURCE_FOLDER, kwargs)
+      call_api_return_new_object(klass: Folder,
+                                 identifier: folder,
+                                 url: url,
+                                 valid_params: ValidGetParams::SOURCE_FOLDER,
+                                 given_params: kwargs)
     end
 
     def sync
@@ -46,11 +54,15 @@ module ContextIO
     end
 
     def get_connect_tokens
-      collection_return("#{call_url}/connect_tokens", self, ConnectToken)
+      collection_return(url: "#{call_url}/connect_tokens",
+                        parent: self,
+                        klass: ConnectToken)
     end
 
     def connect_tokens(token:)
-      call_api_return_new_object(ConnectToken, token, "#{call_url}/connect_tokens/#{token}" )
+      call_api_return_new_object(klass: ConnectToken,
+                                 identifier: token,
+                                 url: "#{call_url}/connect_tokens/#{token}")
     end
   end
 end
