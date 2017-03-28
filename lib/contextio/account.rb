@@ -32,7 +32,9 @@ module ContextIO
     end
 
     def get_connect_tokens
-      collection_return("#{call_url}/connect_tokens", self, ConnectToken)
+      collection_return(url: "#{call_url}/connect_tokens",
+                        parent: self,
+                        klass: ConnectToken)
     end
 
     def get_contacts(**kwargs)
@@ -42,19 +44,33 @@ module ContextIO
     end
 
     def get_email_addresses
-      collection_return("#{call_url}/email_addresses", self, EmailAddress)
+      collection_return(url: "#{call_url}/email_addresses",
+                        parent: self,
+                        klass: EmailAddress)
     end
 
     def get_files(**kwargs)
-      collection_return("#{call_url}/files", self, Files, ValidGetParams::FILES, kwargs)
+      collection_return(url: "#{call_url}/files",
+                        parent: self,
+                        klass: Files,
+                        valid_params: ValidGetParams::FILES,
+                        given_params: kwargs)
     end
 
     def get_messages(**kwargs)
-      collection_return("#{call_url}/messages", self, Message, ValidGetParams::MESSAGES, kwargs)
+      collection_return(url: "#{call_url}/messages",
+                        parent: self,
+                        klass: Message,
+                        valid_params: ValidGetParams::MESSAGES,
+                        given_params: kwargs)
     end
 
     def get_sources(**kwargs)
-      collection_return("#{call_url}/sources", self, Sources, ValidGetParams::SOURCES, kwargs)
+      collection_return(url: "#{call_url}/sources",
+                        parent: self,
+                        klass: Sources,
+                        valid_params: ValidGetParams::SOURCES,
+                        given_params: kwargs)
     end
 
     def get_sync
@@ -70,7 +86,9 @@ module ContextIO
     end
 
     def get_webhooks
-      collection_return("#{call_url}/webhooks", self, Webhook)
+      collection_return(url: "#{call_url}/webhooks",
+                        parent: self,
+                        klass: Webhook)
     end
   end
 end

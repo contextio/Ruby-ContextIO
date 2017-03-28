@@ -33,7 +33,11 @@ module ContextIO
     end
 
     def get_folders(**kwargs)
-      collection_return("#{call_url}/folders", self, Folder, ValidGetParams::FOLDERS_SOURCES, kwargs)
+      collection_return(url: "#{call_url}/folders",
+                        parent: self,
+                        klass: Folder,
+                        valid_params: ValidGetParams::FOLDERS_SOURCES,
+                        given_params: kwargs)
     end
 
     def folders(folder:, **kwargs)
@@ -50,7 +54,9 @@ module ContextIO
     end
 
     def get_connect_tokens
-      collection_return("#{call_url}/connect_tokens", self, ConnectToken)
+      collection_return(url: "#{call_url}/connect_tokens",
+                        parent: self,
+                        klass: ConnectToken)
     end
 
     def connect_tokens(token:)

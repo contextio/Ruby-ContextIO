@@ -32,11 +32,19 @@ module ContextIO
     end
 
     def get_files(**kwargs)
-      collection_return("#{call_url}/files", self, Files, ValidGetParams::CONTACT_FILES, kwargs)
+      collection_return(url: "#{call_url}/files",
+                        parent: self,
+                        klass: Files,
+                        valid_params: ValidGetParams::CONTACT_FILES,
+                        given_params: kwargs)
     end
 
     def get_messages(**kwargs)
-      collection_return("#{call_url}/messages", self, Message, ValidGetParams::CONTACT_MESSAGES, kwargs)
+      collection_return(url: "#{call_url}/messages",
+                        parent: self,
+                        klass: Message,
+                        valid_params: ValidGetParams::CONTACT_MESSAGES,
+                        given_params: kwargs)
     end
 
     def get_threads(**kwargs)
