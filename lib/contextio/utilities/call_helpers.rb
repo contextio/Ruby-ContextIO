@@ -73,10 +73,6 @@ module ContextIO
       call_api(kwargs: kwargs)
     end
 
-    def puts(**kwargs)
-      call_api(kwargs: kwargs, method: :put)
-    end
-
     def delete
       request = Request.new(connection, :delete, call_url)
       raise StandardError, build_error_message(request.status, request.response) if request.success == false
