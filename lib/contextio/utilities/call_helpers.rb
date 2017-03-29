@@ -22,10 +22,10 @@ module ContextIO
       request = Request.new(connection, method, url || call_url, allowed_params)
       raise StandardError, build_error_message(request.status, request.response) if request.success == false
       parse_response(request.response)
-      @api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
-                                                         method,
-                                                         allowed_params,
-                                                         rejected_params)
+      @api_call_made = build_api_call_made(request.url,
+                                           method,
+                                           allowed_params,
+                                           rejected_params)
       @status = request.status
       @success = check_success(status)
       self
@@ -39,12 +39,11 @@ module ContextIO
                                    given_params: nil)
       allowed_params, rejected_params = validate_params(given_params, valid_params)
       request = Request.new(connection, method, url, allowed_params)
-       binding.pry
       raise StandardError, build_error_message(request.status, request.response) if request.success == false
-      api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
-                                                        method,
-                                                        allowed_params,
-                                                        rejected_params)
+      api_call_made = build_api_call_made(request.url,
+                                          method,
+                                          allowed_params,
+                                          rejected_params)
       klass.new(parent: self,
                 response: request.response,
                 status: request.status,
@@ -79,9 +78,16 @@ module ContextIO
     end
 
     def delete
-      call_api_return_new_object(klass: self.class,
-                                 url: call_url,
-                                 method: :delete)
+      request = Request.new(connection, :delete, call_url)
+      raise StandardError, build_error_message(request.status, request.response) if request.success == false
+      api_call_made = build_api_call_made(request.url,
+                                          :delete,
+                                          nil,
+                                          nil)
+      DeletedResource.new(response: request.response,
+                          status: request.status,
+                          success: request.success,
+                          api_call_made: api_call_made)
     end
 
     def check_success(status)
@@ -90,6 +96,13 @@ module ContextIO
 
     def success?
       self.success
+    end
+
+    def build_api_call_made(url, method, allowed_params, rejected_params)
+      APICallMade::CALL_MADE_STRUCT.new(url,
+                                        method,
+                                        allowed_params,
+                                        rejected_params)
     end
 
     def build_error_message(status, body)
