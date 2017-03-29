@@ -1,6 +1,6 @@
 module ContextIO
   class DeletedResource
-    attr_reader :response, :status, :success, :api_call_made
+    attr_reader :response, :status, :success, :api_call_made, :identifier
     def initialize(response:,
                    status:,
                    success:,
