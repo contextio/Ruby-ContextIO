@@ -70,6 +70,15 @@ module ContextIO
         expect(webhook.class).to eq(Webhook)
         expect(webhook.call_url).to eq("/2.0/accounts/some_id/webhooks/")
       end
+
+      it "Can be deleted" do
+        resp = subject.delete
+        expect(resp.api_call_made)
+        expect(resp.identifier).to eq("some_id")
+        expect(resp.response).to eq("{'success'=>true}")
+        expect(resp.status).to eq(200)
+        expect(resp.success).to eq(true)
+      end
     end
   end
 end

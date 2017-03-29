@@ -82,6 +82,10 @@ NON_JSON_FAILURE = [
   "non-json-failure"
 ]
 
+DELETE_ENDPOINT_TEST = [
+  "accounts/some_id"
+]
+
 WebMock.disable_net_connect!(allow_localhost: true)
 RSpec.configure do |config|
   config.before(:each) do
@@ -148,5 +152,12 @@ RSpec.configure do |config|
                  body: "This is a failed request",
                  headers: {})
     end
+    DELETE_ENDPOINT_TEST.each do |endpoint|
+      stub_request(:delete, "https://api.context.io/2.0/#{endpoint}").
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        to_return(status: 200,
+                  body: "{'success'=>true}",
+                  headers: {})
+     end
   end
 end

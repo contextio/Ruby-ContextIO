@@ -10,6 +10,7 @@ module ContextIO
       request = Request.new(connection, method, url, allowed_params)
       raise StandardError, build_error_message(request.status, request.response) if request.success == false
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
+                                                        method,
                                                         allowed_params,
                                                         rejected_params)
       request.response.map do |resp|
@@ -29,6 +30,7 @@ module ContextIO
       request = Request.new(connection, method, url, allowed_params)
       raise StandardError, build_error_message(request.status, request.response) if request.success == false
       api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
+                                                        method,
                                                         allowed_params,
                                                         rejected_params)
       response = request.response
