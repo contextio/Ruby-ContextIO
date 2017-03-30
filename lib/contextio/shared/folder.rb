@@ -40,9 +40,9 @@ module ContextIO
 
     def get(**kwargs)
       if source_url?
-        call_api(kwargs: kwargs, valid_params: ValidGetParams::SOURCE_FOLDER)
+        get_request(given_params: kwargs, valid_params: ValidGetParams::SOURCE_FOLDER)
       else
-        call_api(kwargs: kwargs)
+        get_request(given_params: kwargs)
       end
     end
 

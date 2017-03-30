@@ -28,7 +28,7 @@ module ContextIO
     end
 
     def get(**kwargs)
-      call_api(kwargs: kwargs, valid_params: ValidGetParams::THREAD)
+      get_request(given_params: kwargs, valid_params: ValidGetParams::THREAD)
     end
   end
 end

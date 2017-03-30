@@ -52,7 +52,7 @@ module ContextIO
 
     def related
       contact_url_error
-      call_api(url: "#{call_url}/related")
+      get_request(url: "#{call_url}/related")
     end
   end
 end

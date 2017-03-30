@@ -17,17 +17,15 @@ module ContextIO
       "#{parent.call_url}/#{resource}/#{identifier}"
     end
 
-    def call_api(method: :get, kwargs: nil, url: nil, valid_params: nil)
-      allowed_params, rejected_params = validate_params(kwargs, valid_params)
-      request = Request.new(connection, method, url || call_url, allowed_params)
-      raise StandardError, build_error_message(request.status, request.response) if request.success == false
+    def get_request(given_params: nil, valid_params: nil, url: nil)
+      request, api_call_made = call_api(method: :get,
+                                         url: url || call_url,
+                                         given_params: given_params,
+                                         valid_params:valid_params)
       parse_response(request.response)
-      @api_call_made = build_api_call_made(request.url,
-                                           method,
-                                           allowed_params,
-                                           rejected_params)
       @status = request.status
       @success = check_success(status)
+      @api_call_made = api_call_made
       self
     end
 
@@ -70,7 +68,7 @@ module ContextIO
     end
 
     def get(**kwargs)
-      call_api(kwargs: kwargs)
+      get_request(given_params: kwargs)
     end
 
     def delete
@@ -86,12 +84,25 @@ module ContextIO
                           api_call_made: api_call_made)
     end
 
-    def check_success(status)
-      status >= 200 && status <= 299
-    end
-
     def success?
       self.success
+    end
+
+    private
+
+    def call_api(method:, url:, given_params:, valid_params:)
+      allowed_params, rejected_params = validate_params(given_params, valid_params)
+      request = Request.new(connection, method, url || call_url, allowed_params)
+      raise StandardError, build_error_message(request.status, request.response) if request.success == false
+      api_call_made = build_api_call_made(request.url,
+                                          method,
+                                          allowed_params,
+                                          rejected_params)
+      [request, api_call_made]
+    end
+
+    def check_success(status)
+      status >= 200 && status <= 299
     end
 
     def build_api_call_made(url, method, allowed_params, rejected_params)
