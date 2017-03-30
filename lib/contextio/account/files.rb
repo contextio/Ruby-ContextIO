@@ -44,7 +44,6 @@ module ContextIO
     def content(**kwargs)
       contact_url_error
       call_api_return_new_object(klass: Files,
-                                 identifier: file_id,
                                  url: "#{call_url}/content",
                                  valid_params: ValidGetParams::FILE_CONTENT,
                                  given_params: kwargs)
@@ -52,7 +51,7 @@ module ContextIO
 
     def related
       contact_url_error
-      call_api(url: "#{call_url}/related")
+      get_request(url: "#{call_url}/related")
     end
   end
 end

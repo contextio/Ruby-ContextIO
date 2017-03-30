@@ -36,12 +36,11 @@ module ContextIO
     end
 
     def get(**kwargs)
-      call_api(kwargs: kwargs, valid_params: ValidGetParams::MESSAGE)
+      get_request(given_params: kwargs, valid_params: ValidGetParams::MESSAGE)
     end
 
     def body(**kwargs)
       call_api_return_new_object(klass: Message,
-                                 identifier: message_id,
                                  url: "#{call_url}/body",
                                  valid_params: ValidGetParams::MESSAGE_BODY,
                                  given_params: kwargs)
@@ -49,19 +48,16 @@ module ContextIO
 
     def flags
       call_api_return_new_object(klass: Message,
-                                 identifier: message_id,
                                  url: "#{call_url}/flags")
     end
 
     def folders
       call_api_return_new_object(klass: Message,
-                                 identifier: message_id,
                                  url: "#{call_url}/folders")
     end
 
     def headers(**kwargs)
       call_api_return_new_object(klass: Message,
-                                 identifier: message_id,
                                  url: "#{call_url}/headers",
                                  valid_params: ValidGetParams::MESSAGE_HEADER,
                                  given_params: kwargs)
@@ -69,13 +65,11 @@ module ContextIO
 
     def source
       call_api_return_new_object(klass: Message,
-                                 identifier: message_id,
                                  url: "#{call_url}/source")
     end
 
     def threads(**kwargs)
       call_api_return_new_object(klass: Message,
-                                 identifier: message_id,
                                  url: "#{call_url}/thread",
                                  valid_params: ValidGetParams::MESSAGE_THREADS,
                                  given_params: kwargs)

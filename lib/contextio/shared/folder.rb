@@ -40,15 +40,14 @@ module ContextIO
 
     def get(**kwargs)
       if source_url?
-        call_api(kwargs: kwargs, valid_params: ValidGetParams::SOURCE_FOLDER)
+        get_request(given_params: kwargs, valid_params: ValidGetParams::SOURCE_FOLDER)
       else
-        call_api(kwargs: kwargs)
+        get_request(given_params: kwargs)
       end
     end
 
     def messages(**kwargs)
       collection_return(url: "#{call_url}/messages",
-                        parent: self,
                         klass: Message,
                         valid_params: ValidGetParams::SOURCE_FOLDER_MESSAGES,
                         given_params: kwargs)

@@ -58,11 +58,11 @@ describe ContextIO do
     end
 
     it "was non JSON" do
-      expect{ subject.call_api(url: "non-json-failure") }.to raise_error(StandardError, "HTTP code 500. Response This is a failed request")
+      expect{ subject.get_request(url: "non-json-failure") }.to raise_error(StandardError, "HTTP code 500. Response This is a failed request")
     end
 
     it "was JSON" do
-      expect{ subject.call_api(url: "no-message-failure") }.to raise_error(StandardError, "HTTP code 500. No API error given.")
+      expect{ subject.get_request(url: "no-message-failure") }.to raise_error(StandardError, "HTTP code 500. No API error given.")
     end
   end
 end

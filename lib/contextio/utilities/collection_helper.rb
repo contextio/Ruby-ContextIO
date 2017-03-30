@@ -1,18 +1,14 @@
 module ContextIO
   module CollectionHelper
     def collection_return(url:,
-                          parent:,
                           klass:,
                           method: :get,
                           valid_params: nil,
                           given_params: nil)
-      allowed_params, rejected_params = validate_params(given_params, valid_params)
-      request = Request.new(connection, method, url, allowed_params)
-      raise StandardError, build_error_message(request.status, request.response) if request.success == false
-      api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
-                                                        method,
-                                                        allowed_params,
-                                                        rejected_params)
+      request, api_call_made = call_api(method: :get,
+                                        url: url,
+                                        given_params: given_params,
+                                        valid_params:valid_params)
       request.response.map do |resp|
         klass.new(parent: self,
                   response: resp,
@@ -26,13 +22,10 @@ module ContextIO
                                   method: :get,
                                   valid_params: nil,
                                   given_params: nil)
-      allowed_params, rejected_params = validate_params(given_params, valid_params)
-      request = Request.new(connection, method, url, allowed_params)
-      raise StandardError, build_error_message(request.status, request.response) if request.success == false
-      api_call_made = APICallMade::CALL_MADE_STRUCT.new(request.url,
-                                                        method,
-                                                        allowed_params,
-                                                        rejected_params)
+      request, api_call_made = call_api(method: :get,
+                                        url: url,
+                                        given_params: given_params,
+                                        valid_params:valid_params)
       response = request.response
       matches = response["matches"].map do |resp|
         Contact.new(response: resp,
