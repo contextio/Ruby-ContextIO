@@ -48,7 +48,6 @@ module ContextIO
 
     def messages(**kwargs)
       collection_return(url: "#{call_url}/messages",
-                        parent: self,
                         klass: Message,
                         valid_params: ValidGetParams::SOURCE_FOLDER_MESSAGES,
                         given_params: kwargs)
