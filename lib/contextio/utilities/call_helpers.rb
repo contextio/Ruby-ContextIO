@@ -19,9 +19,9 @@ module ContextIO
 
     def get_request(given_params: nil, valid_params: nil, url: nil)
       request, api_call_made = call_api(method: :get,
-                                         url: url || call_url,
-                                         given_params: given_params,
-                                         valid_params:valid_params)
+                                        url: url || call_url,
+                                        given_params: given_params,
+                                        valid_params:valid_params)
       parse_response(request.response)
       @status = request.status
       @success = check_success(status)
@@ -32,16 +32,12 @@ module ContextIO
     def call_api_return_new_object(klass:,
                                    url:,
                                    method: :get,
-                                   identifier: nil,
                                    valid_params: nil,
                                    given_params: nil)
-      allowed_params, rejected_params = validate_params(given_params, valid_params)
-      request = Request.new(connection, method, url, allowed_params)
-      raise StandardError, build_error_message(request.status, request.response) if request.success == false
-      api_call_made = build_api_call_made(request.url,
-                                          method,
-                                          allowed_params,
-                                          rejected_params)
+      request, api_call_made = call_api(method: method,
+                                        url: url,
+                                        given_params: given_params,
+                                        valid_params: valid_params)
       klass.new(parent: self,
                 response: request.response,
                 status: request.status,

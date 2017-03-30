@@ -43,7 +43,6 @@ module ContextIO
     def folders(folder:, **kwargs)
       url = "#{call_url}/folders/#{folder}"
       call_api_return_new_object(klass: Folder,
-                                 identifier: folder,
                                  url: url,
                                  valid_params: ValidGetParams::SOURCE_FOLDER,
                                  given_params: kwargs)
@@ -61,7 +60,6 @@ module ContextIO
 
     def connect_tokens(token:)
       call_api_return_new_object(klass: ConnectToken,
-                                 identifier: token,
                                  url: "#{call_url}/connect_tokens/#{token}")
     end
   end

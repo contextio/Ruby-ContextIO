@@ -79,7 +79,6 @@ module ContextIO
 
     def get_threads(**kwargs)
       call_api_return_new_object(klass: Threads,
-                                 identifier: "no identifier",
                                  url: "#{call_url}/threads",
                                  valid_params: ValidGetParams::THREADS,
                                  given_params: kwargs)
