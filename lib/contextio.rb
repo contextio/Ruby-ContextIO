@@ -20,12 +20,14 @@ module ContextIO
                         given_params: kwargs)
     end
 
-    def post_accounts(**kwargs)
-      call_api_return_new_object(klass: Account,
-                                 url: "#{call_url}/accounts",
-                                 method: :post,
-                                 valid_params: ValidPostParams::ACCOUNTS,
-                                 given_params: given_params)
+    def post_account(type: "IMAP", **kwargs)
+      given_params = kwargs.merge(type: type)
+      account = call_api_return_new_object(klass: Account,
+                                           url: "#{call_url}/accounts",
+                                           method: :post,
+                                           valid_params: ValidPostParams::ACCOUNTS,
+                                           given_params: given_params)
+      account.get
     end
 
     def get_connect_tokens

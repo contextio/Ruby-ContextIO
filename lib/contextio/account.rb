@@ -31,6 +31,16 @@ module ContextIO
       build_url("accounts", id)
     end
 
+    def post(**kwargs)
+      call_api_return_new_object(klass: Account,
+                                 method: :post,
+                                 url: call_url,
+                                 parent: parent,
+                                 valid_params: ValidPostParams::ACCOUNT,
+                                 given_params: kwargs)
+
+    end
+
     def get_connect_tokens
       collection_return(url: "#{call_url}/connect_tokens",
                         klass: ConnectToken)

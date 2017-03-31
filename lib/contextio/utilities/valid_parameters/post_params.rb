@@ -5,5 +5,7 @@ module ContextIO
                   provider_refresh_token provider_consumer_key callback_url
                   status_callback_url use_ssl email server username port type
                   migrate_account_id)
+
+    ACCOUNT = %I(first_name last_name)
   end
 end

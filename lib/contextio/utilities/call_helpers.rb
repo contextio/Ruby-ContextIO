@@ -32,13 +32,15 @@ module ContextIO
     def call_api_return_new_object(klass:,
                                    url:,
                                    method: :get,
+                                   parent: nil,
                                    valid_params: nil,
                                    given_params: nil)
       request, api_call_made = call_api(method: method,
                                         url: url,
                                         given_params: given_params,
                                         valid_params: valid_params)
-      klass.new(parent: self,
+                                        binding.pry
+      klass.new(parent: parent || self,
                 response: request.response,
                 status: request.status,
                 success: request.success,
