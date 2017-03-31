@@ -20,6 +20,14 @@ module ContextIO
                         given_params: kwargs)
     end
 
+    def post_accounts(**kwargs)
+      call_api_return_new_object(klass: Account,
+                                 url: "#{call_url}/accounts",
+                                 method: :post,
+                                 valid_params: ValidPostParams::ACCOUNTS,
+                                 given_params: given_params)
+    end
+
     def get_connect_tokens
       collection_return(url: "#{call_url}/connect_tokens",
                         klass: ConnectToken)
