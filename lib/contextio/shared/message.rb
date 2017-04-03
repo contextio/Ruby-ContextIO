@@ -57,6 +57,7 @@ module ContextIO
     end
 
     def body(**kwargs)
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/body",
                                  valid_params: ValidGetParams::MESSAGE_BODY,
@@ -64,16 +65,19 @@ module ContextIO
     end
 
     def flags
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/flags")
     end
 
     def folders
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/folders")
     end
 
     def headers(**kwargs)
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/headers",
                                  valid_params: ValidGetParams::MESSAGE_HEADER,
@@ -81,11 +85,13 @@ module ContextIO
     end
 
     def source
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/source")
     end
 
     def threads(**kwargs)
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/thread",
                                  valid_params: ValidGetParams::MESSAGE_THREADS,
