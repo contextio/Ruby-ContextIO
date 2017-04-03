@@ -17,6 +17,9 @@ module ContextIO
     MESSAGE = %I(flag_seen flag_answered flag_flagged flag_deleted flag_draft
                  message dst_source dst_folder)
 
+    MESSAGE_MOVE_20 = %I(dst_source move flag_seen flag_answered flag_flagged
+                         flag_deleted flag_draft dst_folder)
+
     #Sources
     SOURCES = %I(email server username	use_ssl port type password origin_ip
                 expunge_on_deleted provider_refresh_token	string provider_consumer_key

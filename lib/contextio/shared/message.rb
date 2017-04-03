@@ -36,8 +36,24 @@ module ContextIO
       build_url("messages", encoded_message_id)
     end
 
+    def parent_not_account_error
+      raise StandardError, "This method can only be called from '2.0/accounts/:account/message/:message_id'" if parent.class != Account
+    end
+
     def get(**kwargs)
       get_request(given_params: kwargs, valid_params: ValidGetParams::MESSAGE)
+    end
+
+    def post(dst_folder:, **kwargs)
+      parent_not_account_error
+      given_params = kwargs.merge(dst_folder: dst_folder)
+      token = call_api_return_updated_object(klass: Message,
+                                             url: "#{call_url}",
+                                             identifier: encoded_message_id,
+                                             method: :post,
+                                             valid_params: ValidPostParams::MESSAGE_MOVE_20,
+                                             given_params: given_params)
+      return_post_api_call_made(token)
     end
 
     def body(**kwargs)
