@@ -28,13 +28,23 @@ module ContextIO
                                            valid_params: ValidPostParams::ACCOUNTS,
                                            given_params: given_params)
       api_call_made = account.api_call_made
-      account.get
-      return_post_api_callmade(account, api_call_made)
+      return_post_api_call_made(account, api_call_made)
     end
 
     def get_connect_tokens
       collection_return(url: "#{call_url}/connect_tokens",
                         klass: ConnectToken)
+    end
+
+    def post_connect_token(callback_url: , **kwargs)
+      given_params = kwargs.merge(callback_url: callback_url)
+      token = call_api_return_new_object(klass: ConnectToken,
+                                         url: "#{call_url}/connect_tokens",
+                                         method: :post,
+                                         valid_params: ValidPostParams::CONNECT_TOKENS,
+                                         given_params: given_params)
+      api_call_made = token.api_call_made
+      return_post_api_call_made(token, api_call_made)
     end
 
     def discovery(email:)
@@ -46,9 +56,31 @@ module ContextIO
                         klass: OauthProvider)
     end
 
+    def post_oauth_provider(type:, provider_consumer_key:, provider_consumer_secret:)
+      given_params = [type, provider_consumer_key, provider_consumer_secret]
+      provider = call_api_return_new_object(klass: OauthProvider,
+                                            url: "#{call_url}/oauth_provider",
+                                            method: :post,
+                                            valid_params: ValidPostParams::OAUTH_PROVIDER,
+                                            given_params: given_params)
+      api_call_made = provider.api_call_made
+      return_post_api_call_made(token, api_call_made)
+    end
+
     def get_webhooks
       collection_return(url: "#{call_url}/webhooks",
                         klass: Webhook)
+    end
+
+    def post_webhook(callback_url: , **kwargs)
+      given_params = kwargs.merge(callback_url: callback_url)
+      token = call_api_return_new_object(klass: ConnectToken,
+                                         url: "#{call_url}/connect_tokens",
+                                         method: :post,
+                                         valid_params: ValidPostParams::WEBHOOK,
+                                         given_params: given_params)
+      api_call_made = token.api_call_made
+      return_post_api_call_made(token, api_call_made)
     end
   end
 end
