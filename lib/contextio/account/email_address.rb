@@ -4,10 +4,11 @@ module ContextIO
     EMAIL_ATTRS = %I(validated primary resource_url)
 
     private
-    attr_reader :connection
+    attr_reader :parent
 
     public
-    attr_reader :response, :status, :parent, :success, :email, :api_call_made, *EMAIL_ATTRS
+    attr_accessor :api_call_made
+    attr_reader :response, :status, :connection, :success, :email, *EMAIL_ATTRS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
