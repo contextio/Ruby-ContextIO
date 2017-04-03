@@ -67,6 +67,16 @@ module ContextIO
                         klass: EmailAddress)
     end
 
+    def post_email_address(email_address:)
+      given_params = { email_address: email_address }
+      token = call_api_return_new_object(klass: EmailAddress,
+                                         url: "#{call_url}/email_addresses",
+                                         method: :post,
+                                         valid_params: [:email_address],
+                                         given_params: given_params)
+      return_post_api_call_made(token)
+    end
+
     def get_files(**kwargs)
       collection_return(url: "#{call_url}/files",
                         klass: Files,

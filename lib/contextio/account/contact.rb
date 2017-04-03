@@ -3,9 +3,13 @@ module ContextIO
     include ContextIO::CallHelpers
     CONTACT_READERS =  %I(emails name thumbnail last_received last_sent count sent_count
                        received_count sent_from_account_count query email resource_url)
+    private
+    attr_reader :parent
 
+    public
+    attr_accessor :api_call_made
     attr_reader :response, :status, :parent, :connection, :success, :email,
-                :api_call_made, *CONTACT_READERS
+                 *CONTACT_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
