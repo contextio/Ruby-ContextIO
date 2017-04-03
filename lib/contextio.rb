@@ -27,7 +27,9 @@ module ContextIO
                                            method: :post,
                                            valid_params: ValidPostParams::ACCOUNTS,
                                            given_params: given_params)
+      api_call_made = account.api_call_made
       account.get
+      return_post_api_callmade(account, api_call_made)
     end
 
     def get_connect_tokens
