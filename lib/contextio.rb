@@ -69,7 +69,7 @@ module ContextIO
                         klass: Webhook)
     end
 
-    def post_webhook(callback_url: , **kwargs)
+    def post_webhook(callback_url:, **kwargs)
       given_params = kwargs.merge(callback_url: callback_url)
       token = call_api_return_new_object(klass: Webhook,
                                          url: "#{call_url}/connect_tokens",

@@ -13,6 +13,10 @@ module ContextIO
                         source_sync_all_folders source_sync_folders source_raw_file_list
                         status_callback_url callback_url)
 
+    #Messages
+    MESSAGE = %I(flag_seen flag_answered flag_flagged flag_deleted flag_draft
+                 message dst_source dst_folder)
+
     #Webhooks
     WEBHOOK = %I(callback_url failure_notif_url filter_to filter_from filter_cc
                   filter_subject filter_thread filter_file_name filter_folder_added

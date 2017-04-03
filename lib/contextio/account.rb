@@ -46,7 +46,7 @@ module ContextIO
                         klass: ConnectToken)
     end
 
-    def post_connect_token(callback_url: , **kwargs)
+    def post_connect_token(callback_url:, **kwargs)
       given_params = kwargs.merge(callback_url: callback_url)
       token = call_api_return_new_object(klass: ConnectToken,
                                          url: "#{call_url}/connect_tokens",
@@ -89,6 +89,16 @@ module ContextIO
                         klass: Message,
                         valid_params: ValidGetParams::MESSAGES,
                         given_params: kwargs)
+    end
+
+    def post_message(message:, dst_source:, dst_folder:, **kwargs)
+      given_params = kwargs.merge(message: message, dst_source: dst_source, dst_folder, dst_folder)
+      token = call_api_return_new_object(klass: Message,
+                                         url: "#{call_url}/messages",
+                                         method: :post,
+                                         valid_params: ValidPostParams::Message,
+                                         given_params: given_params)
+      return_post_api_call_made(token)
     end
 
     def get_sources(**kwargs)
