@@ -9,7 +9,8 @@ module ContextIO
     attr_reader :parent
 
     public
-    attr_reader :id, :success, :connection, :status, :api_call_made, *ACCOUNT_READERS
+    attr_accessor :api_call_made
+    attr_reader :id, :success, :connection, :status, *ACCOUNT_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
@@ -29,6 +30,15 @@ module ContextIO
 
     def call_url
       build_url("accounts", id)
+    end
+
+    def post(**kwargs)
+      call_api_return_updated_object(klass: Account,
+                                     method: :post,
+                                     identifier: id,
+                                     url: call_url,
+                                     valid_params: ValidPostParams::ACCOUNT,
+                                     given_params: kwargs)
     end
 
     def get_connect_tokens

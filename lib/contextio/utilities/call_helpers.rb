@@ -32,17 +32,37 @@ module ContextIO
     def call_api_return_new_object(klass:,
                                    url:,
                                    method: :get,
+                                   parent: nil,
                                    valid_params: nil,
                                    given_params: nil)
       request, api_call_made = call_api(method: method,
                                         url: url,
                                         given_params: given_params,
                                         valid_params: valid_params)
-      klass.new(parent: self,
+      klass.new(parent: parent || self,
                 response: request.response,
                 status: request.status,
                 success: request.success,
                 api_call_made: api_call_made)
+    end
+
+    def call_api_return_updated_object(klass:,
+                                       url:,
+                                       identifier:,
+                                       method: :post,
+                                       valid_params: nil,
+                                       given_params: nil)
+      request, api_call_made = call_api(method: method,
+                                        url: url,
+                                        given_params: given_params,
+                                        valid_params: valid_params)
+      object = klass.new(parent: parent,
+                         response: request.response,
+                         identifier: identifier,
+                         status: request.status,
+                         success: request.success,
+                         api_call_made: api_call_made).get
+      return_post_api_call_made(object, api_call_made)
     end
 
     def validate_params(inputed_params, valid_params)
@@ -84,8 +104,12 @@ module ContextIO
       self.success
     end
 
-    private
+    def return_post_api_callmade(object, call_made)
+      object.api_call_made = call_made
+      object
+    end
 
+    private
     def call_api(method:, url:, given_params:, valid_params:)
       allowed_params, rejected_params = validate_params(given_params, valid_params)
       request = Request.new(connection, method, url || call_url, allowed_params)
