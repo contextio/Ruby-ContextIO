@@ -27,8 +27,7 @@ module ContextIO
                                            method: :post,
                                            valid_params: ValidPostParams::ACCOUNTS,
                                            given_params: given_params)
-      api_call_made = account.api_call_made
-      return_post_api_call_made(account, api_call_made)
+      return_post_api_call_made(account)
     end
 
     def get_connect_tokens
@@ -41,10 +40,9 @@ module ContextIO
       token = call_api_return_new_object(klass: ConnectToken,
                                          url: "#{call_url}/connect_tokens",
                                          method: :post,
-                                         valid_params: ValidPostParams::CONNECT_TOKENS,
+                                         valid_params: ValidPostParams::CONNECT_TOKEN,
                                          given_params: given_params)
-      api_call_made = token.api_call_made
-      return_post_api_call_made(token, api_call_made)
+      return_post_api_call_made(token)
     end
 
     def discovery(email:)
@@ -63,8 +61,7 @@ module ContextIO
                                             method: :post,
                                             valid_params: ValidPostParams::OAUTH_PROVIDER,
                                             given_params: given_params)
-      api_call_made = provider.api_call_made
-      return_post_api_call_made(token, api_call_made)
+      return_post_api_call_made(token)
     end
 
     def get_webhooks
@@ -74,13 +71,12 @@ module ContextIO
 
     def post_webhook(callback_url: , **kwargs)
       given_params = kwargs.merge(callback_url: callback_url)
-      token = call_api_return_new_object(klass: ConnectToken,
+      token = call_api_return_new_object(klass: Webhook,
                                          url: "#{call_url}/connect_tokens",
                                          method: :post,
                                          valid_params: ValidPostParams::WEBHOOK,
                                          given_params: given_params)
-      api_call_made = token.api_call_made
-      return_post_api_call_made(token, api_call_made)
+      return_post_api_call_made(token)
     end
   end
 end

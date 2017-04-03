@@ -46,6 +46,16 @@ module ContextIO
                         klass: ConnectToken)
     end
 
+    def post_connect_token(callback_url: , **kwargs)
+      given_params = kwargs.merge(callback_url: callback_url)
+      token = call_api_return_new_object(klass: ConnectToken,
+                                         url: "#{call_url}/connect_tokens",
+                                         method: :post,
+                                         valid_params: ValidPostParams::CONNECT_TOKEN,
+                                         given_params: given_params)
+      return_post_api_call_made(token)
+    end
+
     def get_contacts(**kwargs)
       contact_collection_return(url: "#{call_url}/contacts",
                                 valid_params: ValidGetParams::CONTACTS,
