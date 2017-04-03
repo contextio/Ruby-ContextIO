@@ -92,11 +92,11 @@ module ContextIO
     end
 
     def post_message(message:, dst_source:, dst_folder:, **kwargs)
-      given_params = kwargs.merge(message: message, dst_source: dst_source, dst_folder, dst_folder)
+      given_params = kwargs.merge(message: message, dst_source: dst_source, dst_folder: dst_folder)
       token = call_api_return_new_object(klass: Message,
                                          url: "#{call_url}/messages",
                                          method: :post,
-                                         valid_params: ValidPostParams::Message,
+                                         valid_params: ValidPostParams::MESSAGE,
                                          given_params: given_params)
       return_post_api_call_made(token)
     end
@@ -106,6 +106,21 @@ module ContextIO
                         klass: Sources,
                         valid_params: ValidGetParams::SOURCES,
                         given_params: kwargs)
+    end
+
+    def post_source(email:, server:, username:, use_ssl:, port:, type: "IMAP", **kwargs)
+      given_params = kwargs.merge(email: email,
+                                  server: server,
+                                  username: username,
+                                  use_ssl: use_ssl,
+                                  port: port,
+                                  type: type)
+      token = call_api_return_new_object(klass: Sources,
+                                         url: "#{call_url}/sources",
+                                         method: :post,
+                                         valid_params: ValidPostParams::SOURCES,
+                                         given_params: given_params)
+      return_post_api_call_made(token)
     end
 
     def get_sync
@@ -122,6 +137,17 @@ module ContextIO
     def get_webhooks
       collection_return(url: "#{call_url}/webhooks",
                         klass: Webhook)
+    end
+
+    def post_webhook(callback_url:, failure_notif_url:, **kwargs)
+      given_params = kwargs.merge(callback_url: callback_url,
+                                  failure_notif_url: failure_notif_url)
+      token = call_api_return_new_object(klass: Webhook,
+                                         url: "#{call_url}/webhooks",
+                                         method: :post,
+                                         valid_params: ValidPostParams::WEBHOOKS,
+                                         given_params: given_params)
+      return_post_api_call_made(token)
     end
   end
 end
