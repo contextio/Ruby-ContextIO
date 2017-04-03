@@ -104,7 +104,8 @@ module ContextIO
       self.success
     end
 
-    def return_post_api_callmade(object, call_made)
+    def return_post_api_call_made(object, call_made)
+      object.get
       object.api_call_made = call_made
       object
     end

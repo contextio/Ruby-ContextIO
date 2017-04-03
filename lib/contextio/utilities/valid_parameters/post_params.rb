@@ -7,5 +7,11 @@ module ContextIO
                   migrate_account_id)
 
     ACCOUNT = %I(first_name last_name)
+
+    #Connect Tokens
+
+    CONNECT_TOKENS = %I(email last_name source_callback_url source_expunge_on_deleted_flag
+                        source_sync_all_folders source_sync_folders source_raw_file_list
+                        status_callback_url callback_url)
   end
 end
