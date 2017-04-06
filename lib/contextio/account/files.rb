@@ -42,7 +42,7 @@ module ContextIO
       raise StandardError, "This method can only be called from '2.0/accounts/:account/file/:file_id'" if contact_url?
     end
 
-    def content(**kwargs)
+    def get_content(**kwargs)
       contact_url_error
       call_api_return_new_object(klass: Files,
                                  url: "#{call_url}/content",
@@ -50,7 +50,7 @@ module ContextIO
                                  given_params: kwargs)
     end
 
-    def related
+    def get_related
       contact_url_error
       get_request(url: "#{call_url}/related")
     end

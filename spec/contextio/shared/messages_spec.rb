@@ -35,34 +35,34 @@ module ContextIO
         expect(subject.call_url).to eq(messages_contacts_path)
       end
 
-      it "Can return a body" do
-        expect(subject.body.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/body")
-        expect(subject.body.success?).to be true
+      it "Cannot return a body" do
+        expect{ subject.get_body }.to raise_error(StandardError,
+                                              "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
 
-      it "Can return a flags" do
-        expect(subject.flags.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/flags")
-        expect(subject.flags.success?).to be true
+      it "Cannot return a flags" do
+        expect{ subject.get_flags }.to raise_error(StandardError,
+                                               "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
 
-      it "Can return a folders" do
-        expect(subject.folders.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/folders")
-        expect(subject.folders.success?).to be true
+      it "Cannot return a folders" do
+        expect{ subject.get_folders }.to raise_error(StandardError,
+                                                 "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
 
-      it "Can return a headers" do
-        expect(subject.headers.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/headers")
-        expect(subject.headers.success?).to be true
+      it "Cannot return a headers" do
+        expect{ subject.get_headers }.to raise_error(StandardError,
+                                                 "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
 
-      it "Can return a source" do
-        expect(subject.source.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/source")
-        expect(subject.source.success?).to be true
+      it "Cannot return a source" do
+        expect{ subject.get_source }.to raise_error(StandardError,
+                                                "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
 
-      it "Can return a threads" do
-        expect(subject.threads.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_contacts_path}/thread")
-        expect(subject.threads.success?).to be true
+      it "Cannot return a threads" do
+        expect{ subject.get_threads }.to raise_error(StandardError,
+                                                 "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
     end
 
@@ -76,6 +76,36 @@ module ContextIO
       it "Response does come from the Accounts object path." do
         expect(subject.call_url).to eq(messages_account_path)
       end
+
+      # it "Can return a body" do
+      #   expect(subject.get_body.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/body")
+      #   expect(subject.get_body.success?).to be true
+      # end
+      #
+      # it "Can return a flags" do
+      #   expect(subject.flags.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/flags")
+      #   expect(subject.get_flags.success?).to be true
+      # end
+      #
+      # it "Can return a folders" do
+      #   expect(subject.get_folders.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/folders")
+      #   expect(subject.get_folders.success?).to be true
+      # end
+      #
+      # it "Can return a headers" do
+      #   expect(subject.get_headers.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/headers")
+      #   expect(subject.get_headers.success?).to be true
+      # end
+      #
+      # it "Can return a source" do
+      #   expect(subject.get_source.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/source")
+      #   expect(subject.get_source.success?).to be true
+      # end
+      #
+      # it "Can return a threads" do
+      #   expect(subject.get_threads.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/thread")
+      #   expect(subject.get_threads.success?).to be true
+      # end
     end
   end
 end
