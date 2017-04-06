@@ -35,7 +35,7 @@ module ContextIO
 
     def post(**kwargs)
       src = call_api_return_updated_object(klass: Sources,
-                                           url: "#{call_url}",
+                                           url: call_url,
                                            identifier: label,
                                            method: :post,
                                            valid_params: ValidPostParams::SOURCE,

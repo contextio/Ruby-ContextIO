@@ -34,10 +34,14 @@ module ContextIO
 
     #Webhooks
     WEBHOOKS = %I(callback_url failure_notif_url filter_to filter_from filter_cc
-                 filter_subject filter_thread filter_file_name filter_folder_added
-                 filter_folder_removed filter_to_domain filter_from_domain
-                 include_body body_type include_header)
+                  filter_subject filter_thread filter_file_name filter_folder_added
+                  filter_folder_removed filter_to_domain filter_from_domain
+                  include_body body_type include_header)
 
+   WEBHOOK = %I(callback_url failure_notif_url filter_to filter_from filter_cc
+                filter_subject filter_thread filter_file_name filter_folder_added
+                filter_folder_removed filter_to_domain filter_from_domain
+                include_body body_type include_header active)
 
     OAUTH_PROVIDER = %I(type provider_consumer_key provider_consumer_secret)
   end
