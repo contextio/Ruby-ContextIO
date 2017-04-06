@@ -70,7 +70,6 @@ module ContextIO
       subject { TestingConstants::MOCK_ACCOUNT_MESSAGE.get }
 
       it "Response does not come from the Contacts object path." do
-        require 'pry';binding.pry
         expect(subject.call_url).not_to eq(messages_contacts_path)
       end
 

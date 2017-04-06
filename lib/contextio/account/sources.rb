@@ -50,7 +50,7 @@ module ContextIO
                         given_params: kwargs)
     end
 
-    def folders(folder:, **kwargs)
+    def get_folder(folder:, **kwargs)
       url = "#{call_url}/folders/#{folder}"
       call_api_return_new_object(klass: Folder,
                                  url: url,
@@ -67,7 +67,7 @@ module ContextIO
                         klass: ConnectToken)
     end
 
-    def connect_tokens(token:)
+    def get_connect_token(token:)
       call_api_return_new_object(klass: ConnectToken,
                                  url: "#{call_url}/connect_tokens/#{token}")
     end
