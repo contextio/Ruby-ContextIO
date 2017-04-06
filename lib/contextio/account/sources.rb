@@ -33,6 +33,16 @@ module ContextIO
       build_url("sources", label)
     end
 
+    def post(**kwargs)
+      src = call_api_return_updated_object(klass: Sources,
+                                           url: "#{call_url}",
+                                           identifier: label,
+                                           method: :post,
+                                           valid_params: ValidPostParams::SOURCE,
+                                           given_params: kwargs)
+      return_post_api_call_made(src)
+    end
+
     def get_folders(**kwargs)
       collection_return(url: "#{call_url}/folders",
                         klass: Folder,

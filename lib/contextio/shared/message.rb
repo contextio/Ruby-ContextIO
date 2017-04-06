@@ -47,13 +47,13 @@ module ContextIO
     def post(dst_folder:, **kwargs)
       parent_not_account_error
       given_params = kwargs.merge(dst_folder: dst_folder)
-      token = call_api_return_updated_object(klass: Message,
-                                             url: "#{call_url}",
-                                             identifier: encoded_message_id,
-                                             method: :post,
-                                             valid_params: ValidPostParams::MESSAGE_MOVE_20,
-                                             given_params: given_params)
-      return_post_api_call_made(token)
+      message = call_api_return_updated_object(klass: Message,
+                                               url: "#{call_url}",
+                                               identifier: encoded_message_id,
+                                               method: :post,
+                                               valid_params: ValidPostParams::MESSAGE_MOVE_20,
+                                               given_params: given_params)
+      return_post_api_call_made(message)
     end
 
     def body(**kwargs)
@@ -72,13 +72,13 @@ module ContextIO
 
     def post_flags(**kwargs)
       parent_not_account_error
-      token = call_api_return_updated_object(klass: Message,
+      flags = call_api_return_updated_object(klass: Message,
                                              url: "#{call_url}/flags",
                                              identifier: encoded_message_id,
                                              method: :post,
                                              valid_params: ValidPostParams::FLAGS,
                                              given_params: kwargs)
-      return_post_api_call_made(token)
+      return_post_api_call_made(flags)
     end
 
     def folders
