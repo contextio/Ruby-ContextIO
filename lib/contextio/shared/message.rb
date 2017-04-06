@@ -56,7 +56,7 @@ module ContextIO
       return_post_api_call_made(message)
     end
 
-    def body(**kwargs)
+    def get_body(**kwargs)
       parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/body",
@@ -64,7 +64,7 @@ module ContextIO
                                  given_params: kwargs)
     end
 
-    def flags
+    def get_flags
       parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/flags")
@@ -81,13 +81,13 @@ module ContextIO
       return_post_api_call_made(flags)
     end
 
-    def folders
+    def get_folders
       parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/folders")
     end
 
-    def headers(**kwargs)
+    def get_headers(**kwargs)
       parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/headers",
@@ -95,13 +95,13 @@ module ContextIO
                                  given_params: kwargs)
     end
 
-    def source
+    def get_source
       parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/source")
     end
 
-    def threads(**kwargs)
+    def get_threads(**kwargs)
       parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/thread",
