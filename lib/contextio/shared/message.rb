@@ -70,6 +70,17 @@ module ContextIO
                                  url: "#{call_url}/flags")
     end
 
+    def post_flags(**kwargs)
+      parent_not_account_error
+      token = call_api_return_updated_object(klass: Message,
+                                             url: "#{call_url}/flags",
+                                             identifier: encoded_message_id,
+                                             method: :post,
+                                             valid_params: ValidPostParams::FLAGS,
+                                             given_params: kwargs)
+      return_post_api_call_made(token)
+    end
+
     def folders
       parent_not_account_error
       call_api_return_new_object(klass: Message,
