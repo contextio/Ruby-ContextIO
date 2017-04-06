@@ -56,7 +56,6 @@ module ContextIO
                                         url: url,
                                         given_params: given_params,
                                         valid_params: valid_params)
-                                        binding.pry
       object = klass.new(parent: parent,
                          response: request.response,
                          identifier: identifier,
