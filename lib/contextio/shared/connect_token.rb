@@ -3,7 +3,7 @@ module ContextIO
     include ContextIO::CallHelpers
     CONNECT_READERS = %I(email source_callback_url source_raw_file_list created
                          used expires status_callback_url first_name last_name account
-                         resource_url server_label callback_url)
+                         resource_url server_label callback_url browser_redirect_url)
     private
     attr_reader :parent
 

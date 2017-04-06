@@ -30,6 +30,8 @@ module ContextIO
     SOURCE = %I(status force_status_check sync_all_folders expunge_on_deleted_flag
                 password provider_refresh_token provider_consumer_key status_callback_url)
 
+    SOURCE_CONNECT_TOKEN = %I(callback_url)
+
     #Webhooks
     WEBHOOKS = %I(callback_url failure_notif_url filter_to filter_from filter_cc
                  filter_subject filter_thread filter_file_name filter_folder_added

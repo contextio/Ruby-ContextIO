@@ -4,7 +4,7 @@ module ContextIO
   include ContextIO::CollectionHelper
   SOURCE_READERS = %I(username status type label use_ssl resource_url server
                       port mailserviceAccountId callbackUrl delimiter
-                      authentication_type sync_flags type)
+                      authentication_type sync_flags type browser_redirect_url)
 
     private
     attr_reader :parent
@@ -70,6 +70,14 @@ module ContextIO
     def connect_tokens(token:)
       call_api_return_new_object(klass: ConnectToken,
                                  url: "#{call_url}/connect_tokens/#{token}")
+    end
+
+    def post_connect_token(callback_url:)
+      call_api_return_new_object(klass: ConnectToken,
+                                 url: "#{call_url}/connect_tokens",
+                                 method: :post,
+                                 valid_params: ValidPostParams::SOURCE_CONNECT_TOKEN,
+                                 given_params: { callback_url: callback_url })
     end
   end
 end
