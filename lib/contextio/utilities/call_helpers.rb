@@ -61,8 +61,8 @@ module ContextIO
                          identifier: identifier,
                          status: request.status,
                          success: request.success,
-                         api_call_made: api_call_made).get
-      return_post_api_call_made(object, api_call_made)
+                         api_call_made: api_call_made)
+      return_post_api_call_made(object)
     end
 
     def validate_params(inputed_params, valid_params)

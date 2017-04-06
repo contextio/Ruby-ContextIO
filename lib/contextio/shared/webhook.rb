@@ -29,5 +29,15 @@ module ContextIO
     def call_url
       build_url("webhooks", webhook_id)
     end
+
+    def post(**kwargs)
+      webhook = call_api_return_updated_object(klass: Webhook,
+                                               url: call_url,
+                                               identifier: webhook_id,
+                                               method: :post,
+                                               valid_params: ValidPostParams::WEBHOOK,
+                                               given_params: kwargs)
+      return_post_api_call_made(webhook)
+    end
   end
 end

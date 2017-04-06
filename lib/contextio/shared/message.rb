@@ -36,11 +36,28 @@ module ContextIO
       build_url("messages", encoded_message_id)
     end
 
+    def parent_not_account_error
+      raise StandardError, "This method can only be called from '2.0/accounts/:account/message/:message_id'" if parent.class != Account
+    end
+
     def get(**kwargs)
       get_request(given_params: kwargs, valid_params: ValidGetParams::MESSAGE)
     end
 
+    def post(dst_folder:, **kwargs)
+      parent_not_account_error
+      given_params = kwargs.merge(dst_folder: dst_folder)
+      message = call_api_return_updated_object(klass: Message,
+                                               url: "#{call_url}",
+                                               identifier: encoded_message_id,
+                                               method: :post,
+                                               valid_params: ValidPostParams::MESSAGE_MOVE_20,
+                                               given_params: given_params)
+      return_post_api_call_made(message)
+    end
+
     def body(**kwargs)
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/body",
                                  valid_params: ValidGetParams::MESSAGE_BODY,
@@ -48,16 +65,30 @@ module ContextIO
     end
 
     def flags
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/flags")
     end
 
+    def post_flags(**kwargs)
+      parent_not_account_error
+      flags = call_api_return_updated_object(klass: Message,
+                                             url: "#{call_url}/flags",
+                                             identifier: encoded_message_id,
+                                             method: :post,
+                                             valid_params: ValidPostParams::FLAGS,
+                                             given_params: kwargs)
+      return_post_api_call_made(flags)
+    end
+
     def folders
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/folders")
     end
 
     def headers(**kwargs)
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/headers",
                                  valid_params: ValidGetParams::MESSAGE_HEADER,
@@ -65,11 +96,13 @@ module ContextIO
     end
 
     def source
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/source")
     end
 
     def threads(**kwargs)
+      parent_not_account_error
       call_api_return_new_object(klass: Message,
                                  url: "#{call_url}/thread",
                                  valid_params: ValidGetParams::MESSAGE_THREADS,
