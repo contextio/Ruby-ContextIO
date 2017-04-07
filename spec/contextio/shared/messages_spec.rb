@@ -35,34 +35,39 @@ module ContextIO
         expect(subject.call_url).to eq(messages_contacts_path)
       end
 
+      it "Can't update itself" do
+        expect{ subject.post(dst_folder: "a_new_folder") }.to raise_error(StandardError,
+                                                                          "This method can only be called from '2.0/accounts/:account/message/:message_id'")
+      end
+
       it "Cannot return a body" do
         expect{ subject.get_body }.to raise_error(StandardError,
-                                              "This method can only be called from '2.0/accounts/:account/message/:message_id'")
+                                                  "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
 
       it "Cannot return a flags" do
         expect{ subject.get_flags }.to raise_error(StandardError,
-                                               "This method can only be called from '2.0/accounts/:account/message/:message_id'")
+                                                   "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
 
       it "Cannot return a folders" do
         expect{ subject.get_folders }.to raise_error(StandardError,
-                                                 "This method can only be called from '2.0/accounts/:account/message/:message_id'")
+                                                     "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
 
       it "Cannot return a headers" do
         expect{ subject.get_headers }.to raise_error(StandardError,
-                                                 "This method can only be called from '2.0/accounts/:account/message/:message_id'")
+                                                     "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
 
       it "Cannot return a source" do
         expect{ subject.get_source }.to raise_error(StandardError,
-                                                "This method can only be called from '2.0/accounts/:account/message/:message_id'")
+                                                    "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
 
       it "Cannot return a threads" do
         expect{ subject.get_threads }.to raise_error(StandardError,
-                                                 "This method can only be called from '2.0/accounts/:account/message/:message_id'")
+                                                     "This method can only be called from '2.0/accounts/:account/message/:message_id'")
       end
     end
 
@@ -77,6 +82,12 @@ module ContextIO
         expect(subject.call_url).to eq(messages_account_path)
       end
 
+      it "Can update itself" do
+        updated_message = subject.post(dst_folder: "a_new_folder")
+        expect(updated_message.class).to eq(Message)
+        expect(updated_message.call_url).to eq(messages_account_path)
+      end
+
       it "Can return a body" do
         expect(subject.get_body.api_call_made.url.to_s).to eq("https://api.context.io#{messages_account_path}/body")
         expect(subject.get_body.success?).to be true
@@ -85,6 +96,12 @@ module ContextIO
       it "Can return a flags" do
         expect(subject.get_flags.api_call_made.url.to_s).to eq("https://api.context.io#{messages_account_path}/flags")
         expect(subject.get_flags.success?).to be true
+      end
+
+      it "Can update flags" do
+        updated_flags = subject.post_flags(read: 1)
+        expect(updated_flags.class).to eq(Message)
+        expect(updated_flags.call_url).to eq(messages_account_path)
       end
 
       it "Can return a folders" do

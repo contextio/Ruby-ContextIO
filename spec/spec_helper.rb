@@ -90,18 +90,20 @@ DELETE_ENDPOINT_TEST = [
 ]
 
 NEW_OBJECT_POST_REQUESTS = {
-  accounts:                           { id: "some_id" },
-  connect_tokens:                     { token: "a_token" },
-  oauth_provider:                     { key: "a_key" },
-  webhooks:                           { webhook_id: "a_webhook_id" },
-  "accounts/some_id/connect_tokens":  { token: "a_token" },
-  "accounts/some_id/email_addresses": { email: "some_email@some_provider.com" },
-  "accounts/some_id/sources":         { label: "a_new_source" },
-  "accounts/some_id/webhooks":        { webhook_id: "a_webhook_id" }
+  accounts:                                { id: "some_id" },
+  connect_tokens:                          { token: "a_token" },
+  oauth_provider:                          { key: "a_key" },
+  webhooks:                                { webhook_id: "a_webhook_id" },
+  "accounts/some_id/connect_tokens":       { token: "a_token" },
+  "accounts/some_id/email_addresses":      { email: "some_email@some_provider.com" },
+  "accounts/some_id/sources":              { label: "a_new_source" },
+  "accounts/some_id/webhooks":             { webhook_id: "a_webhook_id" },
+  "accounts/some_id/messages/12345/flags": { message_id: "12345" }
 }
 
 UPDATED_OBJECT_POST_REQUESTS = [
   "accounts/some_id",
+  "accounts/some_id/messages/12345",
 ]
 
 WebMock.disable_net_connect!(allow_localhost: true)
