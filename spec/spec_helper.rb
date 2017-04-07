@@ -9,7 +9,7 @@ require_relative "./contextio/utilities/mock_response.rb"
 
 ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts/some_id",
-  "accounts/some_id/connect_tokens/some_token_id",
+  "accounts/some_id/connect_tokens/a_token",
   "accounts/some_id/contacts/some_email@some_provider.com",
   "accounts/some_id/email_addresses/some_email@some_provider.com",
   "accounts/some_id/messages",
@@ -29,11 +29,12 @@ ACCOUNT_REQUEST_ENDPOINTS = [
   "accounts/some_id/files/some_file/related",
   "accounts/some_id/files/some_file/content?as_link=1",
   "accounts/some_id/sources/0",
+  "accounts/some_id/sources/a_new_source",
   "accounts/some_id/sources/0/folders/Hello",
   "accounts/some_id/sources/0/folders/%5BGmail%5D%2FSent%20Mail",
   "accounts/some_id/sources/0/sync",
   "accounts/some_id/sources/0/connect_tokens/some_token",
-  "accounts/some_id/webhooks/some_webhook",
+  "accounts/some_id/webhooks/a_webhook_id",
   "accounts/some_id/threads/some_thread"
 ]
 
@@ -89,14 +90,18 @@ DELETE_ENDPOINT_TEST = [
 ]
 
 NEW_OBJECT_POST_REQUESTS = {
-  accounts:        { id: "some_id" },
-  connect_tokens:  { token: "a_token" },
-  oauth_provider:  { key: "a_key" },
-  webhooks:        { webhook_id: "a_webhook_id" }
+  accounts:                           { id: "some_id" },
+  connect_tokens:                     { token: "a_token" },
+  oauth_provider:                     { key: "a_key" },
+  webhooks:                           { webhook_id: "a_webhook_id" },
+  "accounts/some_id/connect_tokens":  { token: "a_token" },
+  "accounts/some_id/email_addresses": { email: "some_email@some_provider.com" },
+  "accounts/some_id/sources":         { label: "a_new_source" },
+  "accounts/some_id/webhooks":        { webhook_id: "a_webhook_id" }
 }
 
 UPDATED_OBJECT_POST_REQUESTS = [
-
+  "accounts/some_id",
 ]
 
 WebMock.disable_net_connect!(allow_localhost: true)
@@ -176,14 +181,14 @@ RSpec.configure do |config|
        stub_request(:post, "https://api.context.io/2.0/#{endpoint}").
          with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
          to_return(status: 200,
-                   body: JSON.generate({ success: true, identifier.keys.first => identifier.values.first }),
+                   body: JSON.generate(identifier.merge(success: true)),
                    headers: {"content-type" => "application/json"})
       end
-      UPDATED_OBJECT_POST_REQUESTS.each do |endpoint, identifier|
+      UPDATED_OBJECT_POST_REQUESTS.each do |endpoint|
         stub_request(:post, "https://api.context.io/2.0/#{endpoint}").
           with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
           to_return(status: 200,
-                    body: "{'success'=>true}",
+                    body: JSON.generate({ success: true }),
                     headers: {"content-type" => "application/json"})
        end
   end
