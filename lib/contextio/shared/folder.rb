@@ -35,12 +35,12 @@ module ContextIO
       build_url("folders", encoded_name)
     end
 
-    def source_url?
-      parent.call_url.include?("/source/")
+    def source_parent?
+      parent.class == Sources
     end
 
     def get(**kwargs)
-      if source_url?
+      if source_parent?
         get_request(given_params: kwargs, valid_params: ValidGetParams::SOURCE_FOLDER)
       else
         get_request(given_params: kwargs)

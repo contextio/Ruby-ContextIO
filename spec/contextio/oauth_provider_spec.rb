@@ -17,7 +17,7 @@ module ContextIO
       end
 
       it "Has a call URL" do
-        expect(subject.call_url).to eq("/2.0/oauth_providers/some_key")
+        expect(subject.call_url).to eq("/2.0/oauth_providers/a_key")
       end
   end
 end

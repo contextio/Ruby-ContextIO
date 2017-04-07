@@ -6,8 +6,8 @@ require_relative "../utilities/mock_response.rb"
 
 module ContextIO
   describe Files do
-    let(:files_accounts_path)  { "2.0/accounts/some_id/files/some_file" }
-    let(:files_contacts_path) { "2.0/accounts/some_id/contacts/some_email%40some_provider.com/files/an_id" }
+    let(:files_accounts_path)  { "/2.0/accounts/some_id/files/some_file" }
+    let(:files_contacts_path) { "/2.0/accounts/some_id/contacts/some_email%40some_provider.com/files/an_id" }
     describe "A Files object fetched from a Contacts object" do
       subject { TestingConstants::MOCK_CONTACT.get.get_files[0] }
 

@@ -7,7 +7,7 @@ module ContextIO
   describe ConnectToken do
     describe "A ConnectToken object can be fetched" do
       subject { ConnectToken.new(parent: TestingConstants::MOCK_ACCOUNT.get,
-                                 identifier: "some_token_id").get }
+                                 identifier: "a_token").get }
 
       it "Returns a 200 status." do
         expect(subject.status).to eq(200)
@@ -23,7 +23,7 @@ module ContextIO
 
       it "Created a ConnectTokens object" do
         expect(subject.class).to eq(ConnectToken)
-        expect(subject.call_url).to eq("/2.0/accounts/some_id/connect_tokens/some_token_id")
+        expect(subject.call_url).to eq("/2.0/accounts/some_id/connect_tokens/a_token")
       end
 
       it "Was Successful." do

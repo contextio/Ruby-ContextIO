@@ -69,12 +69,12 @@ module ContextIO
 
     def post_email_address(email_address:)
       given_params = { email_address: email_address }
-      token = call_api_return_new_object(klass: EmailAddress,
+      email = call_api_return_new_object(klass: EmailAddress,
                                          url: "#{call_url}/email_addresses",
                                          method: :post,
                                          valid_params: [:email_address],
                                          given_params: given_params)
-      return_post_api_call_made(token)
+      return_post_api_call_made(email)
     end
 
     def get_files(**kwargs)
@@ -89,16 +89,6 @@ module ContextIO
                         klass: Message,
                         valid_params: ValidGetParams::MESSAGES,
                         given_params: kwargs)
-    end
-
-    def post_message(message:, dst_source:, dst_folder:, **kwargs)
-      given_params = kwargs.merge(message: message, dst_source: dst_source, dst_folder: dst_folder)
-      token = call_api_return_new_object(klass: Message,
-                                         url: "#{call_url}/messages",
-                                         method: :post,
-                                         valid_params: ValidPostParams::MESSAGE,
-                                         given_params: given_params)
-      return_post_api_call_made(token)
     end
 
     def get_sources(**kwargs)
