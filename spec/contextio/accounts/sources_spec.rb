@@ -22,6 +22,12 @@ module ContextIO
         expect(subject.call_url).to eq("/2.0/accounts/some_id/sources/0")
       end
 
+      it "Can update itself" do
+        updated_source = subject.post(password: "password")
+        expect(subject.class).to eq(Sources)
+        expect(subject.call_url).to eq("/2.0/accounts/some_id/sources/0")
+      end
+
       it "Can return a Folder" do
         expect(subject.get_folder(folder: "Hello").class.to_s).to eq("ContextIO::Folder")
       end

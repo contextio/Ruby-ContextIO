@@ -102,8 +102,11 @@ NEW_OBJECT_POST_REQUESTS = {
 }
 
 UPDATED_OBJECT_POST_REQUESTS = [
+  "webhooks/a_webhook_id",
   "accounts/some_id",
   "accounts/some_id/messages/12345",
+  "accounts/some_id/webhooks/a_webhook_id",
+  "accounts/some_id/sources/0"
 ]
 
 WebMock.disable_net_connect!(allow_localhost: true)
