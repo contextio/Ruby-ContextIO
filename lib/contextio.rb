@@ -61,7 +61,7 @@ module ContextIO
                                             method: :post,
                                             valid_params: ValidPostParams::OAUTH_PROVIDER,
                                             given_params: given_params)
-      return_post_api_call_made(token)
+      return_post_api_call_made(provider)
     end
 
     def get_webhooks

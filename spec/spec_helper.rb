@@ -60,7 +60,9 @@ NON_ACCOUNT_COLLECTION_ENDPOINTS = [
 ]
 
 NON_ACCOUNT_ENDPOINTS = [
-  "oauth_providers/some_key",
+  "connect_tokens/a_token",
+  "oauth_providers/a_key",
+  "webhooks/a_webhook_id",
   "discovery?email=some_email&source_type=IMAP"
 ]
 
@@ -84,6 +86,17 @@ NON_JSON_FAILURE = [
 
 DELETE_ENDPOINT_TEST = [
   "accounts/some_id"
+]
+
+NEW_OBJECT_POST_REQUESTS = {
+  accounts:        { id: "some_id" },
+  connect_tokens:  { token: "a_token" },
+  oauth_provider:  { key: "a_key" },
+  webhooks:        { webhook_id: "a_webhook_id" }
+}
+
+UPDATED_OBJECT_POST_REQUESTS = [
+
 ]
 
 WebMock.disable_net_connect!(allow_localhost: true)
@@ -159,5 +172,19 @@ RSpec.configure do |config|
                   body: "{'success'=>true}",
                   headers: {})
      end
+     NEW_OBJECT_POST_REQUESTS.each do |endpoint, identifier|
+       stub_request(:post, "https://api.context.io/2.0/#{endpoint}").
+         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+         to_return(status: 200,
+                   body: JSON.generate({ success: true, identifier.keys.first => identifier.values.first }),
+                   headers: {"content-type" => "application/json"})
+      end
+      UPDATED_OBJECT_POST_REQUESTS.each do |endpoint, identifier|
+        stub_request(:post, "https://api.context.io/2.0/#{endpoint}").
+          with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+          to_return(status: 200,
+                    body: "{'success'=>true}",
+                    headers: {"content-type" => "application/json"})
+       end
   end
 end
