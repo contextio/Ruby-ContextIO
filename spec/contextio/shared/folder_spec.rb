@@ -27,7 +27,7 @@ module ContextIO
       end
 
       it "Can get messages" do
-        expect(subject.get_messages[0].class.to_s).to eq("ContextIO::Message")
+        expect(subject.get_messages[0].class).to eq(Message)
       end
     end
   end

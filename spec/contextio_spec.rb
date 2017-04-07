@@ -15,7 +15,7 @@ describe ContextIO do
     end
 
     it "has a connection that is a Connection" do
-      expect(subject.connection.class.to_s).to eq("ContextIO::Connection")
+      expect(subject.connection.class).to eq(ContextIO::Connection)
     end
 
     it "can return an Accounts object" do
