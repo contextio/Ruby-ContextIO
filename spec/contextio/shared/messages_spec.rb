@@ -77,35 +77,35 @@ module ContextIO
         expect(subject.call_url).to eq(messages_account_path)
       end
 
-      # it "Can return a body" do
-      #   expect(subject.get_body.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/body")
-      #   expect(subject.get_body.success?).to be true
-      # end
-      #
-      # it "Can return a flags" do
-      #   expect(subject.flags.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/flags")
-      #   expect(subject.get_flags.success?).to be true
-      # end
-      #
-      # it "Can return a folders" do
-      #   expect(subject.get_folders.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/folders")
-      #   expect(subject.get_folders.success?).to be true
-      # end
-      #
-      # it "Can return a headers" do
-      #   expect(subject.get_headers.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/headers")
-      #   expect(subject.get_headers.success?).to be true
-      # end
-      #
-      # it "Can return a source" do
-      #   expect(subject.get_source.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/source")
-      #   expect(subject.get_source.success?).to be true
-      # end
-      #
-      # it "Can return a threads" do
-      #   expect(subject.get_threads.api_call_made.url.to_s).to eq("https://api.context.io/#{messages_account_path}/thread")
-      #   expect(subject.get_threads.success?).to be true
-      # end
+      it "Can return a body" do
+        expect(subject.get_body.api_call_made.url.to_s).to eq("https://api.context.io#{messages_account_path}/body")
+        expect(subject.get_body.success?).to be true
+      end
+
+      it "Can return a flags" do
+        expect(subject.get_flags.api_call_made.url.to_s).to eq("https://api.context.io#{messages_account_path}/flags")
+        expect(subject.get_flags.success?).to be true
+      end
+
+      it "Can return a folders" do
+        expect(subject.get_folders.api_call_made.url.to_s).to eq("https://api.context.io#{messages_account_path}/folders")
+        expect(subject.get_folders.success?).to be true
+      end
+
+      it "Can return a headers" do
+        expect(subject.get_headers.api_call_made.url.to_s).to eq("https://api.context.io#{messages_account_path}/headers")
+        expect(subject.get_headers.success?).to be true
+      end
+
+      it "Can return a source" do
+        expect(subject.get_source.api_call_made.url.to_s).to eq("https://api.context.io#{messages_account_path}/source")
+        expect(subject.get_source.success?).to be true
+      end
+
+      it "Can return a threads" do
+        expect(subject.get_threads.api_call_made.url.to_s).to eq("https://api.context.io#{messages_account_path}/thread")
+        expect(subject.get_threads.success?).to be true
+      end
     end
   end
 end
