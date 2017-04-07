@@ -6,8 +6,8 @@ require_relative "../utilities/mock_response.rb"
 
 module ContextIO
   describe Message do
-    let(:messages_account_path)  { "2.0/accounts/some_id/messages/12345" }
-    let(:messages_contacts_path) { "2.0/accounts/some_id/contacts/some_email%40some_provider.com/messages/an_id" }
+    let(:messages_account_path)  { "/2.0/accounts/some_id/messages/12345" }
+    let(:messages_contacts_path) { "/2.0/accounts/some_id/contacts/some_email%40some_provider.com/messages/an_id" }
     describe "A Messages object fetched from a Contacts object" do
       subject { TestingConstants::MOCK_CONTACT.get_messages[0] }
 

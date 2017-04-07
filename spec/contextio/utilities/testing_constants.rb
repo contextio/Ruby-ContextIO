@@ -1,6 +1,4 @@
 module TestingConstants
-  Struct.new("MockParent", :connection, :call_url)
-
 
   CIO_2_POINT_0_OBJECT = ContextIO::ContextIO.new(key: "api key",
                                                   secret: "secret key",
@@ -17,9 +15,10 @@ module TestingConstants
 
   UNSUCCESSFUL_CALL = "404".freeze
 
-  account_parent = Struct::MockParent.new(CIO_2_POINT_0_OBJECT.connection, "2.0/accounts/some_id")
+  account_parent = ContextIO::Account.new(identifier: "some_id", parent: CIO_2_POINT_0_OBJECT)
 
-  source_parent = Struct::MockParent.new(CIO_2_POINT_0_OBJECT.connection, "2.0/accounts/some_id/sources/0")
+  source_parent = ContextIO::Sources.new(identifier: "0",
+                                         parent: account_parent)
 
   MOCK_CONTACT = ContextIO::Contact.new(parent: account_parent,
                                         identifier: "some_email@some_provider.com")

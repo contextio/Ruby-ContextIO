@@ -19,7 +19,7 @@ module ContextIO
       end
 
       it "Can return a call URL" do
-        expect(subject.call_url).to eq("2.0/accounts/some_id/sources/0")
+        expect(subject.call_url).to eq("/2.0/accounts/some_id/sources/0")
       end
 
       it "Can return a Folder" do

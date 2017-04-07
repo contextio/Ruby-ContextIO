@@ -23,19 +23,19 @@ module ContextIO
       it "can get files" do
         files = subject.get_files.first
         expect(files.class).to eq(Files)
-        expect(files.call_url).to eq("2.0/accounts/some_id/contacts/some_email%40some_provider.com/files/an_id")
+        expect(files.call_url).to eq("/2.0/accounts/some_id/contacts/some_email%40some_provider.com/files/an_id")
       end
 
       it "can get threads" do
         threads = subject.get_threads
         expect(threads.class).to eq(Threads)
-        expect(threads.call_url).to eq("2.0/accounts/some_id/contacts/some_email%40some_provider.com/threads/")
+        expect(threads.call_url).to eq("/2.0/accounts/some_id/contacts/some_email%40some_provider.com/threads/")
       end
 
       it "can get messages" do
         messages = subject.get_messages.first
         expect(messages.class).to eq(Message)
-        expect(messages.call_url).to eq("2.0/accounts/some_id/contacts/some_email%40some_provider.com/messages/an_id")
+        expect(messages.call_url).to eq("/2.0/accounts/some_id/contacts/some_email%40some_provider.com/messages/an_id")
       end
     end
   end
