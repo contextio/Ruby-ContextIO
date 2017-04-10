@@ -1,7 +1,30 @@
-Dir["./lib/contextio/*.rb"].each {|file| require file }
-Dir["./lib/contextio/**/*.rb"].each {|file| require file }
-require "erb"
+require 'contextio/account'
+require 'contextio/connection'
+require 'contextio/oauth_provider'
 
+require 'contextio/account/contact'
+require 'contextio/account/email_address'
+require 'contextio/account/files'
+require 'contextio/account/sources'
+require 'contextio/account/sync'
+require 'contextio/account/threads'
+
+require 'contextio/shared/connect_token'
+require 'contextio/shared/discovery'
+require 'contextio/shared/folder'
+require 'contextio/shared/message'
+require 'contextio/shared/webhook'
+
+require 'contextio/utilities/api_call_made'
+require 'contextio/utilities/call_helpers'
+require 'contextio/utilities/collection_helper'
+require 'contextio/utilities/deleted_resource'
+require 'contextio/utilities/request'
+require 'contextio/utilities/valid_parameters/get_params'
+require 'contextio/utilities/valid_parameters/post_params'
+
+require "erb"
+ 
 module ContextIO
   class ContextIO
     include CollectionHelper
