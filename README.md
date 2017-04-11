@@ -16,7 +16,7 @@ This library is meant to serve as a way to connect to the 2.0 version of the Con
 
 ## Install
 
-```
+```ruby
 gem install context_io
 ```
 
@@ -24,31 +24,31 @@ gem install context_io
 
 First you need to instantiate a ContextIO class.
 
-```
+```ruby
 cio = ContextIO::ContextIO.new(key: your_cio_key, secret: your_cio_secret)
 ```
 
 Each class has it's own methods that are endpoints to the API. <a href="https://github.com/contextio/Ruby-ContextIO/blob/master/lib/context_io.rb#L38" target="_blank">ContextIO endpoints</a>.  From here you can fetch any accounts associated with your ContextIO Developer key.
 
-```
+```ruby
 cio.get_accounts
 ```
 
 This will return an array of all of the accounts. Each element of the array is an instantiated `Account` object with the data parsed from the API returned as instance variables.
 
-```
+```ruby
 acc = cio.get_accounts[0].id => "this_account_id"
 ```
 
 An object can be created as long as it is given a valid identifier and an instantiated parent. Every class, except for ContextIO, requires a `parent` and an `identifier` To make it easier on a user of this library you do not need to know what we call each identifier.
 
-```
+```ruby
 message = ContextIO::Message.new(parent: acc, identifier: "some id")
 ```
 
 A class instantiation will not call the API. In order to retrieve the data CIO has on an object you will need to call `get` on it.
 
-```
+```ruby
 message.subject => nil
 message = message.get
 message.subject => "This message subject"
@@ -56,7 +56,7 @@ message.subject => "This message subject"
 
 If an API call was not succesful, defined as not returning a status of 2XX, the library will throw a standard error with the message given in response.
 
-```
+```ruby
 valid_length_id = "0" * 24
 ContextIO::Account.new(parent: cio, identifier: "valid_length_id").get
 StandardError: HTTP code 404. Response {"type"=>"error", "value"=>"account #{valid_length_id} is invalid"}
@@ -64,7 +64,7 @@ StandardError: HTTP code 404. Response {"type"=>"error", "value"=>"account #{val
 
 ## Example of an API call return
 
-```
+```ruby
 => #<ContextIO::Message:0x007fabc4dd9380
  @addresses={"from"=>{"email"=>"from_address", "name"=>"from_name"}, "to"=>[{"email"=>"to_email"}]},
  @api_call_made=
