@@ -1,5 +1,5 @@
-require "contextio/utilities/collection_helper"
-require "contextio/utilities/call_helpers"
+require "context_io/utilities/collection_helper"
+require "context_io/utilities/call_helpers"
 module ContextIO
   class Account
     include ContextIO::CallHelpers

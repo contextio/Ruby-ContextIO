@@ -6,5 +6,5 @@ RSpec::Core::RakeTask.new(:spec)
 task :default => :spec
 
 task :console do
-  exec "pry -r contextio -I ./lib"
+  exec "pry -r context_io -I ./lib"
 end
