@@ -24,16 +24,15 @@ require 'contextio/utilities/valid_parameters/get_params'
 require 'contextio/utilities/valid_parameters/post_params'
 
 require "erb"
- 
+
 module ContextIO
   class ContextIO
     include CollectionHelper
     include CallHelpers
-    attr_reader :connection, :call_url, :version
-    def initialize(key:, secret:, version:)
+    attr_reader :connection, :call_url
+    def initialize(key:, secret:)
       @connection = Connection.new(key, secret)
-      @call_url = "/#{version}"
-      @version = version
+      @call_url = "/2.0"
     end
 
     def get_accounts(**kwargs)

@@ -4,7 +4,7 @@ describe ContextIO do
   end
 
   describe "a new 2.0 ContextIO object" do
-    subject { ContextIO::ContextIO.new(key: "key", secret: "secret", version: "2.0") }
+    subject { ContextIO::ContextIO.new(key: "key", secret: "secret") }
 
     it "needs arguments to for a ContextIO object" do
       expect{ ContextIO::ContextIO.new() }.to raise_error(ArgumentError)
@@ -72,10 +72,6 @@ describe ContextIO do
       webhook = subject.post_webhook(callback_url: "www.example.com")
       expect(webhook.class).to eq(ContextIO::Webhook)
       expect(webhook.call_url).to eq("/2.0/webhooks/a_webhook_id")
-    end
-
-    it "has a version of 2.0" do
-      expect(subject.version).to eq("2.0")
     end
 
     it "has the proper call_url" do
