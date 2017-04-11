@@ -57,8 +57,8 @@ message.subject => "This message subject"
 If an API call was not succesful, defined as not returning a status of 2XX, the library will throw a standard error with the message given in response.
 
 ```
-valid_length_id = "#{0*24}"
-ContextIO::Account.new(parent: cio, identifier: "'valid_length_id").get
+valid_length_id = "0" * 24
+ContextIO::Account.new(parent: cio, identifier: "valid_length_id").get
 StandardError: HTTP code 404. Response {"type"=>"error", "value"=>"account #{valid_length_id} is invalid"}
 ```
 
