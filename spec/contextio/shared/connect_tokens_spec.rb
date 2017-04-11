@@ -1,5 +1,5 @@
-require "contextio/connection"
-require "contextio"
+require "context_io/connection"
+require "context_io"
 
 require_relative "../utilities/testing_constants.rb"
 
