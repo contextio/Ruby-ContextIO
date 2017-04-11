@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'contextio/version'
+require 'context_io/version'
 
 Gem::Specification.new do |spec|
   spec.required_ruby_version = '~> 2.0'
 
-  spec.name          = "context-io"
+  spec.name          = "context_io"
   spec.version       = ContextIO::VERSION
   spec.authors       = ["Dane Carmichael"]
   spec.email         = ["carmichaeldane@gmail.com"]
 
-  spec.summary       = "Provides interface to Context.IO"
+  spec.summary       = "Provides an interface to Context.IO"
   spec.description   = "Easier access to the Context.IO API endpoints"
   spec.license       = "Apache 2.0"
   spec.homepage      = "https://github.com/contextio/Ruby-ContextIO"
@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
   spec.add_development_dependency "simplecov"
 
-  spec.add_dependency "faraday", "~> 0.12.0"
-  spec.add_dependency "faraday_middleware", "~> 0.11.0"
+  spec.add_dependency "faraday", "~> 0.12"
+  spec.add_dependency "faraday_middleware", "~> 0.11"
   spec.add_dependency "simple_oauth", "~> 0.3.1"
 end
