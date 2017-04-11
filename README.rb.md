@@ -37,7 +37,7 @@ cio.get_accounts
 This will return an array of all of the accounts. Each element of the array is an instantiated `Account` object with the data parsed from the API returned as instance variables.
 
 ```
-acc = cio.get_accounts[0].id will return an account's id.
+acc = cio.get_accounts[0].id => "this_account_id"
 ```
 
 An object can be created as long as it is given a valid identifier and an instantiated parent. Every class, except for ContextIO, requires a `parent` and an `identifier` To make it easier on a user of this library you do not need to know what we call each identifier.
@@ -57,8 +57,9 @@ message.subject => "This message subject"
 If an API call was not succesful, defined as not returning a status of 2XX, the library will throw a standard error with the message given in response.
 
 ```
-ContextIO::Account.new(parent: cio, identifier: "'000000000000000000000000").get
-StandardError: HTTP code 404. Response {"type"=>"error", "value"=>"account '000000000000000000000000' is invalid"}
+valid_length_id = "#{0*24}"
+ContextIO::Account.new(parent: cio, identifier: "'valid_length_id").get
+StandardError: HTTP code 404. Response {"type"=>"error", "value"=>"account #{valid_length_id} is invalid"}
 ```
 
 ## Example of an API call return
