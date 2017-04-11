@@ -114,84 +114,84 @@ RSpec.configure do |config|
   config.before(:each) do
     ACCOUNT_REQUEST_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
-        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY,
                   headers: {"content-type" => "application/json"})
     end
     ACCOUNT_REQUEST_COLLECTION_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
-        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
                   headers: {"content-type" => "application/json"})
     end
     CONTACT_COLLECTION_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
-        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::CONTACT_COLLECTION_FARADAY_SUCCESS_BODY,
                   headers: {"content-type" => "application/json"})
     end
     NON_ACCOUNT_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
-        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::FROM_ACCOUNT_MOCK_FARADAY_SUCCESS_BODY,
                   headers: {"content-type" => "application/json"})
     end
     NON_ACCOUNT_COLLECTION_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
-        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
                   headers: {"content-type" => "application/json"})
     end
     CONTACTS_COLLECITION_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
-        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
                   headers: {"content-type" => "application/json"})
     end
     NON_JSON_ENDPOINTS.each do |endpoint|
       stub_request(:get, "https://api.context.io/2.0/#{endpoint}").
-        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
         to_return(status: 200,
                   body: MockResponse::NON_ACCOUNT_COLLECTION_FARADAY_SUCCESS_BODY,
                   headers: {})
    end
    NO_MESSAGE_FAILURE.each do |endpoint|
      stub_request(:get, "https://api.context.io/#{endpoint}").
-       with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+       with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
        to_return(status: 500,
                  body: "[]",
                  headers: {"content-type" => "application/json"})
    end
    NON_JSON_FAILURE.each do |endpoint|
      stub_request(:get, "https://api.context.io/#{endpoint}").
-       with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+       with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
        to_return(status: 500,
                  body: "This is a failed request",
                  headers: {})
     end
     DELETE_ENDPOINT_TEST.each do |endpoint|
       stub_request(:delete, "https://api.context.io/2.0/#{endpoint}").
-        with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+        with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
         to_return(status: 200,
                   body: "{'success'=>true}",
                   headers: {})
      end
      NEW_OBJECT_POST_REQUESTS.each do |endpoint, identifier|
        stub_request(:post, "https://api.context.io/2.0/#{endpoint}").
-         with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+         with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
          to_return(status: 200,
                    body: JSON.generate(identifier.merge(success: true)),
                    headers: {"content-type" => "application/json"})
       end
       UPDATED_OBJECT_POST_REQUESTS.each do |endpoint|
         stub_request(:post, "https://api.context.io/2.0/#{endpoint}").
-          with(headers: {'Accept'=>'*/*', "User-Agent" => "contextio-ruby-2.0"}).
+          with(headers: {'Accept'=>'*/*', "User-Agent" => "context_io-ruby-2.0"}).
           to_return(status: 200,
                     body: JSON.generate({ success: true }),
                     headers: {"content-type" => "application/json"})

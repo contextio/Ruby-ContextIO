@@ -4,7 +4,7 @@ require "faraday_middleware"
 module ContextIO
   class Connection
     ROOT_URL = "https://api.context.io"
-    USER_AGENT = "contextio-ruby-2.0"
+    USER_AGENT = "context_io-ruby-2.0"
 
     attr_reader :key, :secret
     def initialize(key, secret)
