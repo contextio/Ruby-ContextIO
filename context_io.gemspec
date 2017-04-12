@@ -11,8 +11,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Dane Carmichael"]
   spec.email         = ["carmichaeldane@gmail.com"]
 
-  spec.summary       = "Provides an interface to Context.IO"
-  spec.description   = "Easier access to the Context.IO API endpoints"
+  spec.summary       = "Provides a Ruby interface to the Context.IO API"
+  spec.description   = "Provides a Ruby interface to the Context.IO API"
   spec.license       = "Apache 2.0"
   spec.homepage      = "https://github.com/contextio/Ruby-ContextIO"
 
