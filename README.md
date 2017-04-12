@@ -37,7 +37,7 @@ cio.get_accounts
 This will return an array of all of the accounts. Each element of the array is an instantiated `Account` object with the data parsed from the API returned as instance variables.
 
 ```ruby
-acc = cio.get_accounts[0].id => "this_account_id"
+acc = cio.get_accounts[0].id  #=> "this_account_id"
 ```
 
 An object can be created as long as it is given a valid identifier and an instantiated parent. Every class, except for ContextIO, requires a `parent` and an `identifier` To make it easier on a user of this library you do not need to know what we call each identifier.
@@ -49,34 +49,36 @@ message = ContextIO::Message.new(parent: acc, identifier: "some id")
 A class instantiation will not call the API. In order to retrieve the data CIO has on an object you will need to call `get` on it.
 
 ```ruby
-message.subject => nil
+message.subject #=> nil
+
 message = message.get
-message.subject => "This message subject"
+message.subject  #=> "This message subject"
 ```
 
 If an API call was not succesful, defined as not returning a status of 2XX, the library will throw a standard error with the message given in response.
 
 ```ruby
 valid_length_id = "0" * 24
-ContextIO::Account.new(parent: cio, identifier: "valid_length_id").get =>
-StandardError: HTTP code 404. Response {"type"=>"error", "value"=>"account #{valid_length_id} is invalid"}
+ContextIO::Account.new(parent: cio, identifier: "valid_length_id").get
+#=> StandardError: HTTP code 404. Response {"type"=>"error", "value"=>"account #{valid_length_id} is invalid"}
 ```
 
 Some classes have methods that can only be called if it has the proper parent. For example a `Message` could have valid parents of `Account`, `Contact`, or `Folder`. If you attempt to call a method on a class without the proper parent you will receive a standard error.
 
-```
+```ruby
 account_message = ContextIO::Message.new(parent: account, identifier: "some id")
-account_message.get_folders => <ContextIO::Message:0x007fabc ...
+account_message.get_folders
+#=> <ContextIO::Message:0x007fabc ...
 
 contact_message = ContextIO::Message.new(parent: contact, identifier: "some id")
-contact_message.get_folders =>
-StandardError: "This method can only be called from '2.0/accounts/:account/message/:message_id'"
+contact_message.get_folders
+#=> StandardError: "This method can only be called from '2.0/accounts/:account/message/:message_id'"
 ```
 
 ## Example of an API call return
 
 ```ruby
-=> #<ContextIO::Message:0x007fabc4dd9380
+#=> #<ContextIO::Message:0x007fabc4dd9380
  @addresses={"from"=>{"email"=>"from_address", "name"=>"from_name"}, "to"=>[{"email"=>"to_email"}]},
  @api_call_made=
   #<struct ContextIO::APICallMade::CALL_MADE_STRUCT
