@@ -58,8 +58,19 @@ If an API call was not succesful, defined as not returning a status of 2XX, the 
 
 ```ruby
 valid_length_id = "0" * 24
-ContextIO::Account.new(parent: cio, identifier: "valid_length_id").get
+ContextIO::Account.new(parent: cio, identifier: "valid_length_id").get =>
 StandardError: HTTP code 404. Response {"type"=>"error", "value"=>"account #{valid_length_id} is invalid"}
+```
+
+Some classes have methods that can only be called if it has the proper parent. For example a `Message` could have valid parents of `Account`, `Contact`, or `Folder`. If you attempt to call a method on a class without the proper parent you will receive a standard error.
+
+```
+account_message = ContextIO::Message.new(parent: account, identifier: "some id")
+account_message.get_folders => <ContextIO::Message:0x007fabc ...
+
+contact_message = ContextIO::Message.new(parent: contact, identifier: "some id")
+contact_message.get_folders =>
+StandardError: "This method can only be called from '2.0/accounts/:account/message/:message_id'"
 ```
 
 ## Example of an API call return
