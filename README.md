@@ -1,6 +1,6 @@
 Context.IO 2.0 API Ruby Library
 ========
-*  <a href="http://context.io/docs/" target="_blank">API documentation</a>
+*  <a href="https://docs.context.io/" target="_blank">API documentation</a>
 *  <a href="https://console.context.io/" target="_blank">API Explorer</a>
 *  <a href="http://context.io" target="_blank">Sign Up</a>
 
