@@ -129,9 +129,8 @@ module ContextIO
                         klass: Webhook)
     end
 
-    def post_webhook(callback_url:, failure_notif_url:, **kwargs)
-      given_params = kwargs.merge(callback_url: callback_url,
-                                  failure_notif_url: failure_notif_url)
+    def post_webhook(callback_url:, **kwargs)
+      given_params = kwargs.merge(callback_url: callback_url)
       token = call_api_return_new_object(klass: Webhook,
                                          url: "#{call_url}/webhooks",
                                          method: :post,
