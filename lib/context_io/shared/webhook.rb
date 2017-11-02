@@ -1,7 +1,7 @@
 module ContextIO
   class Webhook
     include ContextIO::CallHelpers
-    WEBHOOK_READERS = %I(callback_url failure_notif_url active webhook_id resource_url)
+    WEBHOOK_READERS = %I(callback_url active webhook_id resource_url)
 
     private
     attr_reader :parent

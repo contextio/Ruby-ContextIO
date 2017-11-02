@@ -100,8 +100,7 @@ module ContextIO
       end
 
       it "can create a Webhook object" do
-        webhook = subject.post_webhook(callback_url: "www.example.com",
-                                       failure_notif_url: "www.example.com")
+        webhook = subject.post_webhook(callback_url: "www.example.com")
         expect(webhook.class).to eq(Webhook)
         expect(webhook.call_url).to eq("/2.0/accounts/some_id/webhooks/a_webhook_id")
       end

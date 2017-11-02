@@ -13,7 +13,7 @@ module ContextIO
     end
 
     def connect
-      connection ||= Faraday::Connection.new(ROOT_URL) do |f|
+      @connection ||= Faraday::Connection.new(ROOT_URL) do |f|
         f.headers["User-Agent"] = USER_AGENT
         f.request :oauth, consumer_key: key, consumer_secret: secret
         f.request :url_encoded
