@@ -9,7 +9,7 @@ module ContextIO
 
     public
     attr_accessor :api_call_made
-    attr_reader :token, :connection, :success, :status, :resposne, *CONNECT_READERS
+    attr_reader :token, :connection, :success, :status, :response, *CONNECT_READERS
     def initialize(parent:,
                    identifier: nil,
                    response: nil,
