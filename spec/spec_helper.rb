@@ -64,7 +64,7 @@ NON_ACCOUNT_ENDPOINTS = [
   "connect_tokens/a_token",
   "oauth_providers/a_key",
   "webhooks/a_webhook_id",
-  "discovery?email=some_email&source_type=IMAP"
+  "discovery?email=some_email"
 ]
 
 NON_JSON_ENDPOINTS = [
