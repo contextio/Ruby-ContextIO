@@ -25,7 +25,7 @@ module ContextIO
     end
 
     def call_url
-      "#{parent.call_url}/discovery?email=#{email}&source_type=IMAP"
+      "#{parent.call_url}/discovery?email=#{email}"
     end
   end
 end

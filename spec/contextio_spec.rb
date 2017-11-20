@@ -45,7 +45,7 @@ describe ContextIO do
     it "can return a Discovery object" do
       discovery = subject.discovery(email: "some_email")
       expect(discovery.class).to eq(ContextIO::Discovery)
-      expect(discovery.call_url).to eq("/2.0/discovery?email=some_email&source_type=IMAP")
+      expect(discovery.call_url).to eq("/2.0/discovery?email=some_email")
     end
 
     it "can return a OauthProvider object" do
