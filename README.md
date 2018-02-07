@@ -1,3 +1,7 @@
+## The 2.0 version of the API will be partially deprecated on June 15, 2018, and fully deprecated on December 15, 2018
+
+[READ MORE HERE](https://blog.context.io/important-announcement-deprecation-of-2-0-api-8f73488a8c0e)
+
 Context.IO 2.0 API Ruby Library
 ========
 *  <a href="https://docs.context.io/" target="_blank">API documentation</a>
